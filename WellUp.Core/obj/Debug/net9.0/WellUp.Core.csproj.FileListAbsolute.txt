@@ -1,0 +1,14 @@
+C:\Users\Talya\source\repos\WellUp.Core\WellUp.Core\bin\Debug\net9.0\WellUp.Core.deps.json
+C:\Users\Talya\source\repos\WellUp.Core\WellUp.Core\bin\Debug\net9.0\WellUp.Core.runtimeconfig.json
+C:\Users\Talya\source\repos\WellUp.Core\WellUp.Core\bin\Debug\net9.0\WellUp.Core.dll
+C:\Users\Talya\source\repos\WellUp.Core\WellUp.Core\bin\Debug\net9.0\WellUp.Core.pdb
+C:\Users\Talya\source\repos\WellUp.Core\WellUp.Core\obj\Debug\net9.0\WellUp.Core.csproj.AssemblyReference.cache
+C:\Users\Talya\source\repos\WellUp.Core\WellUp.Core\obj\Debug\net9.0\WellUp.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Talya\source\repos\WellUp.Core\WellUp.Core\obj\Debug\net9.0\WellUp.Core.AssemblyInfoInputs.cache
+C:\Users\Talya\source\repos\WellUp.Core\WellUp.Core\obj\Debug\net9.0\WellUp.Core.AssemblyInfo.cs
+C:\Users\Talya\source\repos\WellUp.Core\WellUp.Core\obj\Debug\net9.0\WellUp.Core.csproj.CoreCompileInputs.cache
+C:\Users\Talya\source\repos\WellUp.Core\WellUp.Core\obj\Debug\net9.0\WellUp.Core.dll
+C:\Users\Talya\source\repos\WellUp.Core\WellUp.Core\obj\Debug\net9.0\refint\WellUp.Core.dll
+C:\Users\Talya\source\repos\WellUp.Core\WellUp.Core\obj\Debug\net9.0\WellUp.Core.pdb
+C:\Users\Talya\source\repos\WellUp.Core\WellUp.Core\obj\Debug\net9.0\WellUp.Core.genruntimeconfig.cache
+C:\Users\Talya\source\repos\WellUp.Core\WellUp.Core\obj\Debug\net9.0\ref\WellUp.Core.dll

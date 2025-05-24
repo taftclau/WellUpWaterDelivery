@@ -1,0 +1,262 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{02C90E5F-B69D-4BE2-A895-024D591A4D12}|WellUp.AdminPortal\\WellUp.AdminPortal.csproj|c:\\users\\talya\\source\\repos\\wellup.core\\wellup.adminportal\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02C90E5F-B69D-4BE2-A895-024D591A4D12}|WellUp.AdminPortal\\WellUp.AdminPortal.csproj|solutionrelative:wellup.adminportal\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02C90E5F-B69D-4BE2-A895-024D591A4D12}|WellUp.AdminPortal\\WellUp.AdminPortal.csproj|c:\\users\\talya\\source\\repos\\wellup.core\\wellup.adminportal\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{02C90E5F-B69D-4BE2-A895-024D591A4D12}|WellUp.AdminPortal\\WellUp.AdminPortal.csproj|solutionrelative:wellup.adminportal\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02C90E5F-B69D-4BE2-A895-024D591A4D12}|WellUp.AdminPortal\\WellUp.AdminPortal.csproj|c:\\users\\talya\\source\\repos\\wellup.core\\wellup.adminportal\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{02C90E5F-B69D-4BE2-A895-024D591A4D12}|WellUp.AdminPortal\\WellUp.AdminPortal.csproj|solutionrelative:wellup.adminportal\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02C90E5F-B69D-4BE2-A895-024D591A4D12}|WellUp.AdminPortal\\WellUp.AdminPortal.csproj|c:\\users\\talya\\source\\repos\\wellup.core\\wellup.adminportal\\controllers\\testdbcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02C90E5F-B69D-4BE2-A895-024D591A4D12}|WellUp.AdminPortal\\WellUp.AdminPortal.csproj|solutionrelative:wellup.adminportal\\controllers\\testdbcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02C90E5F-B69D-4BE2-A895-024D591A4D12}|WellUp.AdminPortal\\WellUp.AdminPortal.csproj|c:\\users\\talya\\source\\repos\\wellup.core\\wellup.adminportal\\views\\testdb\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{02C90E5F-B69D-4BE2-A895-024D591A4D12}|WellUp.AdminPortal\\WellUp.AdminPortal.csproj|solutionrelative:wellup.adminportal\\views\\testdb\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F778D81-A2ED-42EF-A0A2-6C5CBDBC8121}|WellUp.CustomerPortal\\WellUp.CustomerPortal.csproj|c:\\users\\talya\\source\\repos\\wellup.core\\wellup.customerportal\\views\\testdb\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4F778D81-A2ED-42EF-A0A2-6C5CBDBC8121}|WellUp.CustomerPortal\\WellUp.CustomerPortal.csproj|solutionrelative:wellup.customerportal\\views\\testdb\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F778D81-A2ED-42EF-A0A2-6C5CBDBC8121}|WellUp.CustomerPortal\\WellUp.CustomerPortal.csproj|c:\\users\\talya\\source\\repos\\wellup.core\\wellup.customerportal\\controllers\\testdbcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F778D81-A2ED-42EF-A0A2-6C5CBDBC8121}|WellUp.CustomerPortal\\WellUp.CustomerPortal.csproj|solutionrelative:wellup.customerportal\\controllers\\testdbcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F778D81-A2ED-42EF-A0A2-6C5CBDBC8121}|WellUp.CustomerPortal\\WellUp.CustomerPortal.csproj|c:\\users\\talya\\source\\repos\\wellup.core\\wellup.customerportal\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F778D81-A2ED-42EF-A0A2-6C5CBDBC8121}|WellUp.CustomerPortal\\WellUp.CustomerPortal.csproj|solutionrelative:wellup.customerportal\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD136BCB-DA26-42DE-BC21-3D11F99313FA}|WellUp.Core\\WellUp.Core.csproj|c:\\users\\talya\\source\\repos\\wellup.core\\wellup.core\\data\\wellupdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD136BCB-DA26-42DE-BC21-3D11F99313FA}|WellUp.Core\\WellUp.Core.csproj|solutionrelative:wellup.core\\data\\wellupdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F778D81-A2ED-42EF-A0A2-6C5CBDBC8121}|WellUp.CustomerPortal\\WellUp.CustomerPortal.csproj|c:\\users\\talya\\source\\repos\\wellup.core\\wellup.customerportal\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{4F778D81-A2ED-42EF-A0A2-6C5CBDBC8121}|WellUp.CustomerPortal\\WellUp.CustomerPortal.csproj|solutionrelative:wellup.customerportal\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02C90E5F-B69D-4BE2-A895-024D591A4D12}|WellUp.AdminPortal\\WellUp.AdminPortal.csproj|c:\\users\\talya\\source\\repos\\wellup.core\\wellup.adminportal\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{02C90E5F-B69D-4BE2-A895-024D591A4D12}|WellUp.AdminPortal\\WellUp.AdminPortal.csproj|solutionrelative:wellup.adminportal\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02C90E5F-B69D-4BE2-A895-024D591A4D12}|WellUp.AdminPortal\\WellUp.AdminPortal.csproj|c:\\users\\talya\\source\\repos\\wellup.core\\wellup.adminportal\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{02C90E5F-B69D-4BE2-A895-024D591A4D12}|WellUp.AdminPortal\\WellUp.AdminPortal.csproj|solutionrelative:wellup.adminportal\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02C90E5F-B69D-4BE2-A895-024D591A4D12}|WellUp.AdminPortal\\WellUp.AdminPortal.csproj|c:\\users\\talya\\source\\repos\\wellup.core\\wellup.adminportal\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02C90E5F-B69D-4BE2-A895-024D591A4D12}|WellUp.AdminPortal\\WellUp.AdminPortal.csproj|solutionrelative:wellup.adminportal\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F778D81-A2ED-42EF-A0A2-6C5CBDBC8121}|WellUp.CustomerPortal\\WellUp.CustomerPortal.csproj|c:\\users\\talya\\source\\repos\\wellup.core\\wellup.customerportal\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{4F778D81-A2ED-42EF-A0A2-6C5CBDBC8121}|WellUp.CustomerPortal\\WellUp.CustomerPortal.csproj|solutionrelative:wellup.customerportal\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.AdminPortal\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "WellUp.AdminPortal\\Views\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.AdminPortal\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "WellUp.AdminPortal\\Views\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-23T09:04:13.459Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.AdminPortal\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "WellUp.AdminPortal\\Views\\_ViewStart.cshtml",
+              "ToolTip": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.AdminPortal\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "WellUp.AdminPortal\\Views\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-23T09:04:11.668Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TestDBController.cs",
+              "DocumentMoniker": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\Controllers\\TestDBController.cs",
+              "RelativeDocumentMoniker": "WellUp.CustomerPortal\\Controllers\\TestDBController.cs",
+              "ToolTip": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\Controllers\\TestDBController.cs",
+              "RelativeToolTip": "WellUp.CustomerPortal\\Controllers\\TestDBController.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAAACEAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T08:51:47.064Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\Program.cs",
+              "RelativeDocumentMoniker": "WellUp.CustomerPortal\\Program.cs",
+              "ToolTip": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\Program.cs",
+              "RelativeToolTip": "WellUp.CustomerPortal\\Program.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAQwB8AAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T08:51:03.497Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.AdminPortal\\Views\\TestDB\\Index.cshtml",
+              "RelativeDocumentMoniker": "WellUp.AdminPortal\\Views\\TestDB\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.AdminPortal\\Views\\TestDB\\Index.cshtml",
+              "RelativeToolTip": "WellUp.AdminPortal\\Views\\TestDB\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-23T08:49:51.931Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TestDBController.cs",
+              "DocumentMoniker": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.AdminPortal\\Controllers\\TestDBController.cs",
+              "RelativeDocumentMoniker": "WellUp.AdminPortal\\Controllers\\TestDBController.cs",
+              "ToolTip": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.AdminPortal\\Controllers\\TestDBController.cs",
+              "RelativeToolTip": "WellUp.AdminPortal\\Controllers\\TestDBController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T08:48:49.964Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "WellUpDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.Core\\Data\\WellUpDbContext.cs",
+              "RelativeDocumentMoniker": "WellUp.Core\\Data\\WellUpDbContext.cs",
+              "ToolTip": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.Core\\Data\\WellUpDbContext.cs",
+              "RelativeToolTip": "WellUp.Core\\Data\\WellUpDbContext.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAA2wCgAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T08:46:28.324Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.AdminPortal\\Program.cs",
+              "RelativeDocumentMoniker": "WellUp.AdminPortal\\Program.cs",
+              "ToolTip": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.AdminPortal\\Program.cs*",
+              "RelativeToolTip": "WellUp.AdminPortal\\Program.cs*",
+              "ViewState": "AgIAACsAAAAAAAAAAAAswDEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T08:37:12.428Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\Views\\TestDB\\Index.cshtml",
+              "RelativeDocumentMoniker": "WellUp.CustomerPortal\\Views\\TestDB\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\Views\\TestDB\\Index.cshtml",
+              "RelativeToolTip": "WellUp.CustomerPortal\\Views\\TestDB\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-23T08:52:57.109Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "WellUp.CustomerPortal\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\appsettings.Development.json",
+              "RelativeToolTip": "WellUp.CustomerPortal\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-23T08:45:54.938Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.AdminPortal\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "WellUp.AdminPortal\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.AdminPortal\\appsettings.Development.json",
+              "RelativeToolTip": "WellUp.AdminPortal\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-23T08:45:00.886Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.AdminPortal\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "WellUp.AdminPortal\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.AdminPortal\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "WellUp.AdminPortal\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T08:42:23.66Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\appsettings.json",
+              "RelativeDocumentMoniker": "WellUp.CustomerPortal\\appsettings.json",
+              "ToolTip": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\appsettings.json",
+              "RelativeToolTip": "WellUp.CustomerPortal\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-23T08:37:04.06Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.AdminPortal\\appsettings.json",
+              "RelativeDocumentMoniker": "WellUp.AdminPortal\\appsettings.json",
+              "ToolTip": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.AdminPortal\\appsettings.json",
+              "RelativeToolTip": "WellUp.AdminPortal\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-23T08:37:01.45Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

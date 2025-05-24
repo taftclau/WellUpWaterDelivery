@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Database Connection Test";
+}
+
+<h1>Database Connection Test</h1>
+
+@if (ViewBag.CanConnect)
+{
+        <div class="alert alert-success">
+            <h4>Connection Successful! ✅</h4>
+            <p>Connected to database: <strong>@ViewBag.DbName</strong> on server <strong>@ViewBag.ServerName</strong></p>
+            <p>Number of records in Customers table: <strong>@ViewBag.CustomerCount</strong></p>
+        </div>
+}
+else
+{
+        <div class="alert alert-danger">
+            <h4>Connection Failed ❌</h4>
+            <p>Error: @ViewBag.Error</p>
+        </div>
+}

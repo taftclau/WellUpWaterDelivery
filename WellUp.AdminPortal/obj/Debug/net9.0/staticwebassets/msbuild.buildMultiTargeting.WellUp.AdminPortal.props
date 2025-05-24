@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\WellUp.AdminPortal.props" />
+</Project>
