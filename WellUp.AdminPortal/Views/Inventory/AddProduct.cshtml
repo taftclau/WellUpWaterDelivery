@@ -1,0 +1,275 @@
+﻿<!-- AddProduct.cshtml -->
+@model WellUp.AdminPortal.Models.ViewModels.AddProductViewModel
+@{
+    ViewData["Title"] = "Add New Product";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<!-- Page Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h1>Add New Product</h1>
+                    <p class="text-muted mb-0">Create a new product in your inventory</p>
+                </div>
+                <div class="d-flex">
+                    <a href="@Url.Action("Index", "Inventory")" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Inventory
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Product Form -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <!-- Add enctype attribute for file uploads -->
+                <form asp-action="AddProduct" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5 class="card-title mb-4">Product Information</h5>
+
+                            <div class="mb-3">
+                                <label asp-for="ProductName" class="form-label">Product Name</label>
+                                <input asp-for="ProductName" class="form-control" />
+                                <span asp-validation-for="ProductName" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Description" class="form-label">Description (optional)</label>
+                                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Price" class="form-label">Price (₱)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">₱</span>
+                                    <input asp-for="Price" class="form-control" placeholder="0.00" type="number" step="0.01" />
+                                </div>
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h5 class="card-title mb-4">Product Details</h5>
+
+                            <div class="mb-4">
+                                <label asp-for="ContainerType" class="form-label">Container Type <span class="text-danger">*</span></label>
+                                <select asp-for="ContainerType" class="form-select" required>
+                                    <option value="" disabled selected>-- Please select a container type --</option>
+                                    <option value="null">No Container</option>
+                                    <option value="round">Round</option>
+                                    <option value="slim">Slim</option>
+                                </select>
+                                <div class="form-text">Please select a container type or "No Container" for refill-only products</div>
+                                <span asp-validation-for="ContainerType" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-check form-switch mb-3">
+                                <input asp-for="IncludesRefill" class="form-check-input" type="checkbox" role="switch" id="includesRefill">
+                                <label class="form-check-label" for="includesRefill">Includes Refill</label>
+                                <span asp-validation-for="IncludesRefill" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-check form-switch mb-3">
+                                <input asp-for="IsAvailable" class="form-check-input" type="checkbox" role="switch" id="isAvailable" checked>
+                                <label class="form-check-label" for="isAvailable">Available for Sale</label>
+                                <span asp-validation-for="IsAvailable" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Image Section -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5 class="card-title mb-4">Product Image</h5>
+
+                            <div class="mb-3">
+                                <label asp-for="DefaultImageId" class="form-label">Select Default Image</label>
+                                <div class="row mb-3">
+                                    @foreach (var option in Model.DefaultImageOptions)
+                                    {
+                                        <div class="col-4 mb-3">
+                                            <div class="form-check image-radio">
+                                                <input class="form-check-input" type="radio" name="DefaultImageId"
+                                                       id="default-image-@option.Id" value="@option.Id"
+                                                @(option.Id == Model.DefaultImageId ? "checked" : "")>
+                                                <label class="form-check-label" for="default-image-@option.Id">
+                                                    <img src="@option.Path" alt="@option.Name" class="img-thumbnail" style="height: 150px; object-fit: contain;">
+                                                    <div class="mt-2 text-center">@option.Name</div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="ProductImage" class="form-label">Or Upload Custom Image</label>
+                                <input asp-for="ProductImage" class="form-control" type="file" accept="image/*" data-val="false" />
+                                <small class="text-muted">Upload a custom image if you don't want to use a default image (optional)</small>
+                                <span asp-validation-for="ProductImage" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="card-title mb-4">Stock Information</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="StockQuantity" class="form-label">Initial Stock</label>
+                                        <input asp-for="StockQuantity" class="form-control" type="number" min="0" />
+                                        <span asp-validation-for="StockQuantity" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="LowStockThreshold" class="form-label">Low Stock Alert Threshold</label>
+                                        <input asp-for="LowStockThreshold" class="form-control" type="number" min="1" />
+                                        <small class="text-muted">You'll be alerted when stock falls below this number.</small>
+                                        <span asp-validation-for="LowStockThreshold" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add this before the submit button -->
+                    <div class="alert alert-info mb-4">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <span>
+                            <strong>Note about inventory:</strong> Container products with refill share inventory with their container-only counterparts.
+                            For example, if you create both "Slim Gallon (container only)" and "Slim Gallon (with refill)" products,
+                            updating the stock of either will update both products.
+                        </span>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <a asp-action="Index" class="btn btn-outline-secondary me-2">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Add Product</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function() {
+            // Disable any validation on the file input
+            $('#ProductImage').removeAttr('required').removeAttr('data-val');
+
+            // Add event handlers for container type selection
+            $('#ContainerType').change(function() {
+                var containerType = $(this).val();
+                var includesRefill = $('#IncludesRefill').is(':checked');
+
+                // Select appropriate default image based on container type and refill status
+                if (containerType === 'slim') {
+                    $('#default-image-slim_container').prop('checked', true);
+                } else if (containerType === 'round') {
+                    $('#default-image-round_container').prop('checked', true);
+                } else if (containerType === '' || containerType === 'null') {
+                    $('#default-image-refill').prop('checked', true);
+                }
+            });
+
+            // When IncludesRefill changes, adjust the image if appropriate
+            $('#IncludesRefill').change(function() {
+                var containerType = $('#ContainerType').val();
+                var includesRefill = $(this).is(':checked');
+
+                // If it's a refill-only product, suggest the refill image
+                if (containerType === '' || containerType === 'null' || (includesRefill && !containerType)) {
+                    $('#default-image-refill').prop('checked', true);
+                }
+            });
+
+            // Form submission validation
+            $('form').submit(function(e) {
+                // Check if container type is selected
+                if ($('#ContainerType').val() === null || $('#ContainerType').val() === '') {
+                    e.preventDefault(); // Prevent form submission
+
+                    // Add visual indication
+                    $('#ContainerType').addClass('is-invalid');
+
+                    // Show error message
+                    if ($('#container-type-error').length === 0) {
+                        $('#ContainerType').after('<div id="container-type-error" class="text-danger">Please select a container type or "No Container"</div>');
+                    }
+
+                    // Scroll to the field
+                    $('html, body').animate({
+                        scrollTop: $('#ContainerType').offset().top - 100
+                    }, 200);
+                }
+            });
+
+            // Remove error when selection changes
+            $('#ContainerType').change(function() {
+                if ($(this).val() !== null && $(this).val() !== '') {
+                    $(this).removeClass('is-invalid');
+                    $('#container-type-error').remove();
+                }
+            });
+
+            // Add CSS for the image selection
+            $("<style>")
+                .prop("type", "text/css")
+                .html(`
+                    .image-radio .form-check-input {
+                        display: none;
+                    }
+
+                    .image-radio .form-check-label {
+                        cursor: pointer;
+                        border: 2px solid transparent;
+                        border-radius: 4px;
+                        padding: 5px;
+                        transition: all 0.2s ease;
+                    }
+
+                    .image-radio .form-check-input:checked + .form-check-label {
+                        border-color: var(--bs-primary);
+                        background-color: rgba(13, 110, 253, 0.1);
+                    }
+
+                    .image-radio .form-check-label:hover {
+                        border-color: #ced4da;
+                    }
+
+                    /* Add a red asterisk to required field labels */
+                    label.form-label span.text-danger {
+                        font-weight: bold;
+                    }
+
+                    /* Add red border when field is invalid */
+                    .is-invalid {
+                        border-color: #dc3545 !important;
+                        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+                        background-repeat: no-repeat;
+                        background-position: right calc(0.375em + 0.1875rem) center;
+                        background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+                    }
+                `)
+                .appendTo("head");
+        });
+    </script>
+}

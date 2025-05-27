@@ -1,8 +1,129 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿<!--Views/Home/Index-->
+@model WellUp.CustomerPortal.Models.ViewModels.HomeViewModel
+@{
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container hero-content">
+        <h1 class="hero-title fade-in">Live Well, Choose Well</h1>
+        <h2 class="hero-subtitle fade-in">Fresh Water Delivered to Your Doorstep!</h2>
+        <div class="hero-buttons fade-in">
+            <a asp-controller="Account" asp-action="Register" class="btn btn-light">Create an Account</a>
+            <a asp-controller="Account" asp-action="Login" class="btn btn-outline-light">Login</a>
+        </div>
+    </div>
+    <div class="wave wave1"></div>
+    <div class="wave wave2"></div>
+    <div class="wave wave3"></div>
+</section>
+
+
+<!-- Benefits Section -->
+<section class="benefits-section">
+    <div class="container">
+        <h2 class="section-title fade-in">Why Choose WellUp?</h2>
+
+        <div class="row">
+            <div class="col-md-6 col-lg-3 mb-4 fade-in">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <img src="~/images/benefits/tracking.svg" alt="Real-Time Tracking">
+                    </div>
+                    <h3 class="benefit-title">Real-Time Tracking</h3>
+                    <p class="benefit-description">Track your order from the moment you place it until it arrives at your doorstep.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-4 fade-in">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <img src="~/images/benefits/delivery.svg" alt="Fast and Reliable Delivery">
+                    </div>
+                    <h3 class="benefit-title">Fast and Reliable</h3>
+                    <p class="benefit-description">Get your water delivered on time with our optimized logistics system.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-4 fade-in">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <img src="~/images/benefits/convenience.svg" alt="Convenient Platform">
+                    </div>
+                    <h3 class="benefit-title">Convenient Platform</h3>
+                    <p class="benefit-description">Ordering water is just a few clicks away, with an intuitive interface.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-4 fade-in">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <img src="~/images/benefits/flexibility.svg" alt="Flexible Delivery Times">
+                    </div>
+                    <h3 class="benefit-title">Flexible Delivery</h3>
+                    <p class="benefit-description">Choose the time that works best for you to receive your water delivery.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="products-section">
+    <div class="container">
+        <h2 class="section-title fade-in">Our Products</h2>
+
+        <div class="row">
+            @if (Model.FeaturedProducts != null && Model.FeaturedProducts.Any())
+            {
+                foreach (var product in Model.FeaturedProducts)
+                {
+                    <div class="col-md-6 col-lg-3 mb-4 fade-in">
+                        <div class="product-card">
+                            <div class="product-img">
+                                @if (!string.IsNullOrEmpty(product.ImagePath))
+                                {
+                                    <img src="@product.ImagePath" alt="@product.ProductName">
+                                }
+                                else
+                                {
+                                    <img src="~/images/products/default.png" alt="@product.ProductName">
+                                }
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">@product.ProductName</h3>
+                                <div class="product-price">₱@product.Price.ToString("N2")</div>
+                                <p class="product-description">@product.Description</p>
+                                <a asp-controller="Account" asp-action="Register" class="btn btn-primary btn-sm">Order Now</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center">
+                    <p>No featured products available at the moment.</p>
+                </div>
+            }
+        </div>
+
+       
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="cta-section">
+    <div class="container text-center">
+        <h2 class="fade-in">Ready to Get Started?</h2>
+        <p class="fade-in">Join thousands of satisfied customers who trust us for their hydration needs.</p>
+        <div class="fade-in">
+            <a asp-controller="Account" asp-action="Register" class="btn btn-light me-2">Create an Account</a>
+            <a asp-controller="Account" asp-action="Login" class="btn btn-outline-light">Login</a>
+        </div>
+    </div>
+    <div class="wave wave1"></div>
+    <div class="wave wave2"></div>
+    <div class="wave wave3"></div>
+</section>

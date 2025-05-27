@@ -1,9 +1,10 @@
+//Program.cs
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using WellUp.Core.Data;  // For accessing your WellUpDbContext
 using WellUp.Core.Database;  // For accessing your model classes
 
-namespace WellUp.CustomerPortal
+namespace WellUp.AdminPortal
 {
     public class Program
     {
@@ -14,23 +15,24 @@ namespace WellUp.CustomerPortal
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            // Register the DbContext
             builder.Services.AddDbContext<WellUpDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            // Program.cs
+            // Add cookie authentication
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
                     options.LoginPath = "/Account/Login";
+                    options.LogoutPath = "/Account/Logout";
                     options.AccessDeniedPath = "/Account/AccessDenied";
-                    options.ExpireTimeSpan = TimeSpan.FromHours(2); // Longer session for customers
+                    options.ExpireTimeSpan = TimeSpan.FromDays(7);
+                    options.SlidingExpiration = true;
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.SecurePolicy = builder.Environment.IsDevelopment()
+                        ? CookieSecurePolicy.None
+                        : CookieSecurePolicy.Always;
                 });
-
-            builder.Services.AddAuthorization(options =>
-            {
-                options.AddPolicy("CustomerOnly", policy => policy.RequireRole("Customer"));
-            });
-
 
             var app = builder.Build();
 
@@ -44,13 +46,15 @@ namespace WellUp.CustomerPortal
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
             app.UseRouting();
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
-                .WithStaticAssets();
+                pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }

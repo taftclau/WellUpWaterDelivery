@@ -1,0 +1,240 @@
+﻿<!-- Index.cshtml -->
+@model IEnumerable<WellUp.AdminPortal.Models.ViewModels.OrderListViewModel>
+@{
+    ViewData["Title"] = ViewData["FilterName"] ?? "Orders";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<!-- Page Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h1>@ViewData["FilterName"]</h1>
+                    <p class="text-muted mb-0">Manage customer orders and deliveries</p>
+                </div>
+                <div class="d-flex">
+                    <div class="dropdown me-2">
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-filter me-2"></i>Filter
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "Orders")">All Orders</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "Orders", new { filter = "new" })">New Orders</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "Orders", new { filter = "in_progress" })">In Progress</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "Orders", new { filter = "completed" })">Completed</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "Orders", new { filter = "cancelled" })">Cancelled</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "Orders", new { filter = "today" })">Today's Orders</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Search and Filter -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form method="get" class="row g-3">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="search" placeholder="Search by order # or customer...">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <select class="form-select" id="dateRange" name="dateRange">
+                            <option value="">All Time</option>
+                            <option value="today">Today</option>
+                            <option value="yesterday">Yesterday</option>
+                            <option value="week">This Week</option>
+                            <option value="month">This Month</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 date-range-inputs" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="date" class="form-control" name="startDate" placeholder="Start Date">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="date" class="form-control" name="endDate" placeholder="End Date">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-primary w-100">
+                            Search
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Orders List -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="ordersTable">
+                        <thead>
+                            <tr>
+                                <th>Order #</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Any())
+                            {
+                                foreach (var order in Model)
+                                {
+                                    <tr>
+                                        <td>@order.OrderNumber</td>
+                                        <td>
+                                            <div>@order.CustomerName</div>
+                                            <small class="text-muted">@order.CustomerPhone</small>
+                                        </td>
+                                        <td>
+                                            <div>@order.OrderDate.ToString("MMM dd, yyyy")</div>
+                                            <small class="text-muted">@order.OrderDate.ToString("h:mm tt")</small>
+                                        </td>
+                                        <td>@order.DeliveryAddress</td>
+                                        <td>₱@order.TotalAmount.ToString("N2")</td>
+                                        <td>
+                                            @{
+                                                var badgeClass = order.Status switch
+                                                {
+                                                    "new" => "primary",
+                                                    "in_progress" => "info",
+                                                    "completed" => "success",
+                                                    "cancelled" => "danger",
+                                                    _ => "secondary"
+                                                };
+                                            }
+                                            <span class="badge bg-@badgeClass">@order.FormattedStatus</span>
+
+                                            @if (order.PreferredDeliveryTime.HasValue)
+                                            {
+                                                <div>
+                                                    <small class="text-muted">Preferred: @order.PreferredDeliveryTime.Value.ToString("MM/dd h:mm tt")</small>
+                                                </div>
+                                            }
+                                        </td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm">
+                                                <a href="@Url.Action("Details", "Orders", new { id = order.OrderId })" class="btn btn-outline-primary" title="View Details">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#updateStatusModal"
+                                                        data-order-id="@order.OrderId" data-order-number="@order.OrderNumber" data-current-status="@order.Status"
+                                                        title="Update Status">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="7" class="text-center py-4">No orders found</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Status Modal -->
+<div class="modal fade" id="updateStatusModal" tabindex="-1" aria-labelledby="updateStatusModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateStatusModalLabel">Update Order Status</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="UpdateStatus" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="orderIdInput" name="orderId" />
+                    <p>Update status for order <strong id="orderNumberDisplay"></strong></p>
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-select" id="statusSelect" name="status">
+                            <option value="new">New</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update Status</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable
+            $('#ordersTable').DataTable({
+                "pageLength": 10,
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "language": {
+                    "emptyTable": "No orders found"
+                }
+            });
+
+            // Show/hide date range inputs based on selection
+            $('#dateRange').change(function() {
+                if ($(this).val() === 'custom') {
+                    $('.date-range-inputs').show();
+                } else {
+                    $('.date-range-inputs').hide();
+                }
+            });
+
+            // Populate update status modal
+            $('#updateStatusModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var orderId = button.data('order-id');
+                var orderNumber = button.data('order-number');
+                var currentStatus = button.data('current-status');
+
+                var modal = $(this);
+                modal.find('#orderIdInput').val(orderId);
+                modal.find('#orderNumberDisplay').text(orderNumber);
+                modal.find('#statusSelect').val(currentStatus);
+            });
+        });
+    </script>
+}

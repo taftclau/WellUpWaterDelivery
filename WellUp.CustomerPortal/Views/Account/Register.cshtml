@@ -1,0 +1,178 @@
+﻿@model WellUp.CustomerPortal.Models.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+<div class="auth-section">
+    <div class="container">
+        <div class="auth-container">
+            <div class="auth-header">
+                <div class="icon-water-drop">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 448c-105.9 0-192-86.1-192-192S150.1 64 256 64s192 86.1 192 192-86.1 192-192 192z" />
+                        <path d="M208 96c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16h96c8.8 0 16-7.2 16-16v-64c0-8.8-7.2-16-16-16h-96zm0 160c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16h96c8.8 0 16-7.2 16-16v-64c0-8.8-7.2-16-16-16h-96zm0 160c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16h96c8.8 0 16-7.2 16-16v-64c0-8.8-7.2-16-16-16h-96z" />
+                    </svg>
+                </div>
+                <h2>Join WellUp</h2>
+                <p>Create your account and start enjoying fresh water deliveries</p>
+            </div>
+
+            <div class="auth-body">
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fas fa-exclamation-circle"></i> Please check the form for errors.
+                    </div>
+                }
+
+                <form asp-controller="Account" asp-action="Register" method="post" novalidate>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-section-title">Personal Information</div>
+
+                            <div class="form-group">
+                                <label asp-for="FullName" class="form-label">Full Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <input asp-for="FullName" class="form-control" placeholder="Enter your full name" autocomplete="name" />
+                                </div>
+                                <span asp-validation-for="FullName" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Email" class="form-label">Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    <input asp-for="Email" class="form-control" placeholder="Enter your email address" autocomplete="email" />
+                                </div>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Phone" class="form-label">Phone Number</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                    <input asp-for="Phone" class="form-control" placeholder="Enter your phone number" autocomplete="tel" />
+                                </div>
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Password" class="form-label">Create Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    <input asp-for="Password" class="form-control" placeholder="Create a strong password" id="password" />
+                                </div>
+                                <div id="password-strength" class="password-strength"></div>
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="ConfirmPassword" class="form-label">Confirm Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm your password" />
+                                </div>
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-section-title">Delivery Address</div>
+
+                            <div class="form-group">
+                                <label asp-for="Street" class="form-label">Street Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                    <input asp-for="Street" class="form-control" placeholder="Enter your street address" autocomplete="address-line1" />
+                                </div>
+                                <span asp-validation-for="Street" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Barangay" class="form-label">Barangay</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-map"></i></span>
+                                    <input asp-for="Barangay" class="form-control" placeholder="Enter your barangay" autocomplete="address-level3" />
+                                </div>
+                                <span asp-validation-for="Barangay" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="CityMunicipality" class="form-label">City/Municipality</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-city"></i></span>
+                                    <input asp-for="CityMunicipality" class="form-control" placeholder="Enter your city/municipality" autocomplete="address-level2" />
+                                </div>
+                                <span asp-validation-for="CityMunicipality" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="ZipCode" class="form-label">ZIP Code</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-location-dot"></i></span>
+                                    <input asp-for="ZipCode" class="form-control" placeholder="Enter your ZIP code" autocomplete="postal-code" />
+                                </div>
+                                <span asp-validation-for="ZipCode" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-check mt-3 mb-4">
+                        <input asp-for="AgreeToTerms" class="form-check-input" id="terms" />
+                        <label asp-for="AgreeToTerms" class="form-check-label">
+                            I agree to the <a asp-controller="Home" asp-action="Terms" class="auth-link">Terms & Conditions</a>
+                        </label>
+                        <span asp-validation-for="AgreeToTerms" class="text-danger d-block"></span>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-user-plus me-2"></i> Create My Account
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="auth-footer">
+                <p>Already have an account? <a asp-controller="Account" asp-action="Login" class="auth-link">Login</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Password strength indicator
+        $(document).ready(function() {
+            $('#password').on('input', function() {
+                var password = $(this).val();
+                var strength = 0;
+
+                // Show the password strength indicator
+                $('#password-strength').removeClass('d-none');
+
+                // Calculate password strength
+                if (password.length > 7) strength += 1;
+                if (password.match(/[a-z]+/)) strength += 1;
+                if (password.match(/[A-Z]+/)) strength += 1;
+                if (password.match(/[0-9]+/)) strength += 1;
+                if (password.match(/[^\w\s]/)) strength += 1;
+
+                // Update the strength indicator
+                $('#password-strength').removeClass('password-strength-weak password-strength-medium password-strength-strong');
+
+                if (strength <= 2) {
+                    $('#password-strength').addClass('password-strength-weak');
+                } else if (strength <= 4) {
+                    $('#password-strength').addClass('password-strength-medium');
+                } else {
+                    $('#password-strength').addClass('password-strength-strong');
+                }
+            });
+        });
+    </script>
+}

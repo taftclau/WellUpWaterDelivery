@@ -1,0 +1,352 @@
+﻿/* wwwroot/css/login.css */
+
+:root {
+    --sky-blue: #7EC8E3;
+    --deep-blue: #1B3B5F;
+    --soft-white: #FFFFFF;
+    --cloud-grey: #F0F4F8;
+    --sunlight-yellow: #FFD95A;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, var(--sky-blue) 0%, var(--deep-blue) 100%);
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--deep-blue);
+    position: relative;
+    overflow: hidden;
+}
+
+    /* Decorative water ripple elements */
+    body::before, body::after {
+        content: "";
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+    }
+
+    body::before {
+        width: 300px;
+        height: 300px;
+        top: -100px;
+        right: -100px;
+        animation: float 15s infinite ease-in-out;
+    }
+
+    body::after {
+        width: 500px;
+        height: 500px;
+        bottom: -200px;
+        left: -150px;
+        animation: float 20s infinite ease-in-out reverse;
+    }
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-30px) scale(1.05);
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+}
+
+.login-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+.login-container {
+    max-width: 450px;
+    width: 100%;
+    padding: 20px;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-box {
+    background-color: var(--soft-white);
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(27, 59, 95, 0.2);
+    overflow: hidden;
+    position: relative;
+}
+
+    /* Water drop decorations */
+    .login-box::before {
+        content: "💧";
+        position: absolute;
+        font-size: 120px;
+        opacity: 0.03;
+        top: -20px;
+        right: -20px;
+        transform: rotate(20deg);
+    }
+
+    .login-box::after {
+        content: "💧";
+        position: absolute;
+        font-size: 80px;
+        opacity: 0.03;
+        bottom: -20px;
+        left: -10px;
+        transform: rotate(-10deg);
+    }
+
+.login-header {
+    background-color: var(--cloud-grey);
+    padding: 40px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+    .login-header::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(90deg, rgba(126, 200, 227, 0), rgba(126, 200, 227, 0.8) 20%, rgba(255, 217, 90, 0.6) 50%, rgba(126, 200, 227, 0.8) 80%, rgba(126, 200, 227, 0));
+        border-radius: 50%;
+    }
+
+/* Main logo style (applies to all screen sizes) */
+.login-logo {
+    width: 200px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 6px rgba(27, 59, 95, 0.2));
+    transition: all 0.3s ease;
+}
+
+    .login-logo:hover {
+        transform: translateY(-5px);
+    }
+
+.login-header h1 {
+    color: var(--deep-blue);
+    margin-bottom: 8px;
+    font-size: 28px;
+    letter-spacing: 0.5px;
+}
+
+.tagline {
+    color: var(--deep-blue);
+    opacity: 0.8;
+    font-size: 16px;
+    font-style: italic;
+    margin-bottom: 0;
+}
+
+.login-form {
+    padding: 40px;
+}
+
+.form-group {
+    margin-bottom: 28px;
+}
+
+    .form-group label {
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: var(--deep-blue);
+        display: block;
+    }
+
+.input-with-icon {
+    position: relative;
+}
+
+    .input-with-icon i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--sky-blue);
+        font-size: 18px;
+        transition: all 0.2s ease;
+    }
+
+    .input-with-icon input:focus + i {
+        color: var(--deep-blue);
+    }
+
+    .input-with-icon input {
+        padding: 12px 15px 12px 45px;
+        border-radius: 8px;
+        height: 50px;
+        border: 1px solid var(--cloud-grey);
+        transition: all 0.3s ease;
+        width: 100%;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+        .input-with-icon input:focus {
+            box-shadow: 0 0 0 3px rgba(126, 200, 227, 0.3);
+            border-color: var(--sky-blue);
+            outline: none;
+        }
+
+.form-control:focus {
+    box-shadow: 0 0 0 3px rgba(126, 200, 227, 0.3);
+    border-color: var(--sky-blue);
+    outline: none;
+}
+
+.form-check-label {
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.form-check-input {
+    margin-top: 0.2em;
+}
+
+    .form-check-input:checked {
+        background-color: var(--sky-blue);
+        border-color: var(--sky-blue);
+    }
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--sky-blue) 0%, #90d2eb 100%);
+    border: none;
+    color: var(--deep-blue);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 14px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+    .btn-primary:hover, .btn-primary:focus {
+        background: linear-gradient(45deg, #6AB8D3 0%, var(--sky-blue) 100%);
+        box-shadow: 0 5px 15px rgba(126, 200, 227, 0.4);
+        transform: translateY(-2px);
+    }
+
+    .btn-primary::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -60%;
+        width: 20px;
+        height: 200%;
+        background: rgba(255, 255, 255, 0.2);
+        transform: rotate(20deg);
+        transition: all 0.6s ease;
+    }
+
+    .btn-primary:hover::after {
+        left: 100%;
+    }
+
+.btn-block {
+    width: 100%;
+}
+
+.login-footer {
+    padding: 15px 30px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--deep-blue);
+    opacity: 0.7;
+    background-color: var(--cloud-grey);
+    border-top: 1px solid rgba(27, 59, 95, 0.05);
+}
+
+.text-danger {
+    color: #dc3545;
+    font-size: 13px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Password toggle button styling */
+.password-field {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--sky-blue);
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px;
+    transition: all 0.2s ease;
+    z-index: 5;
+}
+
+    .password-toggle:hover, .password-toggle:focus {
+        color: var(--deep-blue);
+        outline: none;
+    }
+
+    .password-toggle:active {
+        transform: translateY(-50%) scale(0.95);
+    }
+
+/* Adjust the password field padding to accommodate the toggle button */
+.password-field input {
+    padding-right: 70px;
+}
+
+/* Position the lock icon to avoid overlap */
+.password-field .password-icon {
+    z-index: 3;
+}
+
+
+/* Mobile-specific adjustments */
+@media (max-width: 576px) {
+    .login-container {
+        padding: 10px; /* Be careful with this - 100px is very large padding for mobile */
+    }
+
+    .login-form {
+        padding: 30px 20px;
+    }
+
+    /* You can keep the logo slightly smaller on mobile if needed */
+    .login-logo {
+        width: 120px;
+        height: 120px;
+    }
+
+    .login-header h1 {
+        font-size: 24px;
+    }
+}

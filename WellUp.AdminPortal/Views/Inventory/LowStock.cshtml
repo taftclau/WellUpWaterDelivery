@@ -1,0 +1,156 @@
+﻿<!-- LowStock.cshtml -->
+
+@model WellUp.AdminPortal.Models.ViewModels.LowStockViewModel
+@{
+    ViewData["Title"] = "Low Stock Items";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<!-- Page Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h1>Low Stock Items</h1>
+                    <p class="text-muted mb-0">Products that need to be restocked soon</p>
+                </div>
+                <div class="d-flex">
+                    <a href="@Url.Action("Index", "Inventory")" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Inventory
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Low Stock Stats Cards -->
+<div class="row mb-4">
+    <!-- Critical Stock -->
+    <div class="col-md-6 mb-4">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon bg-danger-soft">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-card-title">Critical Stock (5 or less)</div>
+                    <div class="stat-card-value">@Model.CriticalStockCount</div>
+                    <div class="stat-card-desc">Requires immediate attention</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Low Stock -->
+    <div class="col-md-6 mb-4">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon bg-warning-soft">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-card-title">Total Low Stock Items</div>
+                    <div class="stat-card-value">@Model.LowStockCount</div>
+                    <div class="stat-card-desc">Items below threshold</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Low Stock Products List -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h2>Products Requiring Restock</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="lowStockTable">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Current Stock</th>
+                                <th>Threshold</th>
+                                <th>Status</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.LowStockProducts.Any())
+                            {
+                                foreach (var product in Model.LowStockProducts)
+                                {
+                                    var statusBadgeClass = product.StockQuantity <= 0
+                                    ? "bg-danger"
+                                    : (product.StockQuantity <= 5 ? "bg-warning text-dark" : "bg-warning-soft text-dark");
+
+                                    var statusText = product.StockQuantity <= 0
+                                    ? "Out of Stock"
+                                    : (product.StockQuantity <= 5 ? "Critical Stock" : "Low Stock");
+
+                                    <tr>
+                                        <td>
+                                            <span class="fw-bold">@product.ProductName</span>
+                                            @if (product.IncludesRefill)
+                                            {
+                                                <span class="badge bg-info ms-2">Refill</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <span class="fw-bold @(product.StockQuantity <= 5 ? "text-danger" : "")">@product.StockQuantity</span>
+                                        </td>
+                                        <td>@product.LowStockThreshold</td>
+                                        <td>
+                                            <span class="badge @statusBadgeClass">@statusText</span>
+                                        </td>
+                                        <td>₱@product.Price.ToString("N2")</td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm">
+                                                <a href="@Url.Action("StockUpdate", "Inventory", new { id = product.ProductId })" class="btn btn-primary">
+                                                    <i class="fas fa-plus me-2"></i>Restock
+                                                </a>
+                                                <a href="@Url.Action("EditProduct", "Inventory", new { id = product.ProductId })" class="btn btn-outline-secondary">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6" class="text-center py-4">
+                                        <div class="alert alert-success mb-0">
+                                            <i class="fas fa-check-circle me-2"></i>
+                                            <span>Good news! All products are above their low stock thresholds.</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable with custom sorting
+            $('#lowStockTable').DataTable({
+                "order": [[1, "asc"]], // Sort by current stock in ascending order
+                "pageLength": 10,
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                "responsive": true
+            });
+        });
+    </script>
+}

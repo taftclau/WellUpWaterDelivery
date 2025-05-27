@@ -20,4 +20,5 @@ public partial class Customer
     public virtual ICollection<CustomerFeedback> CustomerFeedbacks { get; set; } = new List<CustomerFeedback>();
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
+
 }

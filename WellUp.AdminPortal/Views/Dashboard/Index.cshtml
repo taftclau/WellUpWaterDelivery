@@ -1,0 +1,368 @@
+﻿<!-- Index.cshtml -->
+@model WellUp.AdminPortal.Models.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<!-- Welcome Banner -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="welcome-banner">
+            <div class="welcome-content">
+                <h1>Welcome to WellUp Admin</h1>
+                <p>Live well, choose well - Your water delivery business at a glance</p>
+            </div>
+            <div class="welcome-icon">
+                <i class="fas fa-tint"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row mb-4">
+    <!-- Total Orders -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon bg-primary-soft">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-card-title">Total Orders</div>
+                    <div class="stat-card-value">@Model.TotalOrders</div>
+                    <div class="stat-card-desc"><span class="text-primary">@Model.NewOrders</span> new orders</div>
+                </div>
+            </div>
+            <a href="@Url.Action("Index", "Orders")" class="stat-card-link">
+                View Details <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Revenue -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon bg-success-soft">
+                    <i class="fas fa-peso-sign"></i>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-card-title">Total Revenue</div>
+                    <div class="stat-card-value">₱@Model.TotalRevenue.ToString("N0")</div>
+                    <div class="stat-card-desc">From all orders</div>
+                </div>
+            </div>
+            <a href="@Url.Action("Index", "Statistics")" class="stat-card-link">
+                View Details <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Pending Deliveries -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon bg-info-soft">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-card-title">Pending Deliveries</div>
+                    <div class="stat-card-value">@Model.PendingDeliveries</div>
+                    <div class="stat-card-desc">Awaiting processing</div>
+                </div>
+            </div>
+            <a href="@Url.Action("Deliveries", "Orders")" class="stat-card-link">
+                View Details <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Low Stock Products -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon bg-warning-soft">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-card-title">Low Stock Items</div>
+                    <div class="stat-card-value">@Model.LowStockProducts</div>
+                    <div class="stat-card-desc">Need attention</div>
+                </div>
+            </div>
+            <a href="@Url.Action("LowStock", "Inventory")" class="stat-card-link">
+                View Details <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Access -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h2>Quick Access</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-2 col-md-4 col-6 mb-3">
+                        <a href="@Url.Action("Index", "Orders", new { filter = "new" })" class="quick-link-card">
+                            <div class="quick-link-icon bg-primary-soft">
+                                <i class="fas fa-clipboard-list"></i>
+                            </div>
+                            <div class="quick-link-text">New Orders</div>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-6 mb-3">
+                        <a href="@Url.Action("Deliveries", "Orders")" class="quick-link-card">
+                            <div class="quick-link-icon bg-info-soft">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div class="quick-link-text">Deliveries</div>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-6 mb-3">
+                        <a href="@Url.Action("Index", "Inventory")" class="quick-link-card">
+                            <div class="quick-link-icon bg-success-soft">
+                                <i class="fas fa-boxes"></i>
+                            </div>
+                            <div class="quick-link-text">Inventory</div>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-6 mb-3">
+                        <a href="@Url.Action("Index", "Customers")" class="quick-link-card">
+                            <div class="quick-link-icon bg-warning-soft">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="quick-link-text">Customers</div>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-6 mb-3">
+                        <a href="@Url.Action("Index", "Statistics")" class="quick-link-card">
+                            <div class="quick-link-icon bg-primary-soft">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="quick-link-text">Statistics</div>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-6 mb-3">
+                        <a href="@Url.Action("Index", "Feedback")" class="quick-link-card">
+                            <div class="quick-link-icon bg-info-soft">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <div class="quick-link-text">Feedback</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content Row -->
+<div class="row">
+    <!-- Recent Orders -->
+    <div class="col-lg-8 mb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2>Recent Orders</h2>
+                <a href="@Url.Action("Index", "Orders")" class="btn btn-sm btn-primary">View All</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Order #</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.RecentOrders.Any())
+                            {
+                                foreach (var order in Model.RecentOrders)
+                                {
+                                    <tr>
+                                        <td>@order.OrderNumber</td>
+                                        <td>@order.CustomerName</td>
+                                        <td>@order.OrderDate.ToString("MMM dd, yyyy")</td>
+                                        <td>₱@order.TotalAmount.ToString("N2")</td>
+                                        <td>
+                                            @{
+                                                var badgeClass = order.Status switch
+                                                {
+                                                    "new" => "primary",
+                                                    "in_progress" => "info",
+                                                    "completed" => "success",
+                                                    "cancelled" => "danger",
+                                                    _ => "secondary"
+                                                };
+                                            }
+                                            <span class="badge bg-@badgeClass">@order.FormattedStatus</span>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Details", "Orders", new { id = order.OrderId })" class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6" class="text-center">No recent orders found</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activities -->
+    <div class="col-lg-4 mb-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h2>Recent Activities</h2>
+            </div>
+            <div class="card-body p-0">
+                <div class="activity-timeline">
+                    @if (Model.RecentActivities.Any())
+                    {
+                        foreach (var activity in Model.RecentActivities)
+                        {
+                            <div class="activity-item">
+                                <div class="activity-icon @activity.IconClass">
+                                    <i class="fas fa-@activity.Icon"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-text">@activity.Description</div>
+                                    <div class="activity-time">@GetTimeDifference(activity.Timestamp)</div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="p-4 text-center">
+                            <p class="text-muted">No recent activities</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Low Stock Items -->
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2>Low Stock Items</h2>
+                <a href="@Url.Action("LowStock", "Inventory")" class="btn btn-sm btn-primary">View All</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Stock</th>
+                                <th>Threshold</th>
+                                <th>Status</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.LowStockItems.Any())
+                            {
+                                foreach (var product in Model.LowStockItems)
+                                {
+                                    <tr>
+                                        <td>@product.ProductName</td>
+                                        <td>@product.StockQuantity</td>
+                                        <td>@product.LowStockThreshold</td>
+                                        <td>
+                                            @{
+                                                var stockStatus = product.StockQuantity == 0 ? "Out of Stock" : "Low Stock";
+                                                var stockBadgeClass = product.StockQuantity == 0 ? "danger" : "warning";
+                                            }
+                                            <span class="badge bg-@stockBadgeClass">@stockStatus</span>
+                                        </td>
+                                        <td>₱@product.Price.ToString("N2")</td>
+                                        <td>
+                                            <a href="@Url.Action("Edit", "Inventory", new { id = product.ProductId })" class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6" class="text-center">No low stock items found</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    string GetTimeDifference(DateTime timestamp)
+    {
+        var diff = DateTime.Now - timestamp;
+
+        if (diff.TotalMinutes < 1)
+            return "just now";
+        if (diff.TotalMinutes < 60)
+            return $"{(int)diff.TotalMinutes} min ago";
+        if (diff.TotalHours < 24)
+            return $"{(int)diff.TotalHours} hours ago";
+        if (diff.TotalDays < 7)
+            return $"{(int)diff.TotalDays} days ago";
+
+        return timestamp.ToString("MMM dd, yyyy");
+    }
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Animate stat numbers
+            $('.stat-card-value').each(function(i) {
+                var $this = $(this);
+                var num = parseInt($this.text());
+                var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',');
+
+                $this.animateNumber({
+                    number: num,
+                    numberStep: comma_separator_number_step
+                }, 1000);
+            });
+
+            // Add entrance animation to activity items
+            $('.activity-item').each(function(i) {
+                var $this = $(this);
+                setTimeout(function() {
+                    $this.addClass('show');
+                }, 100 * i);
+            });
+        });
+    </script>
+}

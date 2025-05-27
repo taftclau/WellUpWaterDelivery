@@ -1,8 +1,8 @@
+//Program.cs
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using WellUp.Core.Data;  // For accessing your WellUpDbContext
 using WellUp.Core.Database;  // For accessing your model classes
-
 
 namespace WellUp.AdminPortal
 {
@@ -18,19 +18,28 @@ namespace WellUp.AdminPortal
             // Register the DbContext
             builder.Services.AddDbContext<WellUpDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+          
+            builder.Services.AddScoped<WellUp.Core.Utilities.ProductRelationshipManager>();
             // Program.cs
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = "/Admin/Login";
-                    options.AccessDeniedPath = "/Admin/AccessDenied";
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Shorter session for admins
+                    options.LoginPath = "/Account/Login";
+                    options.LogoutPath = "/Account/Logout";
+                    options.AccessDeniedPath = "/Account/AccessDenied";
+                    options.ExpireTimeSpan = TimeSpan.FromDays(7);
+                    options.SlidingExpiration = true;
+                    options.Cookie.HttpOnly = true;
+                    // Only use Always in production; in development, use None or SameAsRequest
+                    options.Cookie.SecurePolicy = builder.Environment.IsDevelopment()
+                        ? CookieSecurePolicy.None
+                        : CookieSecurePolicy.Always;
                 });
 
             builder.Services.AddAuthorization(options =>
             {
-                options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+                // Update this to match your controller attribute and login claim
+                options.AddPolicy("AdminOnly", policy => policy.RequireRole("Administrator"));
             });
 
             var app = builder.Build();
@@ -46,11 +55,34 @@ namespace WellUp.AdminPortal
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=TestDB}/{action=Index}/{id?}");
+                pattern: "{controller=Account}/{action=Login}/{id?}");
+
+            // Instead of directly awaiting in Program.cs, you can use this pattern:
+            if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
+            {
+                // Create a scope to get the service provider
+                using (var scope = app.Services.CreateScope())
+                {
+                    var services = scope.ServiceProvider;
+                    try
+                    {
+                        // Call the seeder without await, but use GetAwaiter().GetResult()
+                        WellUp.Core.Seeds.AdminSeeder.SeedAdminUserAsync(services)
+                            .GetAwaiter()
+                            .GetResult();
+                    }
+                    catch (Exception ex)
+                    {
+                        var logger = services.GetRequiredService<ILogger<Program>>();
+                        logger.LogError(ex, "An error occurred while seeding the database.");
+                    }
+                }
+            }
 
             app.Run();
         }

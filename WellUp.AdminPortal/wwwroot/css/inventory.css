@@ -1,0 +1,278 @@
+﻿/*inventory.css*/
+
+/* Inventory specific CSS - extends dashboard.css */
+
+/* Stock Status Colors */
+.stock-normal {
+    color: #28a745;
+}
+
+.stock-low {
+    color: #ffc107;
+}
+
+.stock-critical {
+    color: #fd7e14;
+}
+
+.stock-out {
+    color: #dc3545;
+}
+
+/* Stock Progress Bars */
+.progress-thin {
+    height: 6px;
+}
+
+/* Product Card */
+.product-card {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+.product-image {
+    height: 160px;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .product-image i {
+        font-size: 3rem;
+        color: var(--secondary);
+        opacity: 0.5;
+    }
+
+.product-info {
+    padding: 15px;
+}
+
+.product-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--secondary);
+    font-size: 1.1rem;
+}
+
+.product-price {
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+    font-size: 1.25rem;
+}
+
+.product-meta {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.product-stock {
+    margin-top: 10px;
+}
+
+/* Form Controls */
+.stock-control {
+    width: 70px;
+    text-align: center;
+}
+
+/* Stock History Timeline */
+.stock-timeline {
+    position: relative;
+    margin-left: 30px;
+}
+
+    .stock-timeline::before {
+        content: '';
+        position: absolute;
+        left: -20px;
+        top: 0;
+        height: 100%;
+        width: 2px;
+        background-color: #e9ecef;
+    }
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 20px;
+}
+
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -28px;
+        top: 0;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        background-color: var(--primary);
+    }
+
+    .timeline-item.increase::before {
+        background-color: var(--success);
+    }
+
+    .timeline-item.decrease::before {
+        background-color: var(--warning);
+    }
+
+.timeline-date {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.timeline-details {
+    margin-top: 5px;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Container Type Badges */
+.container-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.container-round {
+    color: #00796b;
+    background-color: rgba(0, 121, 107, 0.1);
+}
+
+.container-slim {
+    color: #1976d2;
+    background-color: rgba(25, 118, 210, 0.1);
+}
+
+/* Stock Update Controls */
+.stock-counter {
+    display: flex;
+    align-items: center;
+}
+
+.stock-counter-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: var(--primary-soft);
+    color: var(--primary-dark);
+    font-size: 1.25rem;
+    border: none;
+    transition: all 0.2s;
+}
+
+    .stock-counter-btn:hover {
+        background-color: var(--primary);
+        color: white;
+    }
+
+.stock-counter-input {
+    width: 60px;
+    text-align: center;
+    margin: 0 10px;
+    font-weight: 600;
+}
+
+/* Tables */
+.table-hover tbody tr:hover {
+    background-color: var(--primary-soft);
+}
+
+/* filters and search */
+.filter-container {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 0.5rem;
+    background-color: #f9fafc;
+}
+
+.filter-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--secondary);
+    margin-bottom: 5px;
+}
+
+/* Activity Timeline for Inventory */
+.activity-timeline {
+    padding: 15px 0;
+}
+
+.activity-item {
+    display: flex;
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+    .activity-item.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .activity-item:last-child {
+        border-bottom: none;
+    }
+
+.activity-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.activity-content {
+    flex: 1;
+}
+
+.activity-text {
+    margin-bottom: 3px;
+    font-size: 0.9rem;
+}
+
+.activity-time {
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .stock-timeline {
+        margin-left: 0;
+    }
+
+        .stock-timeline::before {
+            left: 0;
+        }
+
+    .timeline-item::before {
+        left: -8px;
+    }
+
+    .timeline-item {
+        padding-left: 20px;
+    }
+}

@@ -1,0 +1,382 @@
+﻿<!-- Details.cshtml -->
+@model WellUp.AdminPortal.Models.ViewModels.OrderDetailViewModel
+@{
+    ViewData["Title"] = $"Order {Model.OrderNumber}";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+    var statusBadgeClass = Model.Status switch
+    {
+        "new" => "primary",
+        "in_progress" => "info",
+        "completed" => "success",
+        "cancelled" => "danger",
+        _ => "secondary"
+    };
+}
+
+<!-- Page Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h1>Order #@Model.OrderNumber</h1>
+                    <p class="text-muted mb-0">
+                        Placed on @Model.OrderDate.ToString("MMMM d, yyyy") at @Model.OrderDate.ToString("h:mm tt") |
+                        <span class="badge bg-@statusBadgeClass">@Model.FormattedStatus</span>
+                    </p>
+                </div>
+                <div class="d-flex">
+                    <div class="dropdown me-2">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="orderActionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v me-2"></i>Actions
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="orderActionsDropdown">
+                            <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateStatusModal"><i class="fas fa-edit me-2"></i>Update Status</button></li>
+                            @if (Model.Delivery == null)
+                            {
+                                <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#scheduleDeliveryModal"><i class="fas fa-truck me-2"></i>Schedule Delivery</button></li>
+                            }
+                            else
+                            {
+                                <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateDeliveryModal"><i class="fas fa-truck me-2"></i>Update Delivery</button></li>
+                            }
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="window.print()"><i class="fas fa-print me-2"></i>Print Order</a></li>
+                            <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-trash me-2"></i>Cancel Order</a></li>
+                        </ul>
+                    </div>
+                    <a href="@Url.Action("Index", "Orders")" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Orders
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Customer & Order Info -->
+    <div class="col-lg-4 mb-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h2>Customer Information</h2>
+            </div>
+            <div class="card-body">
+                <div class="mb-4">
+                    <div class="mb-1 text-muted">Customer Name</div>
+                    <div class="fw-bold">@Model.CustomerName</div>
+                </div>
+                <div class="mb-4">
+                    <div class="mb-1 text-muted">Contact Details</div>
+                    <div><i class="fas fa-envelope me-2"></i>@Model.CustomerEmail</div>
+                    <div><i class="fas fa-phone me-2"></i>@Model.CustomerPhone</div>
+                </div>
+                <div class="mb-4">
+                    <div class="mb-1 text-muted">Delivery Address</div>
+                    <div>@Model.DeliveryAddress</div>
+                </div>
+
+                @if (Model.PreferredDeliveryTime.HasValue)
+                {
+                    <div class="mb-4">
+                        <div class="mb-1 text-muted">Preferred Delivery Time</div>
+                        <div><i class="fas fa-calendar me-2"></i>@Model.PreferredDeliveryTime.Value.ToString("MMMM d, yyyy")</div>
+                        <div><i class="fas fa-clock me-2"></i>@Model.PreferredDeliveryTime.Value.ToString("h:mm tt")</div>
+                    </div>
+                }
+
+                <div class="mb-4">
+                    <div class="mb-1 text-muted">Order Status</div>
+                    <div class="d-flex align-items-center">
+                        <span class="badge bg-@statusBadgeClass me-2">@Model.FormattedStatus</span>
+                        <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#updateStatusModal">
+                            <i class="fas fa-edit"></i> Update
+                        </button>
+                    </div>
+                </div>
+
+                <a href="@Url.Action("Details", "Customers", new { id = Model.CustomerId })" class="btn btn-outline-primary">
+                    <i class="fas fa-user me-2"></i>View Customer Profile
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Items -->
+    <div class="col-lg-8 mb-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h2>Order Items</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th class="text-center">Quantity</th>
+                                <th class="text-end">Unit Price</th>
+                                <th class="text-end">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.OrderItems.Any())
+                            {
+                                foreach (var item in Model.OrderItems)
+                                {
+                                    <tr>
+                                        <td>@item.ProductName</td>
+                                        <td class="text-center">@item.Quantity</td>
+                                        <td class="text-end">₱@item.UnitPrice.ToString("N2")</td>
+                                        <td class="text-end">₱@item.SubTotal.ToString("N2")</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4" class="text-center">No items found</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-end fw-bold">Total:</td>
+                                <td class="text-end fw-bold">₱@Model.TotalAmount.ToString("N2")</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delivery Information (if exists) -->
+@if (Model.Delivery != null)
+{
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h2>Delivery Information</h2>
+                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#updateDeliveryModal">
+                        <i class="fas fa-edit me-2"></i>Update Delivery
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-1 text-muted">Delivery Status</div>
+                            <div>
+                                @{
+                                    var deliveryBadgeClass = Model.Delivery.Status switch
+                                    {
+                                        "pending" => "warning",
+                                        "scheduled" => "primary",
+                                        "out_for_delivery" => "info",
+                                        "completed" => "success",
+                                        "failed" => "danger",
+                                        _ => "secondary"
+                                    };
+                                }
+                                <span class="badge bg-@deliveryBadgeClass">@Model.Delivery.FormattedStatus</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-1 text-muted">Scheduled Time</div>
+                            <div>
+                                @if (Model.Delivery.ScheduledTime.HasValue)
+                                {
+                                    <div><i class="fas fa-calendar me-2"></i>@Model.Delivery.ScheduledTime.Value.ToString("MMMM d, yyyy")</div>
+                                    <div><i class="fas fa-clock me-2"></i>@Model.Delivery.ScheduledTime.Value.ToString("h:mm tt")</div>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Not scheduled</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-1 text-muted">Notes</div>
+                            <div>@(string.IsNullOrEmpty(Model.Delivery.Notes) ? "No notes" : Model.Delivery.Notes)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body text-center py-4">
+                    <i class="fas fa-truck-loading fa-3x text-muted mb-3"></i>
+                    <h3>Delivery Not Scheduled</h3>
+                    <p class="text-muted mb-3">This order doesn't have a scheduled delivery yet.</p>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#scheduleDeliveryModal">
+                        <i class="fas fa-truck me-2"></i>Schedule Delivery
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Update Status Modal -->
+<div class="modal fade" id="updateStatusModal" tabindex="-1" aria-labelledby="updateStatusModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateStatusModalLabel">Update Order Status</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="UpdateStatus" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="orderId" value="@Model.OrderId" />
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-select" id="status" name="status">
+                            <option value="new" selected="@(Model.Status == "new")">New</option>
+                            <option value="in_progress" selected="@(Model.Status == "in_progress")">In Progress</option>
+                            <option value="completed" selected="@(Model.Status == "completed")">Completed</option>
+                            <option value="cancelled" selected="@(Model.Status == "cancelled")">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update Status</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Schedule Delivery Modal -->
+@if (Model.Delivery == null)
+{
+    <div class="modal fade" id="scheduleDeliveryModal" tabindex="-1" aria-labelledby="scheduleDeliveryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="scheduleDeliveryModalLabel">Schedule Delivery</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form asp-action="ScheduleDelivery" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" name="orderId" value="@Model.OrderId" />
+                        <div class="mb-3">
+                            <label for="scheduledTime" class="form-label">Scheduled Time</label>
+                            <input type="datetime-local" class="form-control" id="scheduledTime" name="scheduledTime"
+                                   value="@(Model.PreferredDeliveryTime?.ToString("yyyy-MM-ddTHH:mm") ?? DateTime.Now.AddDays(1).ToString("yyyy-MM-ddTHH:mm"))">
+                        </div>
+                        <div class="mb-3">
+                            <label for="notes" class="form-label">Notes</label>
+                            <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Schedule Delivery</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Update Delivery Modal -->
+@if (Model.Delivery != null)
+{
+    <div class="modal fade" id="updateDeliveryModal" tabindex="-1" aria-labelledby="updateDeliveryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateDeliveryModalLabel">Update Delivery</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form asp-action="UpdateDelivery" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" name="deliveryId" value="@Model.Delivery.DeliveryId" />
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-select" id="deliveryStatus" name="status">
+                                <option value="pending" selected="@(Model.Delivery.Status == "pending")">Pending</option>
+                                <option value="scheduled" selected="@(Model.Delivery.Status == "scheduled")">Scheduled</option>
+                                <option value="out_for_delivery" selected="@(Model.Delivery.Status == "out_for_delivery")">Out for Delivery</option>
+                                <option value="completed" selected="@(Model.Delivery.Status == "completed")">Completed</option>
+                                <option value="failed" selected="@(Model.Delivery.Status == "failed")">Failed</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateScheduledTime" class="form-label">Scheduled Time</label>
+                            <input type="datetime-local" class="form-control" id="updateScheduledTime" name="scheduledTime"
+                                   value="@(Model.Delivery.ScheduledTime?.ToString("yyyy-MM-ddTHH:mm") ?? "")">
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateNotes" class="form-label">Notes</label>
+                            <textarea class="form-control" id="updateNotes" name="notes" rows="3">@Model.Delivery.Notes</textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update Delivery</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            console.log('Order details page loaded');
+
+            // Highlight the status changes
+            $("#status").change(function() {
+                var selectedStatus = $(this).val();
+                var badgeClass = {
+                    'new': 'primary',
+                    'in_progress': 'info',
+                    'completed': 'success',
+                    'cancelled': 'danger'
+                }[selectedStatus] || 'secondary';
+
+                // Flash animation for status change preview
+                $('<div class="alert alert-' + badgeClass + ' my-3">Status will be updated to: <strong>' +
+                  selectedStatus.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase()) +
+                  '</strong></div>')
+                    .appendTo($(this).parent())
+                    .fadeIn(200)
+                    .delay(2000)
+                    .fadeOut(200, function() { $(this).remove(); });
+            });
+
+            // Similar effect for delivery status
+            $("#deliveryStatus").change(function() {
+                var selectedStatus = $(this).val();
+                var badgeClass = {
+                    'pending': 'warning',
+                    'scheduled': 'primary',
+                    'out_for_delivery': 'info',
+                    'completed': 'success',
+                    'failed': 'danger'
+                }[selectedStatus] || 'secondary';
+
+                // Flash animation for status change preview
+                $('<div class="alert alert-' + badgeClass + ' my-3">Delivery status will be updated to: <strong>' +
+                  selectedStatus.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase()) +
+                  '</strong></div>')
+                    .appendTo($(this).parent())
+                    .fadeIn(200)
+                    .delay(2000)
+                    .fadeOut(200, function() { $(this).remove(); });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,206 @@
+﻿<!-- Deliveries.cshtml -->
+@model IEnumerable<WellUp.AdminPortal.Models.ViewModels.DeliveryListViewModel>
+@{
+    ViewData["Title"] = ViewData["FilterName"] ?? "Deliveries";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<!-- Page Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h1>@ViewData["FilterName"]</h1>
+                    <p class="text-muted mb-0">Track and manage order deliveries</p>
+                </div>
+                <div class="d-flex">
+                    <div class="dropdown me-2">
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-filter me-2"></i>Filter
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+                            <li><a class="dropdown-item" href="@Url.Action("Deliveries", "Orders")">All Pending Deliveries</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Deliveries", "Orders", new { status = "scheduled" })">Scheduled</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Deliveries", "Orders", new { status = "out_for_delivery" })">Out for Delivery</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Deliveries", "Orders", new { status = "completed" })">Completed</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Deliveries", "Orders", new { status = "failed" })">Failed</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Deliveries", "Orders", new { status = "today" })">Today's Deliveries</a></li>
+                        </ul>
+                    </div>
+                    <a href="@Url.Action("Index", "Orders")" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Orders
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Deliveries -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="deliveriesTable">
+                        <thead>
+                            <tr>
+                                <th>Order #</th>
+                                <th>Customer</th>
+                                <th>Delivery Address</th>
+                                <th>Scheduled Time</th>
+                                <th>Status</th>
+                                <th>Amount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Any())
+                            {
+                                foreach (var delivery in Model)
+                                {
+                                    var statusBadgeClass = delivery.Status switch
+                                    {
+                                        "pending" => "warning",
+                                        "scheduled" => "primary",
+                                        "out_for_delivery" => "info",
+                                        "completed" => "success",
+                                        "failed" => "danger",
+                                        _ => "secondary"
+                                    };
+                                    
+                                    <tr>
+                                        <td>@delivery.OrderNumber</td>
+                                        <td>
+                                            <div>@delivery.CustomerName</div>
+                                            <small class="text-muted">@delivery.CustomerPhone</small>
+                                        </td>
+                                        <td>@delivery.DeliveryAddress</td>
+                                        <td>
+                                            @if (delivery.ScheduledTime.HasValue)
+                                            {
+                                                <div>@delivery.ScheduledTime.Value.ToString("MMM dd, yyyy")</div>
+                                                <small class="text-muted">@delivery.ScheduledTime.Value.ToString("h:mm tt")</small>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">Not scheduled</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-@statusBadgeClass">@delivery.FormattedStatus</span>
+                                        </td>
+                                        <td>₱@delivery.TotalAmount.ToString("N2")</td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm">
+                                                <a href="@Url.Action("Details", "Orders", new { id = delivery.OrderId })" class="btn btn-outline-primary" title="View Order">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <button class="btn btn-outline-info" type="button" data-bs-toggle="modal" data-bs-target="#updateDeliveryModal"
+                                                        data-delivery-id="@delivery.DeliveryId"
+                                                        data-order-number="@delivery.OrderNumber"
+                                                        data-status="@delivery.Status"
+                                                        data-scheduled-time="@(delivery.ScheduledTime?.ToString("yyyy-MM-ddTHH:mm") ?? "")"
+                                                        data-notes="@delivery.Notes"
+                                                        title="Update Delivery">
+                                                    <i class="fas fa-truck"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="7" class="text-center py-4">No deliveries found</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Delivery Modal -->
+<div class="modal fade" id="updateDeliveryModal" tabindex="-1" aria-labelledby="updateDeliveryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateDeliveryModalLabel">Update Delivery</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="UpdateDelivery" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="deliveryIdInput" name="deliveryId" />
+                    <p>Update delivery for order <strong id="orderNumberDisplay"></strong></p>
+
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-select" id="statusInput" name="status">
+                            <option value="pending">Pending</option>
+                            <option value="scheduled">Scheduled</option>
+                            <option value="out_for_delivery">Out for Delivery</option>
+                            <option value="completed">Completed</option>
+                            <option value="failed">Failed</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="scheduledTimeInput" class="form-label">Scheduled Time</label>
+                        <input type="datetime-local" class="form-control" id="scheduledTimeInput" name="scheduledTime">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="notesInput" class="form-label">Notes</label>
+                        <textarea class="form-control" id="notesInput" name="notes" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update Delivery</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable
+            $('#deliveriesTable').DataTable({
+                "pageLength": 10,
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "language": {
+                    "emptyTable": "No deliveries found"
+                }
+            });
+
+            // Populate modal when showing
+            $('#updateDeliveryModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var deliveryId = button.data('delivery-id');
+                var orderNumber = button.data('order-number');
+                var status = button.data('status');
+                var scheduledTime = button.data('scheduled-time');
+                var notes = button.data('notes');
+
+                var modal = $(this);
+                modal.find('#deliveryIdInput').val(deliveryId);
+                modal.find('#orderNumberDisplay').text(orderNumber);
+                modal.find('#statusInput').val(status);
+                modal.find('#scheduledTimeInput').val(scheduledTime);
+                modal.find('#notesInput').val(notes);
+            });
+        });
+    </script>
+}

@@ -1,0 +1,74 @@
+﻿@model WellUp.CustomerPortal.Models.ViewModels.VerifyIdentityViewModel
+@{
+    ViewData["Title"] = "Verify Your Identity";
+}
+
+<div class="auth-section">
+    <div class="container">
+        <div class="auth-container">
+            <div class="auth-header">
+                <div class="icon-water-drop">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 448c-105.9 0-192-86.1-192-192S150.1 64 256 64s192 86.1 192 192-86.1 192-192 192z" />
+                        <path d="M208 96c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16h96c8.8 0 16-7.2 16-16v-64c0-8.8-7.2-16-16-16h-96zm0 160c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16h96c8.8 0 16-7.2 16-16v-64c0-8.8-7.2-16-16-16h-96zm0 160c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16h96c8.8 0 16-7.2 16-16v-64c0-8.8-7.2-16-16-16h-96z" />
+                    </svg>
+                </div>
+                <h2>Verify Your Identity</h2>
+                <p>Please confirm your information to continue the password reset process</p>
+            </div>
+
+            <div class="auth-body">
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fas fa-exclamation-circle"></i> Please check the form for errors.
+                    </div>
+                }
+
+                <form asp-controller="Account" asp-action="VerifyIdentity" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Email" class="form-label">Email Address</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            <input asp-for="Email" class="form-control" readonly />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Phone" class="form-label">Phone Number</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                            <input asp-for="Phone" class="form-control" placeholder="Enter your registered phone number" />
+                        </div>
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ZipCode" class="form-label">ZIP Code</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-location-dot"></i></span>
+                            <input asp-for="ZipCode" class="form-control" placeholder="Enter your ZIP code" />
+                        </div>
+                        <span asp-validation-for="ZipCode" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-shield-alt me-2"></i> Verify My Identity
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="auth-footer">
+                <p>Remember your password? <a asp-controller="Account" asp-action="Login" class="auth-link">Back to Login</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

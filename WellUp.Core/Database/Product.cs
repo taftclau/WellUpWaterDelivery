@@ -26,4 +26,5 @@ public partial class Product
     public virtual ICollection<InventoryLog> InventoryLogs { get; set; } = new List<InventoryLog>();
 
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+    public string? ImagePath { get; set; }
 }

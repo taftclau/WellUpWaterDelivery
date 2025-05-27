@@ -1,0 +1,395 @@
+﻿<!-- Index.cshtml -->
+@inject WellUp.Core.Utilities.ProductRelationshipManager RelationshipManager
+@model WellUp.AdminPortal.Models.ViewModels.InventoryListViewModel
+@{
+    ViewData["Title"] = "Inventory Management";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<!-- Page Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h1>Inventory Management</h1>
+                    <p class="text-muted mb-0">Manage product inventory and stock levels</p>
+                </div>
+                <div class="d-flex">
+                    <a href="@Url.Action("AddProduct", "Inventory")" class="btn btn-primary me-2">
+                        <i class="fas fa-plus me-2"></i>Add Product
+                    </a>
+                    <a href="@Url.Action("LowStock", "Inventory")" class="btn btn-outline-warning me-2">
+                        <i class="fas fa-exclamation-triangle me-2"></i>Low Stock Items
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Inventory Stats Cards -->
+<div class="row mb-4">
+    <!-- Total Products -->
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon bg-primary-soft">
+                    <i class="fas fa-boxes"></i>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-card-title">Total Products</div>
+                    <div class="stat-card-value">@Model.TotalProducts</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Low Stock Items -->
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon bg-warning-soft">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-card-title">Low Stock Items</div>
+                    <div class="stat-card-value">@Model.LowStockProducts</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Out of Stock -->
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon bg-danger-soft">
+                    <i class="fas fa-times-circle"></i>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-card-title">Out of Stock</div>
+                    <div class="stat-card-value">@Model.OutOfStockProducts</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Search and Filter -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form method="get" class="row g-3">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="Search products...">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <select class="form-select" name="filter" onchange="this.form.submit()">
+                            <option value="all" selected="@(ViewData["CurrentFilterType"] == "all" || ViewData["CurrentFilterType"] == null)">All Products</option>
+                            <option value="low_stock" selected="@(ViewData["CurrentFilterType"] == "low_stock")">Low Stock</option>
+                            <option value="out_of_stock" selected="@(ViewData["CurrentFilterType"] == "out_of_stock")">Out of Stock</option>
+                            <option value="available" selected="@(ViewData["CurrentFilterType"] == "available")">Available</option>
+                            <option value="unavailable" selected="@(ViewData["CurrentFilterType"] == "unavailable")">Unavailable</option>
+                            <option value="container_round" selected="@(ViewData["CurrentFilterType"] == "container_round")">Round Container</option>
+                            <option value="container_slim" selected="@(ViewData["CurrentFilterType"] == "container_slim")">Slim Container</option>
+                            <option value="refill" selected="@(ViewData["CurrentFilterType"] == "refill")">Includes Refill</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12">
+                        <div class="d-flex justify-content-end">
+                            <a href="@Url.Action("Index", "Inventory")" class="btn btn-outline-secondary">
+                                <i class="fas fa-sync-alt me-2"></i>Reset Filters
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Message -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle me-2"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<!-- Products List -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="productsTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]" class="text-dark">
+                                        Product Name <i class="fas fa-sort"></i>
+                                    </a>
+                                </th>
+                                <th>Container</th>
+                                <th>Description</th>
+                                <th>
+                                    <a asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParam"]" class="text-dark">
+                                        Price <i class="fas fa-sort"></i>
+                                    </a>
+                                </th>
+                                <th>
+                                    <a asp-action="Index" asp-route-sortOrder="@ViewData["StockSortParam"]" class="text-dark">
+                                        Stock <i class="fas fa-sort"></i>
+                                    </a>
+                                </th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Products.Any())
+                            {
+                                foreach (var product in Model.Products)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(product.ImagePath))
+                                            {
+                                                <img src="@Url.Content(product.ImagePath)" alt="@product.ProductName" class="img-thumbnail" style="height: 50px; width: 50px; object-fit: cover;" />
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-light text-dark">No image</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <span class="fw-bold">@product.ProductName</span>
+                                            @if (product.IncludesRefill)
+                                            {
+                                                <span class="badge bg-info ms-2">Refill</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(product.ContainerType))
+                                            {
+                                                <span class="badge bg-light text-dark">@product.ContainerType</span>
+                                            }
+                                            else
+                                            {
+                                                <span>-</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @(string.IsNullOrEmpty(product.Description) ? "-" : product.Description)
+                                        </td>
+                                        <td>₱@product.Price.ToString("N2")</td>
+                                        <td>
+                                            @{
+                                                var effectiveStock = await RelationshipManager.GetEffectiveStockQuantityAsync(product.ProductId);
+                                                var stockBadgeClass = effectiveStock <= 0
+                                                ? "bg-danger"
+                                                : (effectiveStock <= 5 ? "bg-warning text-dark" : "bg-success-soft text-dark");
+                                            }
+                                            <div>
+                                                <span class="fw-bold">@effectiveStock</span>
+                                                <div class="progress mt-1" style="height: 6px;">
+                                                    @{
+                                                        var percentFilled = product.LowStockThreshold > 0
+                                                        ? Math.Min((int)(effectiveStock * 100 / product.LowStockThreshold * 1.5), 100)
+                                                        : 0;
+                                                        var progressClass = effectiveStock <= 0
+                                                        ? "bg-danger"
+                                                        : (effectiveStock <= 5 ? "bg-warning" : "bg-success");
+                                                    }
+                                                    <div class="progress-bar @progressClass" role="progressbar"
+                                                         style="width: @percentFilled%" aria-valuenow="@percentFilled"
+                                                         aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <small class="text-muted d-block mt-1">Min: @product.LowStockThreshold</small>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @if (product.IsAvailable)
+                                            {
+                                                <span class="badge bg-success">Available</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-secondary">Unavailable</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <!-- Stock Update Button -->
+                                                <a href="@Url.Action("StockUpdate", "Inventory", new { id = product.ProductId })"
+                                                   class="btn btn-action btn-stock"
+                                                   data-bs-toggle="tooltip"
+                                                   data-bs-placement="top"
+                                                   title="Update Stock">
+                                                    <i class="fas fa-cubes"></i>
+                                                </a>
+
+                                                <!-- Edit Button -->
+                                                <a href="@Url.Action("EditProduct", "Inventory", new { id = product.ProductId })"
+                                                   class="btn btn-action btn-edit"
+                                                   data-bs-toggle="tooltip"
+                                                   data-bs-placement="top"
+                                                   title="Edit Product">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+
+                                                <!-- Delete Button -->
+                                                <a href="@Url.Action("ConfirmDelete", "Inventory", new { id = product.ProductId })"
+                                                   class="btn btn-action btn-delete"
+                                                   data-bs-toggle="tooltip"
+                                                   data-bs-placement="top"
+                                                   title="Delete Product">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+
+                                                <!-- Toggle Visibility Button -->
+                                                <form asp-action="ToggleAvailability" asp-route-id="@product.ProductId" method="post" class="d-inline">
+                                                    @Html.AntiForgeryToken()
+                                                    <button type="submit"
+                                                            class="btn btn-action @(product.IsAvailable ? "btn-visibility-on" : "btn-visibility-off")"
+                                                            data-bs-toggle="tooltip"
+                                                            data-bs-placement="top"
+                                                            title="@(product.IsAvailable ? "Mark as Unavailable" : "Mark as Available")">
+                                                        <i class="fas @(product.IsAvailable ? "fa-eye-slash" : "fa-eye")"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="8" class="text-center py-4">
+                                        <div class="p-3">
+                                            <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+                                            <h5>No products found</h5>
+                                            <p class="text-muted">No products match your search criteria.</p>
+                                            <a href="@Url.Action("AddProduct", "Inventory")" class="btn btn-primary">
+                                                <i class="fas fa-plus me-2"></i>Add New Product
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Recent Activity Section-->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2>Recent Inventory Activities</h2>
+                <a href="@Url.Action("InventoryLogs", "Inventory")" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="activity-timeline">
+                    @if (Model.InventoryLogs.Any())
+                    {
+                        foreach (var log in Model.InventoryLogs)
+                        {
+                            var changeAmount = log.NewQuantity - log.PreviousQuantity;
+                            var isIncrease = changeAmount > 0;
+                            var activityClass = isIncrease ? "bg-success-soft" : "bg-warning-soft";
+                            var activityIcon = isIncrease ? "fa-arrow-up" : "fa-arrow-down";
+
+                            <div class="activity-item">
+                                <div class="activity-icon @activityClass">
+                                    <i class="fas @activityIcon"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-text">
+                                        <strong>@log.ProductName:</strong>
+                                        Stock changed from @log.PreviousQuantity to @log.NewQuantity
+                                        <span class="@(isIncrease ? "text-success" : "text-warning")">
+                                            (@(isIncrease ? "+" : "")@changeAmount)
+                                        </span>
+                                        <div class="small text-muted">Reason: @log.ChangeReason</div>
+                                    </div>
+                                    <div class="activity-time">@GetTimeDifference(log.LoggedAt)</div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="p-4 text-center">
+                            <p class="text-muted">No recent inventory activities</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    string GetTimeDifference(DateTime timestamp)
+    {
+        var diff = DateTime.Now - timestamp;
+
+        if (diff.TotalMinutes < 1)
+            return "just now";
+        if (diff.TotalMinutes < 60)
+            return $"{(int)diff.TotalMinutes} min ago";
+        if (diff.TotalHours < 24)
+            return $"{(int)diff.TotalHours} hours ago";
+        if (diff.TotalDays < 7)
+            return $"{(int)diff.TotalDays} days ago";
+
+        return timestamp.ToString("MMM dd, yyyy");
+    }
+}
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable
+            $('#productsTable').DataTable({
+                "searching": false, // We're handling search ourselves
+                "pageLength": 10,
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                "ordering": false, // We're handling sorting ourselves
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "language": {
+                    "emptyTable": "No products found"
+                }
+            });
+
+            // Auto-dismiss alerts after 5 seconds
+            setTimeout(function() {
+                $('.alert-success').fadeOut('slow');
+            }, 5000);
+
+             $('.activity-item').each(function(i) {
+                var $this = $(this);
+                setTimeout(function() {
+                    $this.addClass('show');
+                }, 100 * i);
+            });
+        });
+        });
+    </script>
+}
