@@ -1,8 +1,15 @@
-﻿<!-- Index.cshtml -->
-@model IEnumerable<WellUp.AdminPortal.Models.ViewModels.OrderListViewModel>
+﻿<!--WellUp.AdminPortal\Views\Orders\Index.cshtml-->
+@model WellUp.AdminPortal.Models.ViewModels.OrdersViewModel
 @{
-    ViewData["Title"] = ViewData["FilterName"] ?? "Orders";
+    ViewData["Title"] = "Order Management";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    
+    // Convert back values for date inputs
+    var startDate = ViewData["StartDate"]?.ToString();
+    var endDate = ViewData["EndDate"]?.ToString();
+    var search = ViewData["Search"]?.ToString() ?? "";
+    var status = ViewData["Status"]?.ToString();
+    var dateRange = ViewData["DateRange"]?.ToString();
 }
 
 <!-- Page Header -->
@@ -11,143 +18,178 @@
         <div class="card">
             <div class="card-body d-flex justify-content-between align-items-center">
                 <div>
-                    <h1>@ViewData["FilterName"]</h1>
-                    <p class="text-muted mb-0">Manage customer orders and deliveries</p>
+                    <h1>Order Management</h1>
+                    <p class="text-muted mb-0">View and manage customer orders and deliveries</p>
                 </div>
-                <div class="d-flex">
-                    <div class="dropdown me-2">
-                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-filter me-2"></i>Filter
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="filterDropdown">
-                            <li><a class="dropdown-item" href="@Url.Action("Index", "Orders")">All Orders</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", "Orders", new { filter = "new" })">New Orders</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", "Orders", new { filter = "in_progress" })">In Progress</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", "Orders", new { filter = "completed" })">Completed</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", "Orders", new { filter = "cancelled" })">Cancelled</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", "Orders", new { filter = "today" })">Today's Orders</a></li>
-                        </ul>
-                    </div>
+                <div>
+                    <button id="clearOrdersBtn" class="btn btn-outline-danger btn-sm">
+                        <i class="fas fa-trash-alt me-2"></i>Clear Orders Data (Admin)
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Search and Filter -->
+<!-- Dashboard Summary -->
 <div class="row mb-4">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <form method="get" class="row g-3">
-                    <div class="col-md-4">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="search" placeholder="Search by order # or customer...">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
+    <!-- Total Orders -->
+    <div class="col-md-6">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon bg-primary-soft">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-card-title">Total Orders</div>
+                    <div class="stat-card-value">@ViewBag.TotalOrders</div>
+                    <div class="stat-card-desc"><span class="text-primary">@ViewBag.NewOrders</span> new orders</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                    <div class="col-md-3">
-                        <select class="form-select" id="dateRange" name="dateRange">
-                            <option value="">All Time</option>
-                            <option value="today">Today</option>
-                            <option value="yesterday">Yesterday</option>
-                            <option value="week">This Week</option>
-                            <option value="month">This Month</option>
-                            <option value="custom">Custom Range</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-4 date-range-inputs" style="display: none;">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="date" class="form-control" name="startDate" placeholder="Start Date">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="date" class="form-control" name="endDate" placeholder="End Date">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-1">
-                        <button type="submit" class="btn btn-primary w-100">
-                            Search
-                        </button>
-                    </div>
-                </form>
+    <!-- Pending Deliveries -->
+    <div class="col-md-6">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon bg-info-soft">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-card-title">Pending Deliveries</div>
+                    <div class="stat-card-value">@ViewBag.PendingDeliveries</div>
+                    <div class="stat-card-desc">Awaiting processing</div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Orders List -->
+<div class="row mb-4">
+    <div class="col-12 text-end">
+        <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+            <i class="fas fa-sync-alt"></i> Refresh
+        </a>
+    </div>
+</div>
+
+<!-- Success/Error Messages -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle me-2"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-circle me-2"></i> @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<!-- Active Orders Table -->
 <div class="row">
     <div class="col-12">
         <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2>Active Orders</h2>
+            </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover" id="ordersTable">
+                    <table class="table table-hover" id="activeOrdersTable">
                         <thead>
                             <tr>
+                                <th>Status</th>
                                 <th>Order #</th>
                                 <th>Customer</th>
-                                <th>Date</th>
                                 <th>Address</th>
+                                <th>Scheduled Time</th>
+                                <th>Delivery Status</th>
                                 <th>Amount</th>
-                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if (Model.Any())
+                            @if (Model.ActiveOrders.Any())
                             {
-                                foreach (var order in Model)
+                                foreach (var order in Model.ActiveOrders)
                                 {
+                                    var orderStatusBadgeClass = order.Status switch
+                                    {
+                                        "new" => "primary",
+                                        "in_progress" => "info",
+                                        _ => "secondary"
+                                    };
+                                    
+                                    var deliveryStatusBadgeClass = order.DeliveryStatus switch
+                                    {
+                                        "pending" => "warning",
+                                        "scheduled" => "primary",
+                                        "out_for_delivery" => "info",
+                                        "completed" => "success",
+                                        "failed" => "danger",
+                                        _ => "secondary"
+                                    };
+
                                     <tr>
-                                        <td>@order.OrderNumber</td>
+                                        <td>
+                                            <span class="badge bg-@orderStatusBadgeClass">@order.FormattedStatus</span>
+                                        </td>
+                                        <td><span class="fw-bold">@order.OrderNumber</span></td>
                                         <td>
                                             <div>@order.CustomerName</div>
                                             <small class="text-muted">@order.CustomerPhone</small>
                                         </td>
                                         <td>
-                                            <div>@order.OrderDate.ToString("MMM dd, yyyy")</div>
-                                            <small class="text-muted">@order.OrderDate.ToString("h:mm tt")</small>
+                                            <small>@order.DeliveryAddress</small>
                                         </td>
-                                        <td>@order.DeliveryAddress</td>
-                                        <td>₱@order.TotalAmount.ToString("N2")</td>
                                         <td>
-                                            @{
-                                                var badgeClass = order.Status switch
-                                                {
-                                                    "new" => "primary",
-                                                    "in_progress" => "info",
-                                                    "completed" => "success",
-                                                    "cancelled" => "danger",
-                                                    _ => "secondary"
-                                                };
-                                            }
-                                            <span class="badge bg-@badgeClass">@order.FormattedStatus</span>
-
-                                            @if (order.PreferredDeliveryTime.HasValue)
+                                            @if (order.ScheduledTime.HasValue)
                                             {
-                                                <div>
-                                                    <small class="text-muted">Preferred: @order.PreferredDeliveryTime.Value.ToString("MM/dd h:mm tt")</small>
+                                                <div>@order.ScheduledTime.Value.ToString("MMM dd, yyyy")</div>
+                                                <small class="text-muted">@order.ScheduledTime.Value.ToString("h:mm tt")</small>
+                                            }
+                                            else if (order.PreferredDeliveryTime.HasValue)
+                                            {
+                                                <div class="text-muted">
+                                                    <small>Preferred: @order.PreferredDeliveryTime.Value.ToString("MMM dd, h:mm tt")</small>
                                                 </div>
                                             }
+                                            else
+                                            {
+                                                <span class="text-muted">Not scheduled</span>
+                                            }
                                         </td>
-                                        <td>
-                                            <div class="btn-group btn-group-sm">
-                                                <a href="@Url.Action("Details", "Orders", new { id = order.OrderId })" class="btn btn-outline-primary" title="View Details">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#updateStatusModal"
-                                                        data-order-id="@order.OrderId" data-order-number="@order.OrderNumber" data-current-status="@order.Status"
-                                                        title="Update Status">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
+                                        <td data-status="@order.DeliveryStatus">
+                                            <div class="status-container">
+                                                <span class="badge bg-@deliveryStatusBadgeClass">
+                                                    @(order.FormattedDeliveryStatus ?? "Pending")
+                                                </span>
+                                                <div class="dropdown-buttons">
+                                                    <button class="btn btn-sm btn-outline-warning" onclick="updateDeliveryStatus(@order.OrderId, @(order.DeliveryId?.ToString() ?? "null"), 'pending')">
+                                                        <i class="fas fa-clock"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-info" onclick="updateDeliveryStatus(@order.OrderId, @(order.DeliveryId?.ToString() ?? "null"), 'out_for_delivery')">
+                                                        <i class="fas fa-truck"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-success" onclick="updateDeliveryStatus(@order.OrderId, @(order.DeliveryId?.ToString() ?? "null"), 'completed')">
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-danger" onclick="updateDeliveryStatus(@order.OrderId, @(order.DeliveryId?.ToString() ?? "null"), 'failed')">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                                </div>
                                             </div>
+                                        </td>
+                                        <td>₱@order.TotalAmount.ToString("N2")</td>
+                                        <td>
+                                            <a href="@Url.Action("Details", "Orders", new { id = order.OrderId })" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 }
@@ -155,7 +197,7 @@
                             else
                             {
                                 <tr>
-                                    <td colspan="7" class="text-center py-4">No orders found</td>
+                                    <td colspan="8" class="text-center py-3">No active orders found</td>
                                 </tr>
                             }
                         </tbody>
@@ -166,75 +208,388 @@
     </div>
 </div>
 
-<!-- Update Status Modal -->
-<div class="modal fade" id="updateStatusModal" tabindex="-1" aria-labelledby="updateStatusModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="updateStatusModalLabel">Update Order Status</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form asp-action="UpdateStatus" method="post">
-                <div class="modal-body">
-                    <input type="hidden" id="orderIdInput" name="orderId" />
-                    <p>Update status for order <strong id="orderNumberDisplay"></strong></p>
-                    <div class="mb-3">
-                        <label for="status" class="form-label">Status</label>
-                        <select class="form-select" id="statusSelect" name="status">
-                            <option value="new">New</option>
-                            <option value="in_progress">In Progress</option>
-                            <option value="completed">Completed</option>
-                            <option value="cancelled">Cancelled</option>
-                        </select>
+<!-- Completed Orders Table -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2>Completed Orders</h2>
+                <div>
+                    <div class="btn-group" role="group" aria-label="Sort options">
+                        <button type="button" class="btn btn-sm btn-outline-secondary" id="showAllCompleted">All</button>
+                        <button type="button" class="btn btn-sm btn-outline-success" id="showCompletedOnly">Completed</button>
+                        <button type="button" class="btn btn-sm btn-outline-danger" id="showCancelledOnly">Cancelled</button>
+
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Update Status</button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="completedOrdersTable">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Order #</th>
+                                <th>Customer</th>
+                                <th>Address</th>
+                                <th>Order Date</th>
+                                <th>Delivery Status</th>
+                                <th>Amount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.CompletedOrders.Any())
+                            {
+                                foreach (var order in Model.CompletedOrders)
+                                {
+                                    var orderStatusBadgeClass = order.Status switch
+                                    {
+                                        "completed" => "success",
+                                        "cancelled" => "danger",
+                                        _ => "secondary"
+                                    };
+                                    
+                                    var deliveryStatusBadgeClass = order.DeliveryStatus switch
+                                    {
+                                        "pending" => "warning",
+                                        "scheduled" => "primary",
+                                        "out_for_delivery" => "info",
+                                        "completed" => "success",
+                                        "failed" => "danger",
+                                        _ => "secondary"
+                                    };
+
+                                    <tr>
+                                        <td>
+                                            <span class="badge bg-@orderStatusBadgeClass">@order.FormattedStatus</span>
+                                        </td>
+                                        <td><span class="fw-bold">@order.OrderNumber</span></td>
+                                        <td>
+                                            <div>@order.CustomerName</div>
+                                            <small class="text-muted">@order.CustomerPhone</small>
+                                        </td>
+                                        <td>
+                                            <small>@order.DeliveryAddress</small>
+                                        </td>
+                                        <td>
+                                            <div>@order.OrderDate.ToString("MMM dd, yyyy")</div>
+                                            <small class="text-muted">@order.OrderDate.ToString("h:mm tt")</small>
+                                        </td>
+                                        <td data-status="@order.DeliveryStatus">
+                                            <span class="badge bg-@deliveryStatusBadgeClass">
+                                                @(order.FormattedDeliveryStatus ?? "Pending")
+                                            </span>
+                                        </td>
+                                        <td>₱@order.TotalAmount.ToString("N2")</td>
+                                        <td>
+                                            <a href="@Url.Action("Details", "Orders", new { id = order.OrderId })" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="8" class="text-center py-3">No completed orders found</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
 
+<!-- Delivery Status Update Form (hidden) -->
+<form id="deliveryStatusForm" method="post" action="@Url.Action("UpdateDeliveryStatus", "Orders")">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="statusOrderId" name="orderId">
+    <input type="hidden" id="statusDeliveryId" name="deliveryId">
+    <input type="hidden" id="statusDeliveryStatus" name="deliveryStatus">
+</form>
+
+<!-- Clear Orders Data Form (hidden) -->
+<form id="clearOrdersForm" method="post" action="@Url.Action("ClearOrdersData", "Orders")">
+    @Html.AntiForgeryToken()
+</form>
+
 @section Scripts {
+    <link rel="stylesheet" href="~/css/order-management.css" />
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.bootstrap5.min.js"></script>
+
     <script>
         $(document).ready(function() {
-            // Initialize DataTable
-            $('#ordersTable').DataTable({
-                "pageLength": 10,
-                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-                "language": {
-                    "emptyTable": "No orders found"
+            // Check if both tables are empty and add consistent empty rows
+            function checkEmptyTables() {
+                // For active orders table
+                if ($('#activeOrdersTable tbody tr').length === 0) {
+                    var activeColCount = $('#activeOrdersTable thead th').length;
+                    var emptyRow = '<tr class="empty-row"><td colspan="' + activeColCount + '">No active orders found</td></tr>';
+                    $('#activeOrdersTable tbody').html(emptyRow);
                 }
+
+                // For completed orders table
+                if ($('#completedOrdersTable tbody tr').length === 0) {
+                    var completedColCount = $('#completedOrdersTable thead th').length;
+                    var emptyRow = '<tr class="empty-row"><td colspan="' + completedColCount + '">No completed orders found</td></tr>';
+                    $('#completedOrdersTable tbody').html(emptyRow);
+                }
+            }
+
+            if ($.fn.DataTable) {
+                console.log("DataTables plugin is loaded correctly");
+
+                // Set global error handling
+                $.fn.dataTable.ext.errMode = 'none'; // Don't throw errors
+
+                // Listen for DataTables errors
+                $(document).on('error.dt', function(e, settings, techNote, message) {
+                    console.error('DataTables error:', message);
+                    // Don't reload the page automatically
+                });
+
+                // Initialize DataTables only if tables have actual data rows (not just the empty message)
+                var activeRowCount = $('#activeOrdersTable tbody tr').not('.empty-row').length;
+                var completedRowCount = $('#completedOrdersTable tbody tr').not('.empty-row').length;
+
+                // Active Orders Table
+                if ($('#activeOrdersTable').length > 0) {
+                    try {
+                        // Always ensure empty table message is correctly formatted
+                        if (activeRowCount === 0) {
+                            var activeColCount = $('#activeOrdersTable thead th').length;
+                            $('#activeOrdersTable tbody').html('<tr class="empty-row"><td colspan="' + activeColCount + '" class="text-center py-3">No active orders found</td></tr>');
+
+                            // Simple initialization for empty table
+                            $('#activeOrdersTable').DataTable({
+                                "searching": false,
+                                "paging": false,
+                                "info": false,
+                                "ordering": false,
+                                "language": {
+                                    "emptyTable": "No active orders found"
+                                },
+                                "dom": 'rt'
+                            });
+                        } else {
+                            // Full initialization for table with data
+                            $('#activeOrdersTable').DataTable({
+                                "pageLength": Math.min(10, @(Model.ActiveOrders?.Count() ?? 0)),
+                                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                                "searching": true,
+                                "ordering": true,
+                                "order": [],
+                                "info": true,
+                                "responsive": true,
+                                "language": {
+                                    "emptyTable": "No active orders found",
+                                    "search": "Filter:"
+                                },
+                                "autoWidth": false
+                            });
+                        }
+                    } catch (e) {
+                        console.error("Error initializing active orders table:", e);
+                    }
+                }
+
+                // Completed Orders Table
+                if ($('#completedOrdersTable').length > 0) {
+                    try {
+                        // Always ensure empty table message is correctly formatted
+                        if (completedRowCount === 0) {
+                            var completedColCount = $('#completedOrdersTable thead th').length;
+                            $('#completedOrdersTable tbody').html('<tr class="empty-row"><td colspan="' + completedColCount + '" class="text-center py-3">No completed orders found</td></tr>');
+
+                            // Simple initialization for empty table
+                            $('#completedOrdersTable').DataTable({
+                                "searching": false,
+                                "paging": false,
+                                "info": false,
+                                "ordering": false,
+                                "language": {
+                                    "emptyTable": "No completed orders found"
+                                },
+                                "dom": 'rt'
+                            });
+                        } else {
+                            // Full initialization for table with data
+                            $('#completedOrdersTable').DataTable({
+                                "pageLength": Math.min(10, @(Model.CompletedOrders?.Count() ?? 0)),
+                                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                                "searching": true,
+                                "ordering": true,
+                                "order": [[4, 'desc']],
+                                "info": true,
+                                "responsive": true,
+                                "language": {
+                                    "emptyTable": "No completed orders found",
+                                    "search": "Filter:"
+                                },
+                                "autoWidth": false
+                            });
+                        }
+                    } catch (e) {
+                        console.error("Error initializing completed orders table:", e);
+                    }
+                }
+            } else {
+                console.error("DataTables plugin is not loaded! Check your script references.");
+                alert("There was an error loading the table features. Please refresh or contact support.");
+            }
+
+
+            // Fix dropdown form submission
+            $('#statusFilter').on('change', function() {
+                $('#filterForm').submit();
             });
 
-            // Show/hide date range inputs based on selection
-            $('#dateRange').change(function() {
+            // Date range picker logic
+            $('#dateRange').on('change', function() {
                 if ($(this).val() === 'custom') {
                     $('.date-range-inputs').show();
                 } else {
                     $('.date-range-inputs').hide();
+
+                    // If a non-custom option is selected, submit the form
+                    if ($(this).val() !== '') {
+                        $('#filterForm').submit();
+                    }
                 }
             });
 
-            // Populate update status modal
-            $('#updateStatusModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget);
-                var orderId = button.data('order-id');
-                var orderNumber = button.data('order-number');
-                var currentStatus = button.data('current-status');
-
-                var modal = $(this);
-                modal.find('#orderIdInput').val(orderId);
-                modal.find('#orderNumberDisplay').text(orderNumber);
-                modal.find('#statusSelect').val(currentStatus);
+            // Filter completed orders by status
+            $('#showAllCompleted').on('click', function() {
+                var table = $('#completedOrdersTable').DataTable();
+                // Clear any existing filters and reset
+                $.fn.dataTable.ext.search.pop(); // Remove any existing filters
+                table.search('').columns().search('').draw();
+                $(this).addClass('active').siblings().removeClass('active');
             });
+
+            $('#showCompletedOnly').on('click', function() {
+                var table = $('#completedOrdersTable').DataTable();
+                
+                // Use custom filter function for HTML content
+                $.fn.dataTable.ext.search.pop(); // Remove any existing filters
+                $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+                    if (settings.nTable.id !== 'completedOrdersTable') return true;
+                    
+                    var $cell = $(table.cell(dataIndex, 5).node());
+                    var statusText = $cell.text().trim();
+                    return statusText.indexOf('Completed') !== -1;
+                });
+                
+                table.draw();
+                $(this).addClass('active').siblings().removeClass('active');
+            });
+
+            $('#showCancelledOnly').on('click', function() {
+                var table = $('#completedOrdersTable').DataTable();
+                
+                // Use custom filter function for HTML content
+                $.fn.dataTable.ext.search.pop(); // Remove any existing filters
+                $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+                    if (settings.nTable.id !== 'completedOrdersTable') return true;
+                    
+                    var $cell = $(table.cell(dataIndex, 5).node());
+                    var statusText = $cell.text().trim();
+                    return statusText.indexOf('Failed') !== -1;
+                });
+                
+                table.draw();
+                $(this).addClass('active').siblings().removeClass('active');
+            });
+
+            // Add debugging functionality
+            $('#debugTable').on('click', function() {
+                var table = $('#completedOrdersTable').DataTable();
+                console.log("Debugging table contents:");
+                
+                table.rows().every(function(rowIdx) {
+                    var cell = table.cell(rowIdx, 5).node();
+                    console.log("Row " + rowIdx + 
+                               " - Cell content: '" + $(cell).html() + "'" + 
+                               " - Text: '" + $(cell).text().trim() + "'");
+                });
+            });
+
+            // Mark the "All" button as active by default
+            $('#showAllCompleted').addClass('active');
+
+            // Auto-dismiss alerts after 5 seconds
+            setTimeout(function() {
+                $('.alert-success, .alert-danger').fadeOut('slow');
+            }, 5000);
+
+        // Clear Orders Data button confirmation
+        $('#clearOrdersBtn').on('click', function() {
+            if (confirm('WARNING: This will permanently delete ALL orders data. This action cannot be undone!\n\nAre you absolutely sure you want to continue?')) {
+                // Destroy DataTables before submission to ensure clean reload
+                try {
+                    if ($.fn.DataTable && $.fn.DataTable.isDataTable('#activeOrdersTable')) {
+                        $('#activeOrdersTable').DataTable().destroy();
+                    }
+                    if ($.fn.DataTable && $.fn.DataTable.isDataTable('#completedOrdersTable')) {
+                        $('#completedOrdersTable').DataTable().destroy();
+                    }
+                } catch (e) {
+                    console.error("Error destroying tables:", e);
+                }
+
+                // Submit with full page reload
+                $('#clearOrdersForm').submit();
+            }
         });
+            
+            // Make tables responsive for mobile
+            $(window).on('resize', function() {
+                if ($(window).width() < 768) {
+                    $('.table-responsive').addClass('mobile-view');
+                } else {
+                    $('.table-responsive').removeClass('mobile-view');
+                }
+            }).trigger('resize');
+        });
+
+               // Function to update delivery status
+        function updateDeliveryStatus(orderId, deliveryId, status) {
+            $('#statusOrderId').val(orderId);
+            $('#statusDeliveryId').val(deliveryId);
+            $('#statusDeliveryStatus').val(status);
+
+            if (status === 'failed' && !confirm('This will cancel the order and return items to inventory. Continue?')) {
+                return;
+            }
+
+            // Destroy DataTables before form submission to prevent redraw errors
+            try {
+                if ($.fn.DataTable && $.fn.DataTable.isDataTable('#activeOrdersTable')) {
+                    $('#activeOrdersTable').DataTable().destroy();
+                }
+                if ($.fn.DataTable && $.fn.DataTable.isDataTable('#completedOrdersTable')) {
+                    $('#completedOrdersTable').DataTable().destroy();
+                }
+            } catch (e) {
+                console.error("Error destroying tables:", e);
+            }
+
+            // Add a hidden input to indicate this is a form submission that will reload the page
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'forceReload',
+                value: 'true'
+            }).appendTo('#deliveryStatusForm');
+
+            $('#deliveryStatusForm').submit();
+        }
     </script>
 }

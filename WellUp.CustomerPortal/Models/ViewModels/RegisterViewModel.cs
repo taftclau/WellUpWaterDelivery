@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// WellUp.CustomerPortal.Models.ViewModels/RegisterViewModel.cs
+
+using System.ComponentModel.DataAnnotations;
 
 namespace WellUp.CustomerPortal.Models.ViewModels
 {

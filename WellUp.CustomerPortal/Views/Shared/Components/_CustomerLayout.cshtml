@@ -1,0 +1,114 @@
+﻿<!--Views/Home/Shared/Components/_CustomerLayout-->
+@using System.Security.Claims
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WellUp Customer Portal</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Poppins:wght@500;600;700&family=Raleway:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/customer-portal.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/customer-dashboard.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/order-summary.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/feedback.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/cart-styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/support-styles.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <partial name="Components/_CustomerNavigation" />
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navigation -->
+            <nav class="navbar sticky-top">
+                <div class="container">
+                    <button id="sidebar-toggler" class="menu-toggle d-md-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+
+                    <a class="navbar-brand" href="@Url.Action("Index", "Products")">
+                        <img src="~/images/wellup-logo.png" alt="WellUp Logo" />
+                    </a>
+
+                    <div class="d-flex align-items-center">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user-circle me-1"></i>
+                                @User.FindFirstValue(System.Security.Claims.ClaimTypes.Name)
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "Account")"><i class="fas fa-user me-2"></i>My Profile</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "Orders")"><i class="fas fa-history me-2"></i>Order History</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form asp-controller="Account" asp-action="Logout" method="post">
+                                        <button type="submit" class="dropdown-item">
+                                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="fas fa-check-circle me-2"></i> @TempData["SuccessMessage"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+
+                @if (TempData["ErrorMessage"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="fas fa-exclamation-circle me-2"></i> @TempData["ErrorMessage"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+
+                @RenderBody()
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="container">
+                    <div class="copyright mt-4 pt-4 border-top text-center">
+                        <p>&copy; @DateTime.Now.Year WellUp Water Delivery. All rights reserved.</p>
+                        <p class="tagline">Live well, choose well</p>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay"></div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/customer-dashboard.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

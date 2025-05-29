@@ -1,0 +1,362 @@
+﻿/* Card and table styling 
+    order-management.css
+*/
+.card {
+    border-radius: 10px;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border: none;
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 1rem 1.25rem;
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+    font-weight: 500;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+.table thead th {
+    background-color: #f8f9fa;
+    border-bottom: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: #495057;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Stat cards */
+.stat-card {
+    border-radius: 10px;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border: none;
+    height: 100%;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: #fff;
+}
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+
+.stat-card-body {
+    display: flex;
+    padding: 1.5rem;
+    align-items: center;
+}
+
+.stat-card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    font-size: 1.5rem;
+}
+
+.bg-primary-soft {
+    background-color: #e6f2ff;
+    color: #0d6efd;
+}
+
+.bg-info-soft {
+    background-color: #e6f9ff;
+    color: #0dcaf0;
+}
+
+.stat-card-content {
+    flex: 1;
+}
+
+.stat-card-title {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 0.25rem;
+}
+
+.stat-card-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.stat-card-desc {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+/* Style for active filter buttons */
+.btn-group .btn.active {
+    background-color: #0d6efd;
+    color: white;
+}
+
+/* Search input styling */
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Delivery Timeline Styling */
+.delivery-timeline {
+    margin: 30px 0;
+}
+
+.timeline-container {
+    padding: 20px 0;
+    position: relative;
+}
+
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        top: 20px;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background-color: #e9ecef;
+        z-index: 1;
+    }
+
+.timeline-step {
+    position: relative;
+    z-index: 2;
+    width: 22%;
+    text-align: center;
+}
+
+    .timeline-step .timeline-marker {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #e9ecef;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 10px;
+        position: relative;
+        border: 3px solid #fff;
+    }
+
+        .timeline-step .timeline-marker::before {
+            content: '';
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #adb5bd;
+        }
+
+    .timeline-step.completed .timeline-marker {
+        background-color: #e3f2fd;
+        border-color: #fff;
+    }
+
+        .timeline-step.completed .timeline-marker::before {
+            background-color: #0d6efd;
+        }
+
+    .timeline-step.active .timeline-marker {
+        background-color: #e3f2fd;
+        border-color: #0d6efd;
+    }
+
+        .timeline-step.active .timeline-marker::before {
+            background-color: #0d6efd;
+        }
+
+    .timeline-step.next .timeline-marker {
+        background-color: #e3f2fd;
+        border-color: #fff;
+    }
+
+.timeline-content {
+    padding-top: 10px;
+}
+
+    .timeline-content h6 {
+        margin: 0;
+        font-weight: 600;
+        color: #495057;
+    }
+
+    .timeline-content p {
+        margin: 0;
+        font-size: 0.875rem;
+        color: #6c757d;
+    }
+
+.timeline-step.completed .timeline-content h6 {
+    color: #0d6efd;
+}
+
+.timeline-step.active .timeline-content h6 {
+    color: #0d6efd;
+    font-weight: 700;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 767.98px) {
+    .table {
+        width: 100%;
+    }
+
+    .mobile-view {
+        overflow-x: auto;
+    }
+
+    .stat-card-body {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .stat-card-icon {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+
+        .card-header .btn-group {
+            margin-top: 1rem;
+        }
+
+    .btn-sm {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .timeline {
+        flex-direction: column;
+    }
+
+        .timeline::before {
+            left: 20px;
+            right: auto;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            height: auto;
+        }
+
+    .timeline-step {
+        width: 100%;
+        text-align: left;
+        padding-left: 50px;
+        margin-bottom: 30px;
+    }
+
+        .timeline-step .timeline-marker {
+            position: absolute;
+            left: 0;
+            top: 0;
+            margin: 0;
+        }
+}
+
+/* Badge styling */
+.badge {
+    padding: 0.5em 0.75em;
+    font-weight: 500;
+}
+
+/* Form field styling */
+.form-select, .form-control {
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+}
+
+/* Add these sections for button-based approach */
+
+/* Status container with badge and action buttons */
+.status-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+    .status-container .badge {
+        margin-bottom: 8px;
+        font-size: 0.875rem;
+        padding: 0.4em 0.65em;
+    }
+
+.dropdown-buttons {
+    display: flex;
+    gap: 5px;
+    margin-top: 3px;
+}
+
+    .dropdown-buttons .btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+        line-height: 1;
+    }
+
+        /* Button hover effects */
+        .dropdown-buttons .btn:hover {
+            transform: translateY(-2px);
+            transition: transform 0.2s ease;
+        }
+
+    .dropdown-buttons .btn-outline-warning:hover {
+        background-color: #ffc107;
+        color: #212529;
+    }
+
+    .dropdown-buttons .btn-outline-info:hover {
+        background-color: #0dcaf0;
+        color: #fff;
+    }
+
+    .dropdown-buttons .btn-outline-success:hover {
+        background-color: #198754;
+        color: #fff;
+    }
+
+    .dropdown-buttons .btn-outline-danger:hover {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    /* Tooltip-like title attribute styling */
+    .dropdown-buttons .btn {
+        position: relative;
+    }
+
+    /* Status button icon styling */
+    .dropdown-buttons .fas {
+        font-size: 0.875rem;
+    }
+
+/* Add responsive styles for action buttons */
+@media (max-width: 767.98px) {
+    .dropdown-buttons {
+        flex-wrap: wrap;
+    }
+
+        .dropdown-buttons .btn {
+            margin-bottom: 4px;
+            padding: 0.375rem 0.5rem;
+        }
+}

@@ -1,0 +1,251 @@
+﻿<!--WellUp.AdminPortal\Views\Customers\Index.cshtml-->
+@model WellUp.AdminPortal.Models.ViewModels.CustomersListViewModel
+@{
+    ViewData["Title"] = "Customer Management";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<!-- Page Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h1>Customer Management</h1>
+                    <p class="text-muted mb-0">View and manage customer accounts, information, and activities</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Customer Stats Cards -->
+<div class="row mb-4">
+    <!-- Total Customers -->
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon bg-primary-soft">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-card-title">Total Customers</div>
+                    <div class="stat-card-value">@Model.Customers.Count</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Customers (Last 30 Days) -->
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon bg-success-soft">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-card-title">New Customers (30d)</div>
+                    <div class="stat-card-value">@Model.Customers.Count(c => c.DateCreated.HasValue && c.DateCreated.Value >= DateTime.Now.AddDays(-30))</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Customers (with Orders) -->
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon bg-info-soft">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-card-title">Customers with Orders</div>
+                    <div class="stat-card-value">@Model.Customers.Count(c => c.OrderCount > 0)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback/Complaints -->
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon bg-warning-soft">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-card-title">Feedback/Complaints</div>
+                    <div class="stat-card-value">@Model.ComplaintCount</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Search and Filter -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form method="get" class="row g-3">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="Search customers...">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <select class="form-select" name="filter" onchange="this.form.submit()">
+                            <option value="" selected="@(ViewData["CurrentFilterType"] == null)">All Customers</option>
+                            <option value="new_customers" selected="@(ViewData["CurrentFilterType"]?.ToString() == "new_customers")">New Customers (Last 30 Days)</option>
+                            <option value="regular_customers" selected="@(ViewData["CurrentFilterType"]?.ToString() == "regular_customers")">Regular Customers (3+ Orders)</option>
+                            <option value="inactive_customers" selected="@(ViewData["CurrentFilterType"]?.ToString() == "inactive_customers")">Inactive Customers (3+ Months)</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12">
+                        <div class="d-flex justify-content-end">
+                            <a href="@Url.Action("Index", "Customers")" class="btn btn-outline-secondary">
+                                <i class="fas fa-sync-alt me-2"></i>Reset Filters
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Message -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle me-2"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<!-- Customers List -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="customersTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]" class="text-dark">
+                                        Customer Name <i class="fas fa-sort"></i>
+                                    </a>
+                                </th>
+                                <th>
+                                    <a asp-action="Index" asp-route-sortOrder="@ViewData["EmailSortParam"]" class="text-dark">
+                                        Email <i class="fas fa-sort"></i>
+                                    </a>
+                                </th>
+                                <th>Phone</th>
+                                <th>
+                                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParam"]" class="text-dark">
+                                        Registered <i class="fas fa-sort"></i>
+                                    </a>
+                                </th>
+                                <th>Orders</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Customers.Any())
+                            {
+                                foreach (var customer in Model.Customers)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="customer-avatar me-2">
+                                                    <i class="fas fa-user"></i>
+                                                </div>
+                                                <span class="fw-bold">@customer.CustomerName</span>
+                                            </div>
+                                        </td>
+                                        <td>@customer.Email</td>
+                                        <td>@customer.Phone</td>
+                                        <td>@(customer.DateCreated?.ToString("MMM dd, yyyy") ?? "Not available")</td>
+                                        <td>
+                                            @if (customer.OrderCount > 0)
+                                            {
+                                                <span class="badge bg-success">@customer.OrderCount order@(customer.OrderCount > 1 ? "s" : "")</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-light text-dark">No orders</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <!-- View Details Button -->
+                                                <a href="@Url.Action("Details", "Customers", new { id = customer.CustomerId })"
+                                                   class="btn btn-action btn-info"
+                                                   data-bs-toggle="tooltip"
+                                                   data-bs-placement="top"
+                                                   title="View Details">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6" class="text-center py-4">
+                                        <div class="p-3">
+                                            <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                                            <h5>No customers found</h5>
+                                            <p class="text-muted">No customers match your search criteria.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable
+            $('#customersTable').DataTable({
+                "searching": false, // We're handling search ourselves
+                "pageLength": 10,
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                "ordering": false, // We're handling sorting ourselves
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "language": {
+                    "emptyTable": "No customers found"
+                }
+            });
+
+            // Initialize tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+
+            // Auto-dismiss alerts after 5 seconds
+            setTimeout(function() {
+                $('.alert-success').fadeOut('slow');
+            }, 5000);
+        });
+    </script>
+}

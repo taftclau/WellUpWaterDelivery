@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// WellUp.CustomerPortal.Models.ViewModels/LoginViewModel.cs
+
+using System.ComponentModel.DataAnnotations;
 
 namespace WellUp.CustomerPortal.Models.ViewModels
 {
@@ -11,6 +13,7 @@ namespace WellUp.CustomerPortal.Models.ViewModels
 
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string Password { get; set; }
 
         [Display(Name = "Remember me")]

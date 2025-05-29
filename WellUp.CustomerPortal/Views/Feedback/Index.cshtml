@@ -1,0 +1,97 @@
+﻿<!-- WellUp.CustomerPortal.Views.Feedback/Index.cshtml-->
+@model WellUp.CustomerPortal.Models.ViewModels.FeedbackViewModel
+@{
+    ViewData["Title"] = "My Feedback";
+    Layout = "~/Views/Shared/Components/_CustomerLayout.cshtml";
+}
+
+<div class="container">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="page-header">
+                <h1>My Feedback</h1>
+                <p class="text-muted">Share your thoughts on your recent orders</p>
+            </div>
+        </div>
+    </div>
+
+    @if (!Model.Orders.Any())
+    {
+        <!-- No Orders -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center py-5">
+                        <i class="fas fa-comment-dots fa-4x text-muted mb-3"></i>
+                        <h3>No completed orders found</h3>
+                        <p class="text-muted mb-4">Once you have completed orders, you can provide feedback here</p>
+                        <a asp-controller="Products" asp-action="Index" class="btn btn-primary">
+                            <i class="fas fa-water me-2"></i>Shop Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Recent Orders</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Order #</th>
+                                        <th>Date</th>
+                                        <th>Items</th>
+                                        <th>Status</th>
+                                        <th>Feedback</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var order in Model.Orders)
+                                    {
+                                        <tr>
+                                            <td><a asp-controller="Orders" asp-action="Details" asp-route-id="@order.OrderId">#@order.OrderId</a></td>
+                                            <td>@order.CreatedAt?.ToString("MMM dd, yyyy")</td>
+                                            <td>
+                                                @foreach (var item in order.OrderItems)
+                                                {
+                                                    <div>@item.Quantity x @item.Product.ProductName</div>
+                                                }
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-success">@order.OrderStatus</span>
+                                            </td>
+                                            <td>
+                                                @if (order.CustomerFeedbacks.Any())
+                                                {
+                                                    var feedback = order.CustomerFeedbacks.First();
+                                                    <a asp-action="Details" asp-route-id="@feedback.FeedbackId" class="btn btn-outline-primary btn-sm">
+                                                        <i class="fas fa-eye me-1"></i> View Feedback
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a asp-action="Create" asp-route-orderId="@order.OrderId" class="btn btn-outline-primary btn-sm">
+                                                        <i class="fas fa-comment-dots me-1"></i> Leave Feedback
+                                                    </a>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

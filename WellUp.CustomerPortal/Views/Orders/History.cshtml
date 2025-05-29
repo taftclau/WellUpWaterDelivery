@@ -1,0 +1,298 @@
+﻿<!-- WellUp.CustomerPortal.Views.Orders/History.cshtml-->
+@model WellUp.CustomerPortal.Models.ViewModels.OrderHistoryViewModel
+@{
+    ViewData["Title"] = "Order History";
+    Layout = "~/Views/Shared/Components/_CustomerLayout.cshtml";
+}
+
+<div class="order-history-page">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="page-header">
+                    <h1>Order History</h1>
+                    <p class="text-muted">Track your current and past orders</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Current Orders -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card order-section">
+                    <div class="card-header bg-primary text-white d-flex align-items-center">
+                        <div class="me-auto">
+                            <h4 class="mb-0">Current Orders</h4>
+                        </div>
+                        <div class="badge bg-light text-primary order-count">
+                            @Model.CurrentOrders.Count Order(s)
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.CurrentOrders.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table order-history-table">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Order #</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Delivery</th>
+                                            <th>Amount</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var order in Model.CurrentOrders)
+                                        {
+                                            <tr>
+                                                <td class="order-number">
+                                                    <a asp-action="Details" asp-route-id="@order.OrderId" class="text-decoration-none">
+                                                        #@order.OrderId
+                                                    </a>
+                                                </td>
+                                                <td class="order-date">
+                                                    <div>@order.OrderDate.ToString("MMM dd, yyyy")</div>
+                                                    <small class="text-muted">@order.OrderDate.ToString("hh:mm tt")</small>
+                                                </td>
+                                                <td class="order-status">
+                                                    <span class="badge @order.GetStatusBadgeClass()">
+                                                        @order.GetFormattedStatus()
+                                                    </span>
+                                                </td>
+                                                <td class="delivery-status">
+                                                    @if (!string.IsNullOrEmpty(order.DeliveryStatus))
+                                                    {
+                                                        <span class="badge @order.GetDeliveryBadgeClass()">
+                                                            @order.GetFormattedDeliveryStatus()
+                                                        </span>
+                                                        @if (order.DeliveryDate.HasValue)
+                                                        {
+                                                            <small class="d-block text-muted mt-1">
+                                                                @order.DeliveryDate.Value.ToString("MMM dd, hh:mm tt")
+                                                            </small>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-muted">Not scheduled</span>
+                                                    }
+                                                </td>
+                                                <td class="order-amount">
+                                                    <span class="fw-bold">₱@order.TotalAmount.ToString("N2")</span>
+                                                    <small class="d-block text-muted">@order.ItemCount item(s)</small>
+                                                </td>
+                                                <td class="order-actions">
+                                                    <div class="btn-group">
+                                                        <a asp-action="Details" asp-route-id="@order.OrderId"
+                                                           class="btn btn-outline-primary btn-sm">
+                                                            <i class="fas fa-eye me-1"></i> View
+                                                        </a>
+                                                        @if (order.CanCancel)
+                                                        {
+                                                            <button type="button" class="btn btn-outline-danger btn-sm"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#cancelModal"
+                                                                    data-order-id="@order.OrderId">
+                                                                <i class="fas fa-times me-1"></i> Cancel
+                                                            </button>
+                                                        }
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-center py-4">
+                                <div class="mb-3">
+                                    <i class="fas fa-shopping-bag fa-3x text-muted"></i>
+                                </div>
+                                <h5>No Current Orders</h5>
+                                <p class="text-muted">You don't have any ongoing orders at the moment.</p>
+                                <a asp-controller="Products" asp-action="Index" class="btn btn-primary">
+                                    <i class="fas fa-water me-2"></i>Shop Now
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Past Orders -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card order-section">
+                    <div class="card-header bg-secondary text-white d-flex align-items-center">
+                        <div class="me-auto">
+                            <h4 class="mb-0">Past Orders</h4>
+                        </div>
+                        <div class="badge bg-light text-secondary order-count">
+                            @Model.PastOrders.Count Order(s)
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.PastOrders.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table order-history-table">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Order #</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Delivery</th>
+                                            <th>Amount</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var order in Model.PastOrders)
+                                        {
+                                            <tr>
+                                                <td class="order-number">
+                                                    <a asp-action="Details" asp-route-id="@order.OrderId" class="text-decoration-none">
+                                                        #@order.OrderId
+                                                    </a>
+                                                </td>
+                                                <td class="order-date">
+                                                    <div>@order.OrderDate.ToString("MMM dd, yyyy")</div>
+                                                    <small class="text-muted">@order.OrderDate.ToString("hh:mm tt")</small>
+                                                </td>
+                                                <td class="order-status">
+                                                    <span class="badge @order.GetStatusBadgeClass()">
+                                                        @order.GetFormattedStatus()
+                                                    </span>
+                                                </td>
+                                                <td class="delivery-status">
+                                                    @if (!string.IsNullOrEmpty(order.DeliveryStatus))
+                                                    {
+                                                        <span class="badge @order.GetDeliveryBadgeClass()">
+                                                            @order.GetFormattedDeliveryStatus()
+                                                        </span>
+                                                        @if (order.DeliveryDate.HasValue)
+                                                        {
+                                                            <small class="d-block text-muted mt-1">
+                                                                @order.DeliveryDate.Value.ToString("MMM dd, hh:mm tt")
+                                                            </small>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-muted">Not scheduled</span>
+                                                    }
+                                                </td>
+                                                <td class="order-amount">
+                                                    <span class="fw-bold">₱@order.TotalAmount.ToString("N2")</span>
+                                                    <small class="d-block text-muted">@order.ItemCount item(s)</small>
+                                                </td>
+                                                <td class="order-actions">
+                                                    <div class="btn-group">
+                                                        <a asp-action="Details" asp-route-id="@order.OrderId"
+                                                           class="btn btn-outline-primary btn-sm">
+                                                            <i class="fas fa-eye me-1"></i> View
+                                                        </a>
+                                                        @if (order.CanReorder)
+                                                        {
+                                                            <button type="button" class="btn btn-outline-success btn-sm"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#reorderModal"
+                                                                    data-order-id="@order.OrderId">
+                                                                <i class="fas fa-redo-alt me-1"></i> Reorder
+                                                            </button>
+                                                        }
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-center py-4">
+                                <div class="mb-3">
+                                    <i class="fas fa-history fa-3x text-muted"></i>
+                                </div>
+                                <h5>No Past Orders</h5>
+                                <p class="text-muted">You haven't completed any orders yet.</p>
+                                <a asp-controller="Products" asp-action="Index" class="btn btn-primary">
+                                    <i class="fas fa-water me-2"></i>Shop Now
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cancel Order Modal -->
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="cancelModalLabel">Cancel Order</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-4">
+                    <i class="fas fa-exclamation-triangle fa-3x text-warning"></i>
+                </div>
+                <p>Are you sure you want to cancel this order? This action cannot be undone.</p>
+                <p class="mb-0"><strong>Note:</strong> Cancelled orders will return any deducted stock to inventory.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form id="cancelOrderForm" asp-controller="Orders" asp-action="CancelOrder" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="cancelOrderId" name="id" value="" />
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-times me-2"></i>Cancel Order
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reorder Modal -->
+<div class="modal fade" id="reorderModal" tabindex="-1" aria-labelledby="reorderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="reorderModalLabel">Reorder Items</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-4">
+                    <i class="fas fa-shopping-cart fa-3x text-primary"></i>
+                </div>
+                <p>Would you like to add all items from this order to your cart?</p>
+                <p class="text-muted mb-0">You can review and modify quantities before checkout.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form id="reorderForm" asp-controller="Orders" asp-action="Reorder" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="reorderOrderId" name="id" value="" />
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/order-history.js" asp-append-version="true"></script>
+}

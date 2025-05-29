@@ -36,6 +36,7 @@ public partial class WellUpDbContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Address>(entity =>

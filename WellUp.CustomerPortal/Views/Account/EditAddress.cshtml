@@ -1,0 +1,97 @@
+﻿<!-- WellUp.CustomerPortal.Views.Account/EditAddress.cshtml-->
+@model WellUp.CustomerPortal.Models.ViewModels.AddressViewModel
+@{
+    ViewData["Title"] = "Edit Address";
+    Layout = "~/Views/Shared/Components/_CustomerLayout.cshtml";
+}
+
+<div class="container">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="page-header d-flex align-items-center">
+                <a asp-action="ManageAddresses" class="btn btn-outline-secondary me-3">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <div>
+                    <h1>Edit Address</h1>
+                    <p class="text-muted mb-0">Update your delivery location</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Address Information</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="EditAddress" method="post">
+                        <input type="hidden" asp-for="AddressId" />
+                        <input type="hidden" asp-for="CustomerId" />
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Street" class="form-label">Street, Home/Building No.</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                <input asp-for="Street" class="form-control" />
+                            </div>
+                            <span asp-validation-for="Street" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Barangay" class="form-label"></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-map"></i></span>
+                                <input asp-for="Barangay" class="form-control" />
+                            </div>
+                            <span asp-validation-for="Barangay" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="CityMunicipality" class="form-label"></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-city"></i></span>
+                                <input asp-for="CityMunicipality" class="form-control" />
+                            </div>
+                            <span asp-validation-for="CityMunicipality" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ZipCode" class="form-label"></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
+                                <input asp-for="ZipCode" class="form-control" />
+                            </div>
+                            <span asp-validation-for="ZipCode" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input asp-for="IsDefault" class="form-check-input" />
+                                <label asp-for="IsDefault" class="form-check-label"></label>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="ManageAddresses" class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

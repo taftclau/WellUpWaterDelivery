@@ -1,0 +1,227 @@
+﻿<!-- WellUp.CustomerPortal.Views.Orders/Summary.cshtml-->
+@model WellUp.CustomerPortal.Models.ViewModels.OrderSummaryViewModel
+@{
+    ViewData["Title"] = "Order Summary";
+    Layout = "~/Views/Shared/Components/_CustomerLayout.cshtml";
+}
+
+<div class="container">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="page-header">
+                <h1>Order Summary</h1>
+                <p class="text-muted">Please review your order and provide delivery details</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Form -->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Order Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-2 col-sm-3">
+                            <img src="@Model.ImagePath" alt="@Model.ProductName" class="img-fluid rounded product-thumbnail">
+                        </div>
+                        <div class="col-md-10 col-sm-9">
+                            <h5 class="product-title">@Model.ProductName</h5>
+                            <p class="text-muted mb-1">@Model.ProductDescription</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="fw-bold text-primary price">₱@Model.UnitPrice.ToString("N2")</span>
+                                    <span class="text-muted mx-2">×</span>
+                                    <span>@Model.Quantity</span>
+                                </div>
+                                <div class="fw-bold">₱@Model.Subtotal.ToString("N2")</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form asp-controller="Orders" asp-action="PlaceOrder" method="post">
+                        <input type="hidden" asp-for="ProductId" />
+                        <input type="hidden" asp-for="Quantity" />
+
+                        @if (Model.IsRefillService)
+                        {
+                            <div class="mb-4">
+                                <label asp-for="Notes" class="form-label required">Container Details</label>
+                                <textarea asp-for="Notes" class="form-control" rows="3" required
+                                          placeholder="Please specify details about your container (type, size, condition, etc.)"></textarea>
+                                <div class="form-text">
+                                    <i class="fas fa-info-circle"></i>
+                                    For refill service, please provide details about your container.
+                                </div>
+                                <span asp-validation-for="Notes" class="text-danger"></span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="mb-4">
+                                <label asp-for="Notes" class="form-label">Special Instructions (Optional)</label>
+                                <textarea asp-for="Notes" class="form-control" rows="3"
+                                          placeholder="Any special instructions for delivery..."></textarea>
+                                <span asp-validation-for="Notes" class="text-danger"></span>
+                            </div>
+                        }
+
+                        <div class="mb-4">
+                            <label asp-for="AddressId" class="form-label required">Delivery Address</label>
+                            <select asp-for="AddressId" class="form-select">
+                                @foreach (var address in Model.AvailableAddresses)
+                                {
+                                    <option value="@address.AddressId" selected="@address.IsDefault">
+                                        @address.Street, @address.Barangay, @address.CityMunicipality @address.ZipCode
+                                        @(address.IsDefault ? " (Default)" : "")
+                                    </option>
+                                }
+                            </select>
+                            <span asp-validation-for="AddressId" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="PreferredDeliveryTime" class="form-label required">Preferred Delivery Time</label>
+                            <div class="row">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <input type="date" id="deliveryDate" class="form-control"
+                                           min="@Model.EarliestDeliveryTime.ToString("yyyy-MM-dd")"
+                                           max="@Model.LatestDeliveryTime.ToString("yyyy-MM-dd")"
+                                           value="@Model.PreferredDeliveryTime.ToString("yyyy-MM-dd")" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="time" id="deliveryTime" class="form-control"
+                                           min="08:00" max="18:30"
+                                           value="@Model.PreferredDeliveryTime.ToString("HH:mm")" />
+                                </div>
+                                <input type="hidden" asp-for="PreferredDeliveryTime" id="preferredDeliveryTime" />
+                            </div>
+                            <div class="form-text">
+                                <i class="fas fa-clock"></i> Delivery hours: 8:00 AM - 6:30 PM
+                                @if (Model.IsSameDayAvailable)
+                                {
+                                    <span>| <i class="fas fa-truck"></i> Same-day delivery available</span>
+                                }
+                                else
+                                {
+                                    <span>| <i class="fas fa-info-circle"></i> Next-day delivery only</span>
+                                }
+                            </div>
+                            <span asp-validation-for="PreferredDeliveryTime" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-controller="Products" asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Products
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-check-circle me-2"></i>Place Order
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Order Summary</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal:</span>
+                        <span class="fw-bold">₱@Model.Subtotal.ToString("N2")</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Delivery Fee:</span>
+                        <span class="fw-bold">₱0.00</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="fw-bold">Total:</span>
+                        <span class="fw-bold text-primary">₱@Model.Subtotal.ToString("N2")</span>
+                    </div>
+                    <div class="alert alert-info mt-3 mb-0">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <small>Your order will be processed immediately and delivery will be arranged according to your selected time.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Combine date and time inputs into the hidden datetime input
+            function updateDateTime() {
+                var dateInput = $('#deliveryDate').val();
+                var timeInput = $('#deliveryTime').val();
+
+                if (dateInput && timeInput) {
+                    var datetimeString = dateInput + 'T' + timeInput + ':00';
+                    $('#preferredDeliveryTime').val(datetimeString);
+                }
+            }
+
+            // Update initially
+            updateDateTime();
+
+            // Update on change
+            $('#deliveryDate, #deliveryTime').on('change', updateDateTime);
+
+            // Form validation
+            $('form').on('submit', function(e) {
+                var isValid = true;
+
+                // Validate required fields
+                if ($('#preferredDeliveryTime').val() === '') {
+                    isValid = false;
+                    alert('Please select a delivery time');
+                }
+
+                // If refill service, validate notes
+        @if (Model.IsRefillService)
+        {
+            <text>
+                            if ($('#Notes').val().trim() === '') {
+                                isValid = false;
+                                $('#Notes').addClass('is-invalid');
+                                alert('Please provide container details for refill service');
+                            } else {
+                                $('#Notes').removeClass('is-invalid');
+                            }
+            </text>
+        }
+
+                return isValid;
+            });
+        });
+    </script>
+}
+
+<style>
+    .product-thumbnail {
+        max-height: 80px;
+        object-fit: contain;
+    }
+
+    .product-title {
+        color: var(--deep-blue);
+        font-weight: 600;
+    }
+
+    .price {
+        font-size: 1.1rem;
+    }
+
+    .form-label.required:after {
+        content: " *";
+        color: #dc3545;
+    }
+</style>

@@ -29,17 +29,19 @@ namespace WellUp.AdminPortal.Controllers
 
             // Get today's date
             var today = DateTime.Today;
+            var tomorrow = today.AddDays(1);
 
             // Fetch summary statistics
             dashboardViewModel.TotalOrders = await _dbContext.Orders.CountAsync();
             dashboardViewModel.NewOrders = await _dbContext.Orders.CountAsync(o => o.OrderStatus == "new");
-            dashboardViewModel.PendingDeliveries = await _dbContext.Deliveries.CountAsync(d =>
-                d.Status == "pending" || d.Status == "scheduled" || d.Status == "out_for_delivery");
             dashboardViewModel.LowStockProducts = await _dbContext.Products.CountAsync(p => p.StockQuantity <= p.LowStockThreshold);
             dashboardViewModel.TotalRevenue = await _dbContext.Orders
-                .Where(o => o.OrderStatus != "cancelled")
+                .Where(o => o.OrderStatus != "cancelled" &&
+                       o.CreatedAt >= today && o.CreatedAt < tomorrow)
                 .SumAsync(o => o.TotalAmount ?? 0);
+
             dashboardViewModel.TotalCustomers = await _dbContext.Customers.CountAsync();
+            dashboardViewModel.RevenueLabel = "Today's Revenue";
 
             // Fetch recent orders using query syntax to avoid conversion issues
             var recentOrders = await (from o in _dbContext.Orders
@@ -56,6 +58,7 @@ namespace WellUp.AdminPortal.Controllers
                                       }).Take(5).ToListAsync();
 
             dashboardViewModel.RecentOrders = recentOrders;
+
 
             // Fetch low stock items
             dashboardViewModel.LowStockItems = await _dbContext.Products

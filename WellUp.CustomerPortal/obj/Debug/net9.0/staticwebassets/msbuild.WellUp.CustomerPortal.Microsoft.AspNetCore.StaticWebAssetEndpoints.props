@@ -1,16 +1,124 @@
 ﻿<Project>
   <ItemGroup>
-    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/site.b9sayid5wm.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/auth-styles.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\auth-styles.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"b9sayid5wm"},{"Name":"integrity","Value":"sha256-j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/css/site.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"667"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg=\u0022"},{"Name":"Last-Modified","Value":"Fri, 23 May 2025 08:28:07 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-7Bvg6HwYpBUROifLRfZZ3qQGg8zMdODB8qKr2kCd0B0="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"6006"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00227Bvg6HwYpBUROifLRfZZ3qQGg8zMdODB8qKr2kCd0B0=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 06:06:01 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/auth-styles.gn2m1982y4.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\auth-styles.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"gn2m1982y4"},{"Name":"integrity","Value":"sha256-7Bvg6HwYpBUROifLRfZZ3qQGg8zMdODB8qKr2kCd0B0="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/css/auth-styles.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"6006"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00227Bvg6HwYpBUROifLRfZZ3qQGg8zMdODB8qKr2kCd0B0=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 06:06:01 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/cart-styles.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\cart-styles.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Ke4UXotuXOsrZ0atiuRLgprQ32WZ/nIst89gSy26aaE="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"3558"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Ke4UXotuXOsrZ0atiuRLgprQ32WZ/nIst89gSy26aaE=\u0022"},{"Name":"Last-Modified","Value":"Thu, 29 May 2025 03:26:56 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/cart-styles.pof7rubnrd.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\cart-styles.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"pof7rubnrd"},{"Name":"integrity","Value":"sha256-Ke4UXotuXOsrZ0atiuRLgprQ32WZ/nIst89gSy26aaE="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/css/cart-styles.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"3558"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Ke4UXotuXOsrZ0atiuRLgprQ32WZ/nIst89gSy26aaE=\u0022"},{"Name":"Last-Modified","Value":"Thu, 29 May 2025 03:26:56 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/customer-dashboard.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\customer-dashboard.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Sp8ssvIZJ0hwRNt1DkZAvg4OVyK/RmH5wLti8IZrFaU="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"11664"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Sp8ssvIZJ0hwRNt1DkZAvg4OVyK/RmH5wLti8IZrFaU=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 16:49:30 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/customer-dashboard.uj8g8up55o.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\customer-dashboard.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"uj8g8up55o"},{"Name":"integrity","Value":"sha256-Sp8ssvIZJ0hwRNt1DkZAvg4OVyK/RmH5wLti8IZrFaU="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/css/customer-dashboard.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"11664"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Sp8ssvIZJ0hwRNt1DkZAvg4OVyK/RmH5wLti8IZrFaU=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 16:49:30 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/customer-portal.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\customer-portal.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-6b2scae/9IqJRqI5oFUlZpQTV9j1b3cuE2gZfsmo9zk="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"11763"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00226b2scae/9IqJRqI5oFUlZpQTV9j1b3cuE2gZfsmo9zk=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 01:43:18 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/customer-portal.j9ody18gzq.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\customer-portal.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"j9ody18gzq"},{"Name":"integrity","Value":"sha256-6b2scae/9IqJRqI5oFUlZpQTV9j1b3cuE2gZfsmo9zk="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/css/customer-portal.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"11763"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00226b2scae/9IqJRqI5oFUlZpQTV9j1b3cuE2gZfsmo9zk=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 01:43:18 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/feedback.36ywrggymz.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\feedback.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"36ywrggymz"},{"Name":"integrity","Value":"sha256-BdACPHGUpLiPUsQgN9qh4U7s0PP8BB6snTBj2WbaZeY="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/css/feedback.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1568"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022BdACPHGUpLiPUsQgN9qh4U7s0PP8BB6snTBj2WbaZeY=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 20:01:46 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/feedback.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\feedback.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-BdACPHGUpLiPUsQgN9qh4U7s0PP8BB6snTBj2WbaZeY="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1568"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022BdACPHGUpLiPUsQgN9qh4U7s0PP8BB6snTBj2WbaZeY=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 20:01:46 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/order-history.14do4vz2ev.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\order-history.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"14do4vz2ev"},{"Name":"integrity","Value":"sha256-YWh3aQVzGhswFle/lVkE1M9mSHal\u002BcYQxo/9FILQMhM="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/css/order-history.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"3714"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022YWh3aQVzGhswFle/lVkE1M9mSHal\u002BcYQxo/9FILQMhM=\u0022"},{"Name":"Last-Modified","Value":"Thu, 29 May 2025 06:22:40 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/order-history.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\order-history.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-YWh3aQVzGhswFle/lVkE1M9mSHal\u002BcYQxo/9FILQMhM="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"3714"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022YWh3aQVzGhswFle/lVkE1M9mSHal\u002BcYQxo/9FILQMhM=\u0022"},{"Name":"Last-Modified","Value":"Thu, 29 May 2025 06:22:40 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/order-summary.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\order-summary.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-sQHsz7rL81hfLthFojLyySKmsIJ3A\u002BR0UZiu96g/fy0="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"2049"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022sQHsz7rL81hfLthFojLyySKmsIJ3A\u002BR0UZiu96g/fy0=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 19:46:40 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/order-summary.t52vtiqi35.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\order-summary.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"t52vtiqi35"},{"Name":"integrity","Value":"sha256-sQHsz7rL81hfLthFojLyySKmsIJ3A\u002BR0UZiu96g/fy0="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/css/order-summary.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"2049"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022sQHsz7rL81hfLthFojLyySKmsIJ3A\u002BR0UZiu96g/fy0=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 19:46:40 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/site.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"667"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg=\u0022"},{"Name":"Last-Modified","Value":"Fri, 23 May 2025 08:28:07 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-RD20K4Jted3M/fpES\u002BfGdDhJrd7mI1baFoiO2c9tABQ="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"7244"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022RD20K4Jted3M/fpES\u002BfGdDhJrd7mI1baFoiO2c9tABQ=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 18:58:44 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/site.gzc0hs23pb.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"gzc0hs23pb"},{"Name":"integrity","Value":"sha256-RD20K4Jted3M/fpES\u002BfGdDhJrd7mI1baFoiO2c9tABQ="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/css/site.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"7244"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022RD20K4Jted3M/fpES\u002BfGdDhJrd7mI1baFoiO2c9tABQ=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 18:58:44 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/support-styles.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\support-styles.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-4W1miDBUnxO552fKIQZbpjtJbXTgPA5qfcQPcXd5\u002BGk="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1469"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00224W1miDBUnxO552fKIQZbpjtJbXTgPA5qfcQPcXd5\u002BGk=\u0022"},{"Name":"Last-Modified","Value":"Thu, 29 May 2025 07:22:41 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/support-styles.nq2xqfdpsx.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\support-styles.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"nq2xqfdpsx"},{"Name":"integrity","Value":"sha256-4W1miDBUnxO552fKIQZbpjtJbXTgPA5qfcQPcXd5\u002BGk="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/css/support-styles.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1469"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00224W1miDBUnxO552fKIQZbpjtJbXTgPA5qfcQPcXd5\u002BGk=\u0022"},{"Name":"Last-Modified","Value":"Thu, 29 May 2025 07:22:41 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/variables.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\variables.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-FyUumX/XRk/jAmpNAt4mTWRooir0WasUBaMx/ZYCUDo="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"699"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022FyUumX/XRk/jAmpNAt4mTWRooir0WasUBaMx/ZYCUDo=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 01:43:40 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/css/variables.tnps69y3dv.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\variables.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"tnps69y3dv"},{"Name":"integrity","Value":"sha256-FyUumX/XRk/jAmpNAt4mTWRooir0WasUBaMx/ZYCUDo="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/css/variables.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"699"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022FyUumX/XRk/jAmpNAt4mTWRooir0WasUBaMx/ZYCUDo=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 01:43:40 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/favicon.61n19gt1b8.ico">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</AssetFile>
@@ -24,17 +132,185 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Jtxf9L\u002B5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"5430"},{"Name":"Content-Type","Value":"image/x-icon"},{"Name":"ETag","Value":"\u0022Jtxf9L\u002B5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM=\u0022"},{"Name":"Last-Modified","Value":"Fri, 23 May 2025 08:28:07 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/benefits/convenience.svg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\benefits\convenience.svg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-6Ys4AUg/qxEueZrStNzDdRky30vH\u002Bcts9ePNWeN4sEg="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"179879"},{"Name":"Content-Type","Value":"image/svg\u002Bxml"},{"Name":"ETag","Value":"\u00226Ys4AUg/qxEueZrStNzDdRky30vH\u002Bcts9ePNWeN4sEg=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 May 2025 23:22:16 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/benefits/convenience.xed0kxdbk5.svg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\benefits\convenience.svg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"xed0kxdbk5"},{"Name":"integrity","Value":"sha256-6Ys4AUg/qxEueZrStNzDdRky30vH\u002Bcts9ePNWeN4sEg="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/images/benefits/convenience.svg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"179879"},{"Name":"Content-Type","Value":"image/svg\u002Bxml"},{"Name":"ETag","Value":"\u00226Ys4AUg/qxEueZrStNzDdRky30vH\u002Bcts9ePNWeN4sEg=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 May 2025 23:22:16 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/benefits/delivery.9utkjrginb.svg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\benefits\delivery.svg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"9utkjrginb"},{"Name":"integrity","Value":"sha256-72x2qqA3fviI\u002Bym14tW1M/HKoLsmiE/YaQlEiYAYhrI="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/images/benefits/delivery.svg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"3546"},{"Name":"Content-Type","Value":"image/svg\u002Bxml"},{"Name":"ETag","Value":"\u002272x2qqA3fviI\u002Bym14tW1M/HKoLsmiE/YaQlEiYAYhrI=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 May 2025 23:15:47 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/benefits/delivery.svg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\benefits\delivery.svg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-72x2qqA3fviI\u002Bym14tW1M/HKoLsmiE/YaQlEiYAYhrI="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"3546"},{"Name":"Content-Type","Value":"image/svg\u002Bxml"},{"Name":"ETag","Value":"\u002272x2qqA3fviI\u002Bym14tW1M/HKoLsmiE/YaQlEiYAYhrI=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 May 2025 23:15:47 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/benefits/flexibility.s45zmlh3xs.svg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\benefits\flexibility.svg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"s45zmlh3xs"},{"Name":"integrity","Value":"sha256-vB5IK7VjTKEPMdly0hSN/ODaLzrzXXAB3x5rOA\u002BpaW4="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/images/benefits/flexibility.svg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"9246"},{"Name":"Content-Type","Value":"image/svg\u002Bxml"},{"Name":"ETag","Value":"\u0022vB5IK7VjTKEPMdly0hSN/ODaLzrzXXAB3x5rOA\u002BpaW4=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 May 2025 23:23:48 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/benefits/flexibility.svg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\benefits\flexibility.svg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-vB5IK7VjTKEPMdly0hSN/ODaLzrzXXAB3x5rOA\u002BpaW4="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"9246"},{"Name":"Content-Type","Value":"image/svg\u002Bxml"},{"Name":"ETag","Value":"\u0022vB5IK7VjTKEPMdly0hSN/ODaLzrzXXAB3x5rOA\u002BpaW4=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 May 2025 23:23:48 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/benefits/tracking.ccjqqetxl5.svg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\benefits\tracking.svg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"ccjqqetxl5"},{"Name":"integrity","Value":"sha256-lLl5Yw9EUW2QlefXankKk29Zx2ZOX49k9G5HELgR5dM="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/images/benefits/tracking.svg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"12572"},{"Name":"Content-Type","Value":"image/svg\u002Bxml"},{"Name":"ETag","Value":"\u0022lLl5Yw9EUW2QlefXankKk29Zx2ZOX49k9G5HELgR5dM=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 May 2025 23:17:00 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/benefits/tracking.svg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\benefits\tracking.svg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-lLl5Yw9EUW2QlefXankKk29Zx2ZOX49k9G5HELgR5dM="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"12572"},{"Name":"Content-Type","Value":"image/svg\u002Bxml"},{"Name":"ETag","Value":"\u0022lLl5Yw9EUW2QlefXankKk29Zx2ZOX49k9G5HELgR5dM=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 May 2025 23:17:00 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/hero-banner.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\hero-banner.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-I9mOyRfu9nFEZqskdxhgP6EP3bTA6XOClS\u002Bq5fhhihM="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"1287287"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022I9mOyRfu9nFEZqskdxhgP6EP3bTA6XOClS\u002Bq5fhhihM=\u0022"},{"Name":"Last-Modified","Value":"Tue, 27 May 2025 00:57:46 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/hero-banner.zs9q9bnkpk.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\hero-banner.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"zs9q9bnkpk"},{"Name":"integrity","Value":"sha256-I9mOyRfu9nFEZqskdxhgP6EP3bTA6XOClS\u002Bq5fhhihM="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/images/hero-banner.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1287287"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022I9mOyRfu9nFEZqskdxhgP6EP3bTA6XOClS\u002Bq5fhhihM=\u0022"},{"Name":"Last-Modified","Value":"Tue, 27 May 2025 00:57:46 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/products/refill.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\products\refill.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-nFmzR8\u002BF1csT2OowYxtKB/ZgIlhc2HivNAGXgTprAe0="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"39727"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022nFmzR8\u002BF1csT2OowYxtKB/ZgIlhc2HivNAGXgTprAe0=\u0022"},{"Name":"Last-Modified","Value":"Sun, 25 May 2025 05:47:21 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/products/refill.ss1e1mmlfo.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\products\refill.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"ss1e1mmlfo"},{"Name":"integrity","Value":"sha256-nFmzR8\u002BF1csT2OowYxtKB/ZgIlhc2HivNAGXgTprAe0="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/images/products/refill.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"39727"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022nFmzR8\u002BF1csT2OowYxtKB/ZgIlhc2HivNAGXgTprAe0=\u0022"},{"Name":"Last-Modified","Value":"Sun, 25 May 2025 05:47:21 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/products/round_container.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\products\round_container.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-BEoZm2MeR2w7EYz43uNIZ50ILNjaw8ia8FctHyDADbU="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"305250"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022BEoZm2MeR2w7EYz43uNIZ50ILNjaw8ia8FctHyDADbU=\u0022"},{"Name":"Last-Modified","Value":"Sun, 25 May 2025 05:48:25 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/products/round_container.sqwxuutdnz.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\products\round_container.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"sqwxuutdnz"},{"Name":"integrity","Value":"sha256-BEoZm2MeR2w7EYz43uNIZ50ILNjaw8ia8FctHyDADbU="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/images/products/round_container.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"305250"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022BEoZm2MeR2w7EYz43uNIZ50ILNjaw8ia8FctHyDADbU=\u0022"},{"Name":"Last-Modified","Value":"Sun, 25 May 2025 05:48:25 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/products/slim_container.59t098cvj3.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\products\slim_container.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"59t098cvj3"},{"Name":"integrity","Value":"sha256-Gd1JJ9tDKvUihqoSynqjGrD/Oe2X1PKGcyL5ATjPH/I="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/images/products/slim_container.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"411708"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022Gd1JJ9tDKvUihqoSynqjGrD/Oe2X1PKGcyL5ATjPH/I=\u0022"},{"Name":"Last-Modified","Value":"Sun, 25 May 2025 05:49:17 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/products/slim_container.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\products\slim_container.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Gd1JJ9tDKvUihqoSynqjGrD/Oe2X1PKGcyL5ATjPH/I="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"411708"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022Gd1JJ9tDKvUihqoSynqjGrD/Oe2X1PKGcyL5ATjPH/I=\u0022"},{"Name":"Last-Modified","Value":"Sun, 25 May 2025 05:49:17 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/wave.300ei6vu0f.svg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\wave.svg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"300ei6vu0f"},{"Name":"integrity","Value":"sha256-fW7uWQ1/d3a1vzDHgERayOAB763/WNXNF2XW2k4sLUU="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/images/wave.svg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1007"},{"Name":"Content-Type","Value":"image/svg\u002Bxml"},{"Name":"ETag","Value":"\u0022fW7uWQ1/d3a1vzDHgERayOAB763/WNXNF2XW2k4sLUU=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 May 2025 08:46:33 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/wave.svg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\wave.svg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-fW7uWQ1/d3a1vzDHgERayOAB763/WNXNF2XW2k4sLUU="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"1007"},{"Name":"Content-Type","Value":"image/svg\u002Bxml"},{"Name":"ETag","Value":"\u0022fW7uWQ1/d3a1vzDHgERayOAB763/WNXNF2XW2k4sLUU=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 May 2025 08:46:33 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/wellup-logo.4rsjiqadux.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\wellup-logo.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"4rsjiqadux"},{"Name":"integrity","Value":"sha256-sA2\u002BPJnhBgDgzrAsq9msQeOSsIsFJMA0Am\u002BBZLgAWuI="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/images/wellup-logo.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"25462"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022sA2\u002BPJnhBgDgzrAsq9msQeOSsIsFJMA0Am\u002BBZLgAWuI=\u0022"},{"Name":"Last-Modified","Value":"Sat, 24 May 2025 09:56:51 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/images/wellup-logo.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\wellup-logo.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-sA2\u002BPJnhBgDgzrAsq9msQeOSsIsFJMA0Am\u002BBZLgAWuI="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"25462"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022sA2\u002BPJnhBgDgzrAsq9msQeOSsIsFJMA0Am\u002BBZLgAWuI=\u0022"},{"Name":"Last-Modified","Value":"Sat, 24 May 2025 09:56:51 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/js/cart.4io2tyvx47.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\cart.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"4io2tyvx47"},{"Name":"integrity","Value":"sha256-dOJTbiI8u5CQAd9/gCT1do07rF3OHSkU2lcTMXWwjjc="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/js/cart.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"4874"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022dOJTbiI8u5CQAd9/gCT1do07rF3OHSkU2lcTMXWwjjc=\u0022"},{"Name":"Last-Modified","Value":"Thu, 29 May 2025 08:48:19 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/js/cart.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\cart.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-dOJTbiI8u5CQAd9/gCT1do07rF3OHSkU2lcTMXWwjjc="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"4874"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022dOJTbiI8u5CQAd9/gCT1do07rF3OHSkU2lcTMXWwjjc=\u0022"},{"Name":"Last-Modified","Value":"Thu, 29 May 2025 08:48:19 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/js/customer-dashboard.fgd7txyim2.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\customer-dashboard.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"fgd7txyim2"},{"Name":"integrity","Value":"sha256-30A6TQLZPNEdByf0tdWxP\u002B3DX8RDEQiLoe5qJJ\u002B8Xs4="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/js/customer-dashboard.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"5531"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u002230A6TQLZPNEdByf0tdWxP\u002B3DX8RDEQiLoe5qJJ\u002B8Xs4=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 16:47:35 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/js/customer-dashboard.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\customer-dashboard.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-30A6TQLZPNEdByf0tdWxP\u002B3DX8RDEQiLoe5qJJ\u002B8Xs4="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"5531"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u002230A6TQLZPNEdByf0tdWxP\u002B3DX8RDEQiLoe5qJJ\u002B8Xs4=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 16:47:35 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/js/customer-portal.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\customer-portal.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-utTDhNl0R2mT67rzfHGa4BgPr6lUlscoJPKhP8hgrDA="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"2906"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022utTDhNl0R2mT67rzfHGa4BgPr6lUlscoJPKhP8hgrDA=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 00:52:40 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/js/customer-portal.umpmgwzpqk.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\customer-portal.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"umpmgwzpqk"},{"Name":"integrity","Value":"sha256-utTDhNl0R2mT67rzfHGa4BgPr6lUlscoJPKhP8hgrDA="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/js/customer-portal.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"2906"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022utTDhNl0R2mT67rzfHGa4BgPr6lUlscoJPKhP8hgrDA=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 00:52:40 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/js/order-history.5791ziv6fx.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\order-history.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"5791ziv6fx"},{"Name":"integrity","Value":"sha256-LyBDjuKpPKzg0T\u002BALhKrS5eBDo/xMmNV\u002B3FT2Syi8M0="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/js/order-history.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"4132"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022LyBDjuKpPKzg0T\u002BALhKrS5eBDo/xMmNV\u002B3FT2Syi8M0=\u0022"},{"Name":"Last-Modified","Value":"Thu, 29 May 2025 06:15:08 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/js/order-history.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\order-history.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-LyBDjuKpPKzg0T\u002BALhKrS5eBDo/xMmNV\u002B3FT2Syi8M0="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"4132"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022LyBDjuKpPKzg0T\u002BALhKrS5eBDo/xMmNV\u002B3FT2Syi8M0=\u0022"},{"Name":"Last-Modified","Value":"Thu, 29 May 2025 06:15:08 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/js/site.88mr7zq9ne.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"88mr7zq9ne"},{"Name":"integrity","Value":"sha256-SFzC9pUtsjdCQeDoUZor3tIygkeDllFuzTOeqO4VBLU="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/js/site.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"3405"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022SFzC9pUtsjdCQeDoUZor3tIygkeDllFuzTOeqO4VBLU=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 00:52:40 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/js/site.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"231"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo=\u0022"},{"Name":"Last-Modified","Value":"Fri, 23 May 2025 08:28:07 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/js/site.xtxxf3hu2r.js">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"xtxxf3hu2r"},{"Name":"integrity","Value":"sha256-hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/js/site.js"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"231"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo=\u0022"},{"Name":"Last-Modified","Value":"Fri, 23 May 2025 08:28:07 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-SFzC9pUtsjdCQeDoUZor3tIygkeDllFuzTOeqO4VBLU="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"3405"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022SFzC9pUtsjdCQeDoUZor3tIygkeDllFuzTOeqO4VBLU=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 00:52:40 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/lib/bootstrap/dist/css/bootstrap-grid.bqjiyaj88i.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.css'))</AssetFile>
@@ -760,13 +1036,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\WellUp.CustomerPortal.iw3oqvtzlz.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-PhAyzrr6b9ajYFwxtRkSUhmUUrIf9NonceN00nR8\u002BUM="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022PhAyzrr6b9ajYFwxtRkSUhmUUrIf9NonceN00nR8\u002BUM=\u0022"},{"Name":"Last-Modified","Value":"Fri, 23 May 2025 08:55:24 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022PhAyzrr6b9ajYFwxtRkSUhmUUrIf9NonceN00nR8\u002BUM=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 11:18:27 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/WellUp.CustomerPortal/WellUp.CustomerPortal.iw3oqvtzlz.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\WellUp.CustomerPortal.iw3oqvtzlz.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"iw3oqvtzlz"},{"Name":"integrity","Value":"sha256-PhAyzrr6b9ajYFwxtRkSUhmUUrIf9NonceN00nR8\u002BUM="},{"Name":"label","Value":"_content/WellUp.CustomerPortal/WellUp.CustomerPortal.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022PhAyzrr6b9ajYFwxtRkSUhmUUrIf9NonceN00nR8\u002BUM=\u0022"},{"Name":"Last-Modified","Value":"Fri, 23 May 2025 08:55:24 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022PhAyzrr6b9ajYFwxtRkSUhmUUrIf9NonceN00nR8\u002BUM=\u0022"},{"Name":"Last-Modified","Value":"Wed, 28 May 2025 11:18:27 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
   </ItemGroup>
 </Project>

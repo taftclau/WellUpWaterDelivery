@@ -1,0 +1,23 @@
+﻿/* variables.css */
+:root {
+    /* Core Colors */
+    --sky-blue: #7EC8E3;
+    --sky-blue-rgb: 126, 200, 227;
+    --deep-blue: #1B3B5F;
+    --deep-blue-rgb: 27, 59, 95;
+    --soft-white: #FFFFFF;
+    --cloud-grey: #F0F4F8;
+    --sunlight-yellow: #FFD95A;
+    --light-cyan: #B9E6F2;
+    /* Color Variants */
+    --primary: var(--sky-blue);
+    --primary-rgb: var(--sky-blue-rgb);
+    --primary-dark: #5BA2BC;
+    --primary-light: #A8DBF0;
+    --primary-soft: rgba(126, 200, 227, 0.15);
+    --secondary: var(--deep-blue);
+    --secondary-rgb: var(--deep-blue-rgb);
+    --secondary-dark: #112942;
+    --secondary-light: #2E5C8F;
+    --secondary-soft: rgba(27, 59, 95, 0.1);
+}

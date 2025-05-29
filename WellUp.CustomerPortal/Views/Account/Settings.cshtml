@@ -1,0 +1,178 @@
+﻿<!-- WellUp.CustomerPortal.Views.Account/Settings.cshtml-->
+@model WellUp.CustomerPortal.Models.ViewModels.AccountSettingsViewModel
+@{
+    ViewData["Title"] = "Account Settings";
+    Layout = "~/Views/Shared/Components/_CustomerLayout.cshtml";
+}
+
+<div class="container">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="page-header">
+                <h1>Account Settings</h1>
+                <p class="text-muted">Manage your personal information and preferences</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Settings Menu -->
+        <div class="col-lg-3 mb-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Settings</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="#personal-info" class="list-group-item list-group-item-action active" data-bs-toggle="list">
+                        <i class="fas fa-user me-2"></i> Personal Information
+                    </a>
+                    <a href="#addresses" class="list-group-item list-group-item-action" data-bs-toggle="list">
+                        <i class="fas fa-map-marker-alt me-2"></i> Delivery Addresses
+                    </a>
+                    <a href="#password" class="list-group-item list-group-item-action" data-bs-toggle="list">
+                        <i class="fas fa-key me-2"></i> Password Management
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Content -->
+        <div class="col-lg-9">
+            <div class="tab-content">
+                <!-- Personal Information -->
+                <div class="tab-pane fade show active" id="personal-info">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white d-flex align-items-center">
+                            <h5 class="mb-0 flex-grow-1">Personal Information</h5>
+                            <a asp-action="EditProfile" class="btn btn-light btn-sm">
+                                <i class="fas fa-edit me-1"></i> Edit
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-3 fw-bold">Full Name:</div>
+                                <div class="col-md-9">@Model.CustomerName</div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-3 fw-bold">Email Address:</div>
+                                <div class="col-md-9">@Model.Email</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 fw-bold">Phone Number:</div>
+                                <div class="col-md-9">@Model.Phone</div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <small class="text-muted">
+                                <i class="fas fa-info-circle me-1"></i> Your email address cannot be changed. Please contact support if you need to update it.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delivery Addresses -->
+                <div class="tab-pane fade" id="addresses">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white d-flex align-items-center">
+                            <h5 class="mb-0 flex-grow-1">Delivery Addresses</h5>
+                            <a asp-action="ManageAddresses" class="btn btn-light btn-sm">
+                                <i class="fas fa-cog me-1"></i> Manage Addresses
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.Addresses.Any())
+                            {
+                                <div class="row">
+                                    @foreach (var address in Model.Addresses)
+                                    {
+                                        <div class="col-md-6 mb-4">
+                                            <div class="card h-100 @(address.IsDefault ? "border-primary" : "")">
+                                                <div class="card-body">
+                                                    @if (address.IsDefault)
+                                                    {
+                                                        <span class="badge bg-primary mb-2">Default</span>
+                                                    }
+                                                    <h6 class="mb-2">@address.CityMunicipality</h6>
+                                                    <p class="mb-0">
+                                                        @address.Street<br>
+                                                        @address.Barangay<br>
+                                                        ZIP: @address.ZipCode
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="text-center py-4">
+                                    <div class="mb-3">
+                                        <i class="fas fa-map-marker-alt fa-3x text-muted"></i>
+                                    </div>
+                                    <h5>No Addresses Found</h5>
+                                    <p class="text-muted">You haven't added any delivery addresses yet.</p>
+                                    <a asp-action="AddAddress" class="btn btn-primary">
+                                        <i class="fas fa-plus me-2"></i>Add New Address
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password Management -->
+                <div class="tab-pane fade" id="password">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Password Management</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Manage your account password here. A strong password helps keep your account secure.</p>
+                            <div class="d-grid gap-3">
+                                <a asp-action="ChangePassword" class="btn btn-outline-primary">
+                                    <i class="fas fa-key me-2"></i>Change Password
+                                </a>
+                                <a asp-action="ForgotPassword" class="btn btn-outline-secondary">
+                                    <i class="fas fa-unlock-alt me-2"></i>Reset Password
+                                </a>
+                            </div>
+                            <div class="mt-4">
+                                <h6>Password Tips:</h6>
+                                <ul class="text-muted">
+                                    <li>Use a mix of letters, numbers, and special characters</li>
+                                    <li>Make it at least 8 characters long</li>
+                                    <li>Avoid using easily guessable information</li>
+                                    <li>Change your password regularly</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Activate tabs based on hash or remember last tab
+            let activeTab = localStorage.getItem('activeAccountSettingsTab');
+            let hash = window.location.hash;
+
+            if (hash) {
+                $('.list-group-item[href="' + hash + '"]').tab('show');
+            } else if (activeTab) {
+                $('.list-group-item[href="' + activeTab + '"]').tab('show');
+            }
+
+            // Store the active tab in localStorage
+            $('.list-group-item').on('shown.bs.tab', function (e) {
+                let id = $(this).attr('href');
+                localStorage.setItem('activeAccountSettingsTab', id);
+            });
+        });
+    </script>
+}

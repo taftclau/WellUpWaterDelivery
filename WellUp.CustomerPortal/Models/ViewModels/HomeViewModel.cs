@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿// WellUp.CustomerPortal.Models.ViewModels/HomeViewModel.cs
+using System.Collections.Generic;
 
 namespace WellUp.CustomerPortal.Models.ViewModels
 {

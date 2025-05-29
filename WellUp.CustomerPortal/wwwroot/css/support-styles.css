@@ -1,0 +1,66 @@
+﻿/* Support and FAQ Styles 
+    support-styles.css
+*/
+
+/* FAQ Pills Navigation */
+.faq-pills {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+    .faq-pills .nav-link {
+        white-space: nowrap;
+        margin: 0 5px;
+        color: var(--deep-blue);
+        border-radius: 20px;
+        padding: 8px 16px;
+        font-weight: 500;
+    }
+
+        .faq-pills .nav-link.active {
+            background-color: var(--sky-blue);
+            color: var(--deep-blue);
+            font-weight: 600;
+        }
+
+/* Accordion Styling */
+.accordion-button:not(.collapsed) {
+    background-color: #e8f7ff; /* Using a light sky blue, you can also use var(--primary-soft) if defined */
+    color: var(--deep-blue);
+    font-weight: 500;
+}
+
+.accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgba(126, 200, 227, 0.25);
+}
+
+/* Support Cards */
+.support-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 10px;
+    height: 100%;
+}
+
+    .support-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+.support-icon {
+    font-size: 2.5rem;
+    color: var(--sky-blue);
+    margin-bottom: 1rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767.98px) {
+    .faq-pills .nav-link {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+
+    .faq-pills {
+        margin-bottom: 1rem;
+    }
+}

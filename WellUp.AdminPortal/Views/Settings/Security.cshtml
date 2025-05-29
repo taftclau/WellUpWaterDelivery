@@ -1,0 +1,322 @@
+﻿<!-- Security.cshtml -->
+@model WellUp.AdminPortal.Models.ViewModels.SecuritySettingsViewModel
+@{
+    ViewData["Title"] = "Security Settings";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<!-- Page Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h1>Security Settings</h1>
+                    <p class="text-muted mb-0">Manage passwords and security preferences</p>
+                </div>
+                <div>
+                    <a href="@Url.Action("Index", "Settings")" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Settings
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Message -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+        <i class="fas fa-check-circle me-2"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<!-- Error Message -->
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+        <i class="fas fa-exclamation-circle me-2"></i> @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="row">
+    <!-- Administrator Information -->
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h2><i class="fas fa-user-shield me-2"></i>Admin Information</h2>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    <div class="admin-avatar mx-auto mb-3">
+                        <i class="fas fa-user-shield fa-2x"></i>
+                    </div>
+                    <h4 class="mb-1">@(Model.AdminName ?? "Administrator")</h4>
+                    <p class="text-muted">@Model.Email</p>
+                </div>
+
+                <div class="admin-info-item">
+                    <div class="admin-info-label">Admin ID</div>
+                    <div class="admin-info-value">@Model.AdminId</div>
+                </div>
+
+                <div class="admin-info-item">
+                    <div class="admin-info-label">Role</div>
+                    <div class="admin-info-value">
+                        <span class="badge bg-primary">Administrator</span>
+                    </div>
+                </div>
+
+                <div class="admin-info-item">
+                    <div class="admin-info-label">Last Login</div>
+                    <div class="admin-info-value">@DateTime.Now.ToString("MMMM dd, yyyy h:mm tt")</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password -->
+    <div class="col-md-8 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-key me-2"></i>Change Password</h2>
+            </div>
+            <div class="card-body">
+                <form asp-action="ChangePassword" method="post">
+                    <input type="hidden" asp-for="AdminId" />
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <div class="alert alert-info mb-4">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <span>Strong passwords should be at least 8 characters long and include atleast one uppercase and one lowercase letters, a number, and a symbol.</span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="CurrentPassword" class="form-label">Current Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input type="password" id="CurrentPassword" name="CurrentPassword" class="form-control" required />
+                            <button class="btn btn-outline-secondary" type="button" id="toggleCurrentPassword">
+                                <i class="fas fa-eye" id="toggleCurrentPasswordIcon"></i>
+                            </button>
+                        </div>
+                        <span class="text-danger" id="CurrentPasswordValidation">
+                            @if (TempData["CurrentPassword_Error"] != null)
+                            {
+                                @TempData["CurrentPassword_Error"]
+                            }
+                        </span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="NewPassword" class="form-label">New Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input type="password" id="NewPassword" name="NewPassword" class="form-control" required />
+                        </div>
+                        <span class="text-danger" id="NewPasswordValidation">
+                            @if (TempData["NewPassword_Error"] != null)
+                            {
+                                @TempData["NewPassword_Error"]
+                            }
+                        </span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="ConfirmPassword" class="form-label">Confirm New Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control" required />
+                        </div>
+                        <span class="text-danger" id="ConfirmPasswordValidation">
+                            @if (TempData["ConfirmPassword_Error"] != null)
+                            {
+                                @TempData["ConfirmPassword_Error"]
+                            }
+                        </span>
+                    </div>
+
+                    <div class="password-strength-meter mb-4 d-none" id="password-strength-container">
+                        <label class="form-label">Password Strength</label>
+                        <div class="progress" style="height: 8px;">
+                            <div id="password-strength-meter" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <small id="password-strength-text" class="form-text mt-1"></small>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-check-circle me-2"></i>Change Password
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Security Tips -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2><i class="fas fa-shield-alt me-2"></i>Security Tips</h2>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex align-items-start">
+                        <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                        <div>
+                            <strong>Use strong, unique passwords</strong>
+                            <p class="mb-0 text-muted">Create passwords that are at least 8 characters long with a mix of letters, numbers, and symbols.</p>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex align-items-start">
+                        <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                        <div>
+                            <strong>Change passwords regularly</strong>
+                            <p class="mb-0 text-muted">Update your password every 90 days for optimal security.</p>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex align-items-start">
+                        <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                        <div>
+                            <strong>Never share your credentials</strong>
+                            <p class="mb-0 text-muted">Keep your login information private and never share with others.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Password strength meter functionality
+            $('#NewPassword').on('input', function() {
+                var password = $(this).val();
+                if (password.length === 0) {
+                    $('#password-strength-container').addClass('d-none');
+                    return;
+                }
+
+                $('#password-strength-container').removeClass('d-none');
+
+                // Calculate strength
+                var strength = 0;
+
+                // Length check
+                if (password.length >= 8) {
+                    strength += 25;
+                }
+
+                // Uppercase check
+                if (/[A-Z]/.test(password)) {
+                    strength += 25;
+                }
+
+                // Number check
+                if (/[0-9]/.test(password)) {
+                    strength += 25;
+                }
+
+                // Special character check
+                if (/[^A-Za-z0-9]/.test(password)) {
+                    strength += 25;
+                }
+
+                // Update meter
+                $('#password-strength-meter').css('width', strength + '%');
+
+                // Update color based on strength
+                var meterClass = 'bg-danger';
+                var strengthText = 'Weak';
+
+                if (strength >= 100) {
+                    meterClass = 'bg-success';
+                    strengthText = 'Strong';
+                } else if (strength >= 50) {
+                    meterClass = 'bg-warning';
+                    strengthText = 'Medium';
+                }
+
+                $('#password-strength-meter').removeClass('bg-danger bg-warning bg-success').addClass(meterClass);
+                $('#password-strength-text').text(strengthText);
+            });
+        // Form validation
+        $('form').on('submit', function(e) {
+            var isValid = true;
+
+            // Current password validation
+            if ($('#CurrentPassword').val() === '') {
+                // Only set the error if there isn't already an error from server-side validation
+                if (!$('#CurrentPasswordValidation').text().trim()) {
+                    $('#CurrentPasswordValidation').text('Current password is required');
+                }
+                isValid = false;
+            } else if (!$('#CurrentPasswordValidation').text().trim()) {
+                // Only clear if there isn't already an error from server-side validation
+                $('#CurrentPasswordValidation').text('');
+            }
+
+            // New password validation
+            if ($('#NewPassword').val() === '') {
+                // Only set the error if there isn't already an error from server-side validation
+                if (!$('#NewPasswordValidation').text().trim()) {
+                    $('#NewPasswordValidation').text('New password is required');
+                }
+                isValid = false;
+            } else if ($('#NewPassword').val().length < 6) {
+                // Only set the error if there isn't already an error from server-side validation
+                if (!$('#NewPasswordValidation').text().trim()) {
+                    $('#NewPasswordValidation').text('Password must be at least 6 characters');
+                }
+                isValid = false;
+            } else if (!$('#NewPasswordValidation').text().trim()) {
+                // Only clear if there isn't already an error from server-side validation
+                $('#NewPasswordValidation').text('');
+            }
+
+            // Confirm password validation
+            if ($('#ConfirmPassword').val() === '') {
+                // Only set the error if there isn't already an error from server-side validation
+                if (!$('#ConfirmPasswordValidation').text().trim()) {
+                    $('#ConfirmPasswordValidation').text('Please confirm your password');
+                }
+                isValid = false;
+            } else if ($('#NewPassword').val() !== $('#ConfirmPassword').val()) {
+                // Only set the error if there isn't already an error from server-side validation
+                if (!$('#ConfirmPasswordValidation').text().trim()) {
+                    $('#ConfirmPasswordValidation').text('Passwords do not match');
+                }
+                isValid = false;
+            } else if (!$('#ConfirmPasswordValidation').text().trim()) {
+                // Only clear if there isn't already an error from server-side validation
+                $('#ConfirmPasswordValidation').text('');
+            }
+
+            return isValid;
+        });
+
+            // Auto-dismiss alerts after 5 seconds
+            setTimeout(function() {
+                $('.alert-success, .alert-danger').fadeOut('slow');
+            }, 5000);
+
+            // Toggle password visibility
+            $('#toggleCurrentPassword').click(function() {
+                var passwordField = $('#CurrentPassword');
+                var passwordIcon = $('#toggleCurrentPasswordIcon');
+
+                if (passwordField.attr('type') === 'password') {
+                    passwordField.attr('type', 'text');
+                    passwordIcon.removeClass('fa-eye').addClass('fa-eye-slash');
+                } else {
+                    passwordField.attr('type', 'password');
+                    passwordIcon.removeClass('fa-eye-slash').addClass('fa-eye');
+                }
+            });
+        });
+    </script>
+}

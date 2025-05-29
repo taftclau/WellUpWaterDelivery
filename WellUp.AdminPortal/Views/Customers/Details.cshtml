@@ -1,0 +1,261 @@
+﻿<!-- Customers\Details.cshtml -->
+@model WellUp.AdminPortal.Models.ViewModels.CustomerDetailsViewModel
+@{
+    ViewData["Title"] = "Customer Details";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<!-- Page Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <div class="customer-avatar-large me-3">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <h1 class="mb-0">@Model.CustomerName</h1>
+                        <p class="text-muted mb-0">Customer since @(Model.DateCreated?.ToString("MMMM dd, yyyy") ?? "Not available")</p>
+                    </div>
+                </div>
+                <div>
+                    <a href="@Url.Action("Index", "Customers")" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Customers
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Customer Information -->
+    <div class="col-lg-4 mb-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h2><i class="fas fa-info-circle me-2"></i> Personal Information</h2>
+            </div>
+            <div class="card-body">
+                <div class="customer-info-item">
+                    <div class="customer-info-label">Name</div>
+                    <div class="customer-info-value">@Model.CustomerName</div>
+                </div>
+                <div class="customer-info-item">
+                    <div class="customer-info-label">Email</div>
+                    <div class="customer-info-value">@Model.Email</div>
+                </div>
+                <div class="customer-info-item">
+                    <div class="customer-info-label">Phone</div>
+                    <div class="customer-info-value">@Model.Phone</div>
+                </div>
+                <div class="customer-info-item">
+                    <div class="customer-info-label">Customer Since</div>
+                    <div class="customer-info-value">@(Model.DateCreated?.ToString("MMMM dd, yyyy") ?? "Not available")</div>
+                </div>
+                <div class="customer-info-item">
+                    <div class="customer-info-label">Total Orders</div>
+                    <div class="customer-info-value">@Model.Orders.Count</div>
+                </div>
+                <div class="customer-info-item">
+                    <div class="customer-info-label">Feedback/Complaints</div>
+                    <div class="customer-info-value">@Model.Feedback.Count</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Addresses -->
+    <div class="col-lg-8 mb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2><i class="fas fa-map-marker-alt me-2"></i> Delivery Addresses</h2>
+            </div>
+            <div class="card-body p-0">
+                @if (Model.Addresses.Any())
+                {
+                    <div class="address-list">
+                        @foreach (var address in Model.Addresses)
+                        {
+                            <div class="address-item @(address.IsDefault ? "is-default" : "")">
+                                <div class="address-details">
+                                    <div class="address-title">
+                                        @(address.IsDefault ? "Default Address" : "Additional Address")
+                                        @if (address.IsDefault)
+                                        {
+                                            <span class="badge bg-primary ms-2">Default</span>
+                                        }
+                                    </div>
+                                    <div class="address-text">@address.Street</div>
+                                    <div class="address-text">@address.Barangay, @address.CityMunicipality</div>
+                                    <div class="address-text">@(string.IsNullOrEmpty(address.ZipCode) ? "" : address.ZipCode)</div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="p-4 text-center empty-state">
+                        <i class="fas fa-map-marker-alt fa-3x text-muted mb-3"></i>
+                        <h5>No addresses found</h5>
+                        <p class="text-muted">This customer has not added any delivery addresses yet.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Order History -->
+    <div class="col-12 mb-4">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2><i class="fas fa-shopping-cart me-2"></i> Order History</h2>
+            </div>
+            <div class="card-body">
+                @if (Model.Orders.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="ordersTable">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Items</th>
+                                    <th>Total Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var order in Model.Orders)
+                                {
+                                    <tr>
+                                        <td><span class="fw-bold">WU-@order.OrderId.ToString("D5")</span></td>
+                                        <td>@(order.OrderDate?.ToString("MMM dd, yyyy") ?? "Not available")</td>
+                                        <td>@order.ItemCount item@(order.ItemCount != 1 ? "s" : "")</td>
+                                        <td>₱@order.TotalAmount.ToString("N2")</td>
+                                        <td>
+                                            @{
+                                                var badgeClass = order.Status switch
+                                                {
+                                                    "new" => "bg-info",
+                                                    "in_progress" => "bg-primary",
+                                                    "completed" => "bg-success",
+                                                    "cancelled" => "bg-danger",
+                                                    _ => "bg-secondary"
+                                                };
+                                                var statusText = order.Status switch
+                                                {
+                                                    "new" => "New",
+                                                    "in_progress" => "In Progress",
+                                                    "completed" => "Completed",
+                                                    "cancelled" => "Cancelled",
+                                                    _ => order.Status
+                                                };
+                                            }
+                                            <span class="badge @badgeClass">@statusText</span>
+                                        </td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <a href="@Url.Action("Details", "Orders", new { id = order.OrderId })"
+                                                   class="btn btn-action btn-info"
+                                                   data-bs-toggle="tooltip"
+                                                   title="View Order Details">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="p-4 text-center empty-state">
+                        <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+                        <h5>No orders found</h5>
+                        <p class="text-muted">This customer has not placed any orders yet.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Feedback/Complaints History -->
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2><i class="fas fa-comments me-2"></i> Customer Feedback</h2>
+            </div>
+            <div class="card-body">
+                @if (Model.Feedback.Any())
+                {
+                    <div class="feedback-list">
+                        @foreach (var feedback in Model.Feedback)
+                        {
+                            var isComplaint = feedback.FeedbackType == "complaint";
+                            <div class="feedback-item @(isComplaint ? "is-complaint" : "")">
+                                <div class="feedback-header">
+                                    <div class="feedback-meta">
+                                        <span class="feedback-date">@(feedback.CreatedAt?.ToString("MMMM dd, yyyy") ?? "Not available")</span>
+                                        <span class="badge @(isComplaint ? "bg-warning text-dark" : "bg-info")">
+                                            @(isComplaint ? "Complaint" : "General Feedback")
+                                        </span>
+                                        <span class="feedback-order">Order #WU-@feedback.OrderId.ToString("D5")</span>
+                                    </div>
+                                    <a href="@Url.Action("FeedbackDetails", "Customers", new { id = feedback.FeedbackId })"
+                                       class="btn btn-sm @(isComplaint ? "btn-warning" : "btn-primary")">
+                                        View Details
+                                    </a>
+                                </div>
+                                <div class="feedback-text">
+                                    @(feedback.Description.Length > 200 ? feedback.Description.Substring(0, 200) + "..." : feedback.Description)
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="p-4 text-center empty-state">
+                        <i class="fas fa-comments fa-3x text-muted mb-3"></i>
+                        <h5>No feedback found</h5>
+                        <p class="text-muted">This customer has not submitted any feedback yet.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable for orders
+            $('#ordersTable').DataTable({
+                "pageLength": 5,
+                "lengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
+                "ordering": true,
+                "order": [[1, "desc"]], // Order by date, most recent first
+                "autoWidth": false,
+                "responsive": true,
+                "language": {
+                    "emptyTable": "No orders found"
+                }
+            });
+
+            // Initialize tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+        });
+    </script>
+}

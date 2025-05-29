@@ -1,4 +1,5 @@
-﻿@model WellUp.CustomerPortal.Models.ViewModels.RegisterViewModel
+﻿<!-- WellUp.CustomerPortal.Views.Account/Register.cshtml-->
+@model WellUp.CustomerPortal.Models.ViewModels.RegisterViewModel
 @{
     ViewData["Title"] = "Create Account";
 }
@@ -83,7 +84,7 @@
                             <div class="form-section-title">Delivery Address</div>
 
                             <div class="form-group">
-                                <label asp-for="Street" class="form-label">Street Address</label>
+                                <label asp-for="Street" class="form-label">Street, Home/Building No.</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                                     <input asp-for="Street" class="form-control" placeholder="Enter your street address" autocomplete="address-line1" />

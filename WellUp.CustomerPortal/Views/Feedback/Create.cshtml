@@ -1,0 +1,132 @@
+﻿<!-- WellUp.CustomerPortal.Views.Feedback/Index.cshtml-->
+@model WellUp.CustomerPortal.Models.ViewModels.CreateFeedbackViewModel
+@{
+    ViewData["Title"] = "Submit Feedback";
+    Layout = "~/Views/Shared/Components/_CustomerLayout.cshtml";
+}
+
+<div class="container">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="page-header">
+                <h1>Submit Feedback</h1>
+                <p class="text-muted">Share your experience with order #@Model.OrderId</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Your Feedback</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <input type="hidden" asp-for="OrderId" />
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <div class="mb-4">
+                            <label asp-for="FeedbackType" class="form-label required">Feedback Type</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" asp-for="FeedbackType" id="generalFeedback" value="general_feedback">
+                                <label class="form-check-label" for="generalFeedback">
+                                    <i class="fas fa-comment-alt me-2 text-primary"></i>General Feedback
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" asp-for="FeedbackType" id="complaint" value="complaint">
+                                <label class="form-check-label" for="complaint">
+                                    <i class="fas fa-exclamation-circle me-2 text-danger"></i>Issue or Complaint
+                                </label>
+                            </div>
+                            <span asp-validation-for="FeedbackType" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Description" class="form-label required">Your Feedback</label>
+                            <textarea asp-for="Description" class="form-control" rows="6"
+                                      placeholder="Please share your experience, suggestions, or any issues you encountered..."></textarea>
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>Please provide specific details to help us understand your feedback better.
+                            </div>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="order-summary mb-4">
+                            <h6 class="mb-3">Order Items:</h6>
+                            <div class="list-group">
+                                @foreach (var item in Model.OrderItems)
+                                {
+                                    <div class="list-group-item d-flex align-items-center">
+                                        <div class="me-3">
+                                            <span class="badge bg-primary rounded-pill">@item.Quantity</span>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0">@item.Product.ProductName</h6>
+                                            <small class="text-muted">₱@item.UnitPrice.ToString("N2")</small>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane me-2"></i>Submit Feedback
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card bg-light mb-4">
+                <div class="card-body">
+                    <h5 class="mb-3">Why Your Feedback Matters</h5>
+                    <p>Your thoughts help us improve our products and services. We appreciate your time in sharing your experience with us.</p>
+
+                    <hr />
+
+                    <div class="mt-3">
+                        <h6>Feedback Guidelines</h6>
+                        <ul class="list-unstyled mt-2">
+                            <li class="mb-2">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                Be specific about your experience
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                Include details about products or delivery
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                Suggest improvements if applicable
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-label.required:after {
+        content: " *";
+        color: #dc3545;
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -14,12 +14,12 @@ namespace WellUp.AdminPortal.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly WellUpDbContext _context;
+        private readonly WellUpDbContext _dbContext;
         private readonly ILogger<AccountController> _logger;
 
         public AccountController(WellUpDbContext context, ILogger<AccountController> logger)
         {
-            _context = context;
+            _dbContext = context;
             _logger = logger;
         }
 
@@ -45,7 +45,7 @@ namespace WellUp.AdminPortal.Controllers
             }
 
             // Find the admin in the database
-            var admin = await _context.Admins.FirstOrDefaultAsync(a => a.Email == model.Email);
+            var admin = await _dbContext.Admins.FirstOrDefaultAsync(a => a.Email == model.Email);
 
             if (admin == null)
             {

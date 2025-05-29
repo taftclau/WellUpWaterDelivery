@@ -1,14 +1,21 @@
-﻿// OrderViewModel.cs
-
+﻿//OrderViewModels.cs
 using System;
 using System.Collections.Generic;
 
 namespace WellUp.AdminPortal.Models.ViewModels
 {
+    public class OrdersViewModel
+    {
+        public List<OrderListViewModel> ActiveOrders { get; set; } = new List<OrderListViewModel>();
+        public List<OrderListViewModel> CompletedOrders { get; set; } = new List<OrderListViewModel>();
+        public List<TopProductViewModel> TopProducts { get; set; } = new List<TopProductViewModel>(); 
+    }
+
     public class OrderListViewModel
     {
         public int OrderId { get; set; }
         public string OrderNumber => $"WU-{OrderId:D5}";
+        public int CustomerId { get; set; }
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }
         public string CustomerPhone { get; set; }
@@ -18,7 +25,13 @@ namespace WellUp.AdminPortal.Models.ViewModels
         public string Status { get; set; }
         public DateTime? PreferredDeliveryTime { get; set; }
 
+        // Delivery properties
+        public int? DeliveryId { get; set; }
+        public string DeliveryStatus { get; set; }
+        public DateTime? ScheduledTime { get; set; }
+
         public string FormattedStatus => FormatStatus(Status);
+        public string FormattedDeliveryStatus => FormatDeliveryStatus(DeliveryStatus);
 
         private string FormatStatus(string status)
         {
@@ -28,7 +41,20 @@ namespace WellUp.AdminPortal.Models.ViewModels
                 "in_progress" => "In Progress",
                 "completed" => "Completed",
                 "cancelled" => "Cancelled",
-                _ => status
+                _ => status ?? "New"
+            };
+        }
+
+        private string FormatDeliveryStatus(string status)
+        {
+            return status switch
+            {
+                "pending" => "Pending",
+                "scheduled" => "Scheduled",
+                "out_for_delivery" => "Out for Delivery",
+                "completed" => "Completed",
+                "failed" => "Failed",
+                _ => status ?? "Pending"
             };
         }
     }
@@ -62,7 +88,7 @@ namespace WellUp.AdminPortal.Models.ViewModels
                 "in_progress" => "In Progress",
                 "completed" => "Completed",
                 "cancelled" => "Cancelled",
-                _ => status
+                _ => status ?? "New"
             };
         }
     }
@@ -94,38 +120,9 @@ namespace WellUp.AdminPortal.Models.ViewModels
                 "out_for_delivery" => "Out for Delivery",
                 "completed" => "Completed",
                 "failed" => "Failed",
-                _ => status
+                _ => status ?? "Pending"
             };
         }
     }
 
-    public class DeliveryListViewModel
-    {
-        public int DeliveryId { get; set; }
-        public int OrderId { get; set; }
-        public string OrderNumber => $"WU-{OrderId:D5}";
-        public string CustomerName { get; set; }
-        public string CustomerPhone { get; set; }
-        public string DeliveryAddress { get; set; }
-        public DateTime? ScheduledTime { get; set; }
-        public string Status { get; set; }
-        public string Notes { get; set; }
-        public decimal TotalAmount { get; set; }
-        public DateTime OrderDate { get; set; }
-
-        public string FormattedStatus => FormatStatus(Status);
-
-        private string FormatStatus(string status)
-        {
-            return status switch
-            {
-                "pending" => "Pending",
-                "scheduled" => "Scheduled",
-                "out_for_delivery" => "Out for Delivery",
-                "completed" => "Completed",
-                "failed" => "Failed",
-                _ => status
-            };
-        }
-    }
 }

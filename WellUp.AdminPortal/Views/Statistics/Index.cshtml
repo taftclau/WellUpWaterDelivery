@@ -1,0 +1,377 @@
+﻿<!-- Views/Statistics/index.cshtml -->
+@model WellUp.AdminPortal.Models.ViewModels.StatisticsViewModel
+@{
+    ViewData["Title"] = "Sales Statistics";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+    // Parse stored view data
+    var startDate = DateTime.Parse(ViewData["StartDate"]?.ToString() ?? DateTime.Today.ToString("yyyy-MM-dd"));
+    var endDate = DateTime.Parse(ViewData["EndDate"]?.ToString() ?? DateTime.Today.ToString("yyyy-MM-dd"));
+    var period = ViewData["Period"]?.ToString() ?? "month";
+    var search = ViewData["Search"]?.ToString() ?? "";
+    var sortBy = ViewData["SortBy"]?.ToString() ?? "date_desc";
+}
+
+<!-- Page Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h1>Sales Statistics</h1>
+                    <p class="text-muted mb-0">Analyze sales data and trends</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filter Section -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form method="get" class="row g-3">
+                    <!-- Date Range Selection -->
+                    <div class="col-md-7">
+                        <div class="row">
+                            <div class="col-md-12 mb-2">
+                                <label class="form-label">Date Range</label>
+                            </div>
+                            <div class="col-md-4 mb-2 mb-md-0">
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="period" id="today" value="today" @(period == "today" ? "checked" : "")>
+                                    <label class="btn btn-outline-primary" for="today">Today</label>
+                                    
+                                    <input type="radio" class="btn-check" name="period" id="week" value="week" @(period == "week" ? "checked" : "")>
+                                    <label class="btn btn-outline-primary" for="week">This Week</label>
+                                    
+                                    <input type="radio" class="btn-check" name="period" id="month" value="month" @(period == "month" ? "checked" : "")>
+                                    <label class="btn btn-outline-primary" for="month">This Month</label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <input type="date" class="form-control" name="startDate" value="@startDate.ToString("yyyy-MM-dd")">
+                                    <span class="input-group-text">to</span>
+                                    <input type="date" class="form-control" name="endDate" value="@endDate.ToString("yyyy-MM-dd")">
+                                    <button class="btn btn-primary" id="applyDateRange" type="submit">
+                                        <i class="fas fa-filter"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Search Field -->
+                    <div class="col-md-3">
+                        <label class="form-label">Search Customer</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="search" value="@search" placeholder="Search by name or email...">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Sort Options -->
+                    <div class="col-md-2">
+                        <label class="form-label">Sort By</label>
+                        <select class="form-select" name="sortBy" onchange="this.form.submit()">
+                            @{
+                                var options = new[]
+                                {
+                            new { Value = "date_desc", Text = "Date (Newest First)" },
+                            new { Value = "date_asc", Text = "Date (Oldest First)" },
+                            new { Value = "customer_asc", Text = "Customer (A-Z)" },
+                            new { Value = "customer_desc", Text = "Customer (Z-A)" },
+                            new { Value = "amount_desc", Text = "Amount (High-Low)" },
+                            new { Value = "amount_asc", Text = "Amount (Low-High)" }
+                            };
+                            }
+
+                            @foreach (var option in options)
+                            {
+                                <option value="@option.Value" selected="@(sortBy == option.Value)">@option.Text</option>
+                            }
+                        </select>
+                    </div>
+                    
+                    <!-- Hidden field for custom period -->
+                    <input type="hidden" id="periodField" name="period" value="@(period == "custom" ? "custom" : period)">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics Summary -->
+<div class="row mb-4">
+    <!-- Total Orders Card -->
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="rounded-circle p-3 bg-primary-soft me-3">
+                        <i class="fas fa-shopping-cart text-primary"></i>
+                    </div>
+                    <div>
+                        <h6 class="text-muted mb-1">Total Orders</h6>
+                        <h3 class="mb-0">@Model.TotalOrders</h3>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <span class="text-muted">For period: @Model.FormattedDateRange</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Completed Orders Card -->
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="rounded-circle p-3 bg-success-soft me-3">
+                        <i class="fas fa-check-circle text-success"></i>
+                    </div>
+                    <div>
+                        <h6 class="text-muted mb-1">Completed Orders</h6>
+                        <h3 class="mb-0">@Model.CompletedOrders</h3>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <span class="text-muted">
+                        @{
+                            var completionRate = Model.TotalOrders > 0 ? (double)Model.CompletedOrders / Model.TotalOrders * 100 : 0;
+                        }
+                        Completion Rate: @completionRate.ToString("F1")%
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Total Earnings Card -->
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="rounded-circle p-3 bg-warning-soft me-3">
+                        <i class="fas fa-peso-sign text-warning"></i>
+                    </div>
+                    <div>
+                        <h6 class="text-muted mb-1">Total Earnings</h6>
+                        <h3 class="mb-0">₱@Model.TotalEarnings.ToString("N2")</h3>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <span class="text-muted">For period: @Model.FormattedDateRange</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Average Order Value -->
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="rounded-circle p-3 bg-info-soft me-3">
+                        <i class="fas fa-chart-line text-info"></i>
+                    </div>
+                    <div>
+                        <h6 class="text-muted mb-1">Average Order Value</h6>
+                        <h3 class="mb-0">₱@Model.AverageOrderValue.ToString("N2")</h3>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <span class="text-muted">Based on completed orders</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- Top Products -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h2>Top Products</h2>
+            </div>
+            <div class="card-body">
+                @if (Model.TopProducts.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th class="text-center">Quantity</th>
+                                    <th class="text-end">Revenue</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var product in Model.TopProducts)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <span class="fw-bold">@product.ProductName</span>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">@product.Quantity</td>
+                                        <td class="text-end">₱@product.Revenue.ToString("N2")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-4">
+                        <i class="fas fa-chart-pie fa-3x text-muted mb-3"></i>
+                        <p class="mb-0">No completed order product data available for the selected period.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Order List -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2>Order History</h2>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-download me-2"></i>Export
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="exportDropdown">
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("Export", "Statistics", new { startDate = startDate.ToString("yyyy-MM-dd"), endDate = endDate.ToString("yyyy-MM-dd"), format = "csv" })">
+                                <i class="fas fa-file-csv me-2"></i>Export as CSV
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("Export", "Statistics", new { startDate = startDate.ToString("yyyy-MM-dd"), endDate = endDate.ToString("yyyy-MM-dd"), format = "excel" })">
+                                <i class="fas fa-file-excel me-2"></i>Export as Excel
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="ordersTable">
+                        <thead>
+                            <tr>
+                                <th>Order #</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Orders.Any())
+                            {
+                                foreach (var order in Model.Orders)
+                                {
+                                    <tr>
+                                        <td><span class="fw-bold">@order.OrderNumber</span></td>
+                                        <td>
+                                            <div>@order.CustomerName</div>
+                                            <small class="text-muted">@order.CustomerEmail</small>
+                                        </td>
+                                        <td>@order.OrderDate.ToString("MMM dd, yyyy h:mm tt")</td>
+                                        <td>₱@order.TotalAmount.ToString("N2")</td>
+                                        <td>
+                                            @{
+                                                var badgeClass = order.Status switch
+                                                {
+                                                    "new" => "primary",
+                                                    "in_progress" => "info",
+                                                    "completed" => "success",
+                                                    "cancelled" => "danger",
+                                                    _ => "secondary"
+                                                };
+                                            }
+                                            <span class="badge bg-@badgeClass">@order.FormattedStatus</span>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Details", "Orders", new { id = order.OrderId })" class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6" class="text-center py-4">No orders found for the selected period</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable
+            $('#ordersTable').DataTable({
+                "pageLength": 10,
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                "searching": false, // We have our own search
+                "ordering": false, // We have our own sorting
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "language": {
+                    "emptyTable": "No orders found for the selected period"
+                }
+            });
+
+            // Fix the date range options functionality
+            $('input[name="period"]').change(function() {
+                var value = $(this).val();
+                $('#periodField').val(value);
+
+                // Submit immediately if not custom range
+                if (value !== 'custom') {
+                    $(this).closest('form').submit();
+                }
+            });
+
+            // Ensure export buttons have correct URLs
+            $('.dropdown-item[href*="Export"]').each(function() {
+                var href = $(this).attr('href');
+                if (href.indexOf('startDate') === -1) {
+                    var startDate = $('input[name="startDate"]').val();
+                    var endDate = $('input[name="endDate"]').val();
+                    href += (href.indexOf('?') !== -1 ? '&' : '?') + 'startDate=' + startDate + '&endDate=' + endDate;
+                    $(this).attr('href', href);
+                }
+            });
+
+            // When custom date inputs change, update to custom period
+            $('input[type="date"]').change(function() {
+                $('#periodField').val('custom');
+                // Uncheck radio buttons
+                $('input[name="period"]').prop('checked', false);
+            });
+        });
+    </script>
+}

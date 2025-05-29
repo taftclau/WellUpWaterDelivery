@@ -1,0 +1,50 @@
+﻿<!--WellUp.AdminPortal\Views\Settings\Index.cshtml-->
+@{
+    ViewData["Title"] = "Settings";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<!-- Page Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h1>Admin Settings</h1>
+                <p class="text-muted mb-0">Configure system settings and preferences</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Settings Menu -->
+<div class="row mb-4">
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center py-5">
+                <div class="rounded-circle mb-3 p-3 bg-primary-soft mx-auto" style="width: 80px; height: 80px;">
+                    <i class="fas fa-shield-alt fa-3x text-primary"></i>
+                </div>
+                <h4>Security Settings</h4>
+                <p class="text-muted mb-4">Manage password and security preferences</p>
+                <a href="@Url.Action("Security", "Settings")" class="btn btn-primary">
+                    <i class="fas fa-lock me-2"></i>Security Settings
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center py-5">
+                <div class="rounded-circle mb-3 p-3 bg-warning-soft mx-auto" style="width: 80px; height: 80px;">
+                    <i class="fas fa-database fa-3x text-warning"></i>
+                </div>
+                <h4>Data Management</h4>
+                <p class="text-muted mb-4">Backup and restore database settings</p>
+                <a href="@Url.Action("DataManagement", "Settings")" class="btn btn-primary">
+                    <i class="fas fa-database me-2"></i>Data Management
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

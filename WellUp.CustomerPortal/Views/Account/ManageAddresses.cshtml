@@ -1,0 +1,150 @@
+﻿<!-- WellUp.CustomerPortal.Views.Account/ManageAddresses.cshtml-->
+@model List<WellUp.Core.Database.Address>
+@{
+    ViewData["Title"] = "Manage Addresses";
+    Layout = "~/Views/Shared/Components/_CustomerLayout.cshtml";
+}
+
+<div class="container">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="page-header d-flex align-items-center">
+                <a asp-action="Settings" class="btn btn-outline-secondary me-3">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <div>
+                    <h1>Manage Addresses</h1>
+                    <p class="text-muted mb-0">Add, edit or remove your delivery addresses</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Button -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <a asp-action="AddAddress" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>Add New Address
+            </a>
+        </div>
+    </div>
+
+    <!-- Addresses List -->
+    <div class="row">
+        @if (Model.Any())
+        {
+            foreach (var address in Model)
+            {
+                <div class="col-lg-6 mb-4">
+                    <div class="card h-100 @(address.IsDefault ? "border-primary" : "")">
+                        <div class="card-body">
+                            @if (address.IsDefault)
+                            {
+                                <span class="badge bg-primary position-absolute top-0 end-0 mt-3 me-3">Default</span>
+                            }
+                            <h5 class="card-title mb-3">
+                                <i class="fas fa-map-marker-alt me-2 text-primary"></i>
+                                @address.CityMunicipality
+                            </h5>
+                            <div class="card-text mb-4">
+                                <p class="mb-1">@address.Street</p>
+                                <p class="mb-1">@address.Barangay</p>
+                                <p class="mb-0">ZIP: @address.ZipCode</p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <a asp-action="EditAddress" asp-route-id="@address.AddressId" class="btn btn-outline-primary">
+                                    <i class="fas fa-edit me-1"></i> Edit
+                                </a>
+                                <button type="button" class="btn btn-outline-danger"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteAddressModal"
+                                        data-address-id="@address.AddressId"
+                                        data-address-city="@address.CityMunicipality"
+                                        data-is-default="@address.IsDefault.ToString().ToLower()">
+                                    <i class="fas fa-trash-alt me-1"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center py-5">
+                        <div class="mb-4">
+                            <i class="fas fa-map-marker-alt fa-4x text-muted"></i>
+                        </div>
+                        <h3>No Addresses Found</h3>
+                        <p class="text-muted mb-4">You haven't added any delivery addresses yet.</p>
+                        <a asp-action="AddAddress" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i>Add New Address
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Delete Address Modal -->
+<div class="modal fade" id="deleteAddressModal" tabindex="-1" aria-labelledby="deleteAddressModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteAddressModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-4">
+                    <i class="fas fa-exclamation-triangle fa-3x text-warning"></i>
+                </div>
+                <p>Are you sure you want to delete this address?</p>
+                <p id="defaultAddressWarning" class="alert alert-warning d-none">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    This is your default address. If you delete it, another address will be set as default.
+                </p>
+                <div class="alert alert-secondary">
+                    <span id="addressDetails"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form asp-action="DeleteAddress" method="post">
+                    <input type="hidden" id="deleteAddressId" name="id" value="" />
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash-alt me-2"></i>Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Delete Address Modal
+            $('#deleteAddressModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var addressId = button.data('address-id');
+                var addressCity = button.data('address-city');
+                var isDefault = button.data('is-default') === 'true';
+
+                // Update modal content
+                $('#deleteAddressId').val(addressId);
+                $('#addressDetails').text(addressCity);
+
+                // Show warning for default address
+                if (isDefault) {
+                    $('#defaultAddressWarning').removeClass('d-none');
+                } else {
+                    $('#defaultAddressWarning').addClass('d-none');
+                }
+            });
+        });
+    </script>
+}

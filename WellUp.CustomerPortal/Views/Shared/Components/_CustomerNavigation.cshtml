@@ -1,0 +1,67 @@
+﻿<!-- WellUp.CustomerPortal/Views/Shared/Components/_CustomerNavigation.cshtml -->
+
+<nav id="sidebar" class="sidebar">
+    <!-- Sidebar Header -->
+    <div class="sidebar-header">
+        <div class="sidebar-brand d-flex align-items-center">
+            <div class="sidebar-logo me-2">
+                <i class="fas fa-tint"></i>
+            </div>
+            <div class="brand-info">
+                <div class="brand-name">WellUp</div>
+                <div class="brand-tagline">Live well, choose well</div>
+            </div>
+        </div>
+        <div class="sidebar-controls">
+            <button id="sidebar-collapse" class="d-none d-xl-block">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button id="sidebar-close" class="d-md-none">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <ul class="sidebar-menu">
+        <li class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Products" || ViewContext.RouteData.Values["Controller"]?.ToString() == "Dashboard" ? "active" : "")">
+            <a href="@Url.Action("Index", "Products")">
+                <i class="fas fa-home"></i> <span>Home</span>
+            </a>
+        </li>
+        <li class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Cart" ? "active" : "")">
+            <a href="@Url.Action("Index", "Cart")">
+                <i class="fas fa-shopping-cart"></i> <span>Cart</span>
+            </a>
+        </li>
+        <li class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Orders" && (ViewContext.RouteData.Values["Action"]?.ToString() == "History" || ViewContext.RouteData.Values["Action"]?.ToString() == "Details") ? "active" : "")">
+            <a href="@Url.Action("History", "Orders")">
+                <i class="fas fa-history"></i> <span>Order History</span>
+            </a>
+        </li>
+        <li class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Feedback" ? "active" : "")">
+            <a href="@Url.Action("Index", "Feedback")">
+                <i class="fas fa-comment-dots"></i> <span>Feedback</span>
+            </a>
+        </li>
+        <li class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Account" && ViewContext.RouteData.Values["Action"]?.ToString() == "Settings" ? "active" : "")">
+            <a href="@Url.Action("Settings", "Account")">
+                <i class="fas fa-cog"></i> <span>Account Settings</span>
+            </a>
+        </li>
+        <li class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Support" ? "active" : "")">
+            <a href="@Url.Action("Index", "Support")">
+                <i class="fas fa-question-circle"></i> <span>Help & Support</span>
+            </a>
+        </li>
+    </ul>
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+        <form asp-controller="Account" asp-action="Logout" method="post">
+            <button type="submit" class="sidebar-logout">
+                <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+            </button>
+        </form>
+    </div>
+</nav>

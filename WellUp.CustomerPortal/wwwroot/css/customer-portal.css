@@ -1,30 +1,18 @@
-﻿:root {
-    --sky-blue: #7EC8E3;
-    --deep-blue: #1B3B5F;
-    --soft-white: #FFFFFF;
-    --cloud-grey: #F0F4F8;
-    --sunlight-yellow: #FFD95A;
-    --light-cyan: #B9E6F2; /* Added light cyan for the hero subtitle */
-}
+﻿/* customer-portal.css */
+@import 'variables.css';
 
+/* Enhanced Body & Typography */
 body {
-    font-family: 'Montserrat', sans-serif;
     color: var(--deep-blue);
     background-color: var(--soft-white);
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Raleway', sans-serif;
-    font-weight: 600;
     color: var(--deep-blue);
 }
 
-/* Buttons */
+/* Enhanced Buttons */
 .btn-primary {
-    background-color: var(--sky-blue);
-    border-color: var(--sky-blue);
-    color: var(--deep-blue);
-    font-family: 'Poppins', sans-serif;
     font-weight: 700;
     text-transform: uppercase;
     padding: 0.75rem 1.5rem;
@@ -40,9 +28,6 @@ h1, h2, h3, h4, h5, h6 {
     }
 
 .btn-outline-primary {
-    border-color: var(--sky-blue);
-    color: var(--sky-blue);
-    font-family: 'Poppins', sans-serif;
     font-weight: 500;
     text-transform: uppercase;
     padding: 0.75rem 1.5rem;
@@ -51,8 +36,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
     .btn-outline-primary:hover, .btn-outline-primary:focus {
-        background-color: var(--sky-blue);
-        color: var(--deep-blue);
         box-shadow: 0 5px 15px rgba(126, 200, 227, 0.4);
         transform: translateY(-2px);
     }
@@ -95,7 +78,7 @@ h1, h2, h3, h4, h5, h6 {
         transform: translateY(-2px);
     }
 
-/* Header */
+/* Enhanced Header */
 .navbar {
     background-color: var(--soft-white);
     box-shadow: 0 2px 10px rgba(27, 59, 95, 0.05);
@@ -112,22 +95,11 @@ h1, h2, h3, h4, h5, h6 {
     }
 
 .navbar-nav .nav-link {
-    color: var(--deep-blue);
-    font-weight: 500;
-    position: relative;
     padding: 0.5rem 1rem;
     transition: all 0.3s;
 }
 
     .navbar-nav .nav-link::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        width: 0;
-        height: 2px;
-        background-color: var(--sky-blue);
-        transition: all 0.3s ease;
         transform: translateX(-50%);
     }
 
@@ -141,7 +113,7 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--deep-blue);
 }
 
-/* Hero Section - Improved readability */
+/* Hero Section */
 .hero-section {
     background: linear-gradient(135deg, var(--sky-blue) 0%, var(--deep-blue) 100%);
     padding: 120px 0;
@@ -156,12 +128,9 @@ h1, h2, h3, h4, h5, h6 {
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: url('../images/hero-banner.png');
-        background-size: cover;
-        background-position: center;
         opacity: 0.5;
         z-index: 1;
-        pointer-events: none; /* Enable clicks to pass through */
+        pointer-events: none;
     }
 
 .hero-content {
@@ -182,10 +151,10 @@ h1, h2, h3, h4, h5, h6 {
 .hero-subtitle {
     font-size: 1.5rem;
     margin-bottom: 2rem;
-    font-weight: 500; /* Increased from 400 for better readability */
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8); /* Enhanced text shadow */
-    color: var(--light-cyan); /* Changed to light cyan for better visibility */
-    background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent background */
+    font-weight: 500;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    color: var(--light-cyan);
+    background-color: rgba(0, 0, 0, 0.2);
     display: inline-block;
     padding: 5px 20px;
     border-radius: 25px;
@@ -208,12 +177,30 @@ h1, h2, h3, h4, h5, h6 {
 .benefits-section {
     padding: 80px 0;
     background-color: var(--soft-white);
+    position: relative;
+    overflow: hidden;
 }
+
+    .benefits-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('../images/hero-banner.png');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.15;
+        z-index: 0;
+        pointer-events: none;
+    }
 
 .section-title {
     text-align: center;
     margin-bottom: 3rem;
     position: relative;
+    z-index: 2;
 }
 
     .section-title:after {
@@ -232,6 +219,8 @@ h1, h2, h3, h4, h5, h6 {
     padding: 30px;
     height: 100%;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 2;
 }
 
     .benefit-card:hover {
@@ -323,7 +312,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 15px;
 }
 
-/* Call to Action Section - Fixed for clickable buttons */
+/* Call to Action Section */
 .cta-section {
     background: linear-gradient(135deg, var(--sky-blue) 0%, var(--deep-blue) 100%);
     padding: 100px 0;
@@ -334,7 +323,7 @@ h1, h2, h3, h4, h5, h6 {
 
     .cta-section .container {
         position: relative;
-        z-index: 5; /* Higher z-index for content container */
+        z-index: 5;
     }
 
     .cta-section h2 {
@@ -361,7 +350,7 @@ h1, h2, h3, h4, h5, h6 {
         padding: 1rem 2rem;
         font-weight: 700;
         position: relative;
-        z-index: 6; /* Ensure buttons have highest z-index */
+        z-index: 6;
     }
 
     .cta-section::before {
@@ -375,118 +364,11 @@ h1, h2, h3, h4, h5, h6 {
         background-position: center;
         opacity: 0.3;
         z-index: 1;
-        pointer-events: none; /* Allow clicks to pass through */
+        pointer-events: none;
     }
 
     .cta-section .wave {
-        pointer-events: none; /* Allow clicks to pass through waves */
-    }
-
-/* Authentication Forms */
-.auth-section {
-    padding: 80px 0;
-}
-
-.auth-container {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: var(--soft-white);
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 15px 30px rgba(27, 59, 95, 0.1);
-}
-
-.auth-header {
-    background-color: var(--cloud-grey);
-    padding: 30px;
-    text-align: center;
-    background-image: linear-gradient(45deg, rgba(126, 200, 227, 0.2), rgba(27, 59, 95, 0.2));
-}
-
-    .auth-header h2 {
-        margin-bottom: 10px;
-    }
-
-.auth-body {
-    padding: 30px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-control {
-    border: 1px solid #ced4da;
-    border-radius: 8px;
-    padding: 12px 15px;
-    height: auto;
-    transition: all 0.3s;
-}
-
-    .form-control:focus {
-        border-color: var(--sky-blue);
-        box-shadow: 0 0 0 0.25rem rgba(126, 200, 227, 0.25);
-    }
-
-.input-group-text {
-    background-color: var(--cloud-grey);
-    border: 1px solid #ced4da;
-    color: var(--deep-blue);
-}
-
-.form-check-label {
-    cursor: pointer;
-}
-
-.form-switch .form-check-input {
-    cursor: pointer;
-}
-
-.form-check-input:checked {
-    background-color: var(--sky-blue);
-    border-color: var(--sky-blue);
-}
-
-.password-strength {
-    height: 5px;
-    margin-top: 5px;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-}
-
-.password-strength-weak {
-    background-color: #dc3545;
-    width: 30%;
-}
-
-.password-strength-medium {
-    background-color: #ffc107;
-    width: 60%;
-}
-
-.password-strength-strong {
-    background-color: #28a745;
-    width: 100%;
-}
-
-.auth-footer {
-    padding: 20px 30px;
-    background-color: var(--cloud-grey);
-    text-align: center;
-}
-
-    .auth-footer p {
-        margin-bottom: 0;
-    }
-
-.auth-link {
-    color: var(--sky-blue);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-    .auth-link:hover {
-        text-decoration: underline;
+        pointer-events: none;
     }
 
 /* Footer */
@@ -552,6 +434,82 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.9rem;
 }
 
+/* Animation Effects */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+    .fade-in.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+/* Water Wave Effect */
+.wave-bg {
+    position: relative;
+    overflow: hidden;
+}
+
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-image: url('../images/wave.svg');
+    background-size: 1000px 100px;
+    background-repeat: repeat-x;
+}
+
+    .wave.wave1 {
+        animation: wave 30s linear infinite;
+        z-index: 1;
+        opacity: 0.3;
+        animation-delay: 0s;
+        bottom: 0;
+        pointer-events: none;
+    }
+
+    .wave.wave2 {
+        animation: wave-reverse 20s linear infinite;
+        z-index: 2;
+        opacity: 0.2;
+        animation-delay: -5s;
+        bottom: 10px;
+        pointer-events: none;
+    }
+
+    .wave.wave3 {
+        animation: wave 15s linear infinite;
+        z-index: 3;
+        opacity: 0.1;
+        animation-delay: -2s;
+        bottom: 20px;
+        pointer-events: none;
+    }
+
+@keyframes wave {
+    0% {
+        background-position-x: 0;
+    }
+
+    100% {
+        background-position-x: 1000px;
+    }
+}
+
+@keyframes wave-reverse {
+    0% {
+        background-position-x: 1000px;
+    }
+
+    100% {
+        background-position-x: 0;
+    }
+}
+
 /* Responsive Adjustments */
 @media (max-width: 992px) {
     .hero-title {
@@ -598,85 +556,5 @@ h1, h2, h3, h4, h5, h6 {
 
     .benefit-card {
         margin-bottom: 30px;
-    }
-
-    .auth-container {
-        margin: 0 15px;
-    }
-}
-
-/* Animation Effects */
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-    .fade-in.show {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-/* Water Wave Effect */
-.wave-bg {
-    position: relative;
-    overflow: hidden;
-}
-
-.wave {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    background-image: url('../images/wave.svg');
-    background-size: 1000px 100px;
-    background-repeat: repeat-x;
-}
-
-    .wave.wave1 {
-        animation: wave 30s linear infinite;
-        z-index: 1;
-        opacity: 0.3;
-        animation-delay: 0s;
-        bottom: 0;
-        pointer-events: none; /* Allow clicks to pass through */
-    }
-
-    .wave.wave2 {
-        animation: wave-reverse 20s linear infinite;
-        z-index: 2;
-        opacity: 0.2;
-        animation-delay: -5s;
-        bottom: 10px;
-        pointer-events: none; /* Allow clicks to pass through */
-    }
-
-    .wave.wave3 {
-        animation: wave 15s linear infinite;
-        z-index: 3;
-        opacity: 0.1;
-        animation-delay: -2s;
-        bottom: 20px;
-        pointer-events: none; /* Allow clicks to pass through */
-    }
-
-@keyframes wave {
-    0% {
-        background-position-x: 0;
-    }
-
-    100% {
-        background-position-x: 1000px;
-    }
-}
-
-@keyframes wave-reverse {
-    0% {
-        background-position-x: 1000px;
-    }
-
-    100% {
-        background-position-x: 0;
     }
 }

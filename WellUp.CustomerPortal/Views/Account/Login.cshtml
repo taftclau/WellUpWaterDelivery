@@ -1,4 +1,5 @@
-﻿@model WellUp.CustomerPortal.Models.ViewModels.LoginViewModel
+﻿<!-- WellUp.CustomerPortal.Views.Account/Login.cshtml-->
+@model WellUp.CustomerPortal.Models.ViewModels.LoginViewModel
 @{
     ViewData["Title"] = "Login";
 }
@@ -20,30 +21,33 @@
             <div class="auth-body">
                 @if (TempData["SuccessMessage"] != null)
                 {
-                    <div class="alert alert-success" role="alert">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 }
 
                 @if (TempData["InfoMessage"] != null)
                 {
-                    <div class="alert alert-info" role="alert">
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
                         <i class="fas fa-info-circle"></i> @TempData["InfoMessage"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 }
 
                 @if (!ViewData.ModelState.IsValid)
                 {
-                    <div class="alert alert-danger" role="alert">
-                        <i class="fas fa-exclamation-circle"></i> Please check your credentials and try again.
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="fas fa-exclamation-circle"></i> Invalid login attempt. Please check your email and password.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 }
 
                 <form asp-controller="Account" asp-action="Login" method="post">
-                    <input type="hidden" asp-for="ReturnUrl" />
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="ReturnUrl" value="@ViewData["ReturnUrl"]" />
 
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label asp-for="Email" class="form-label">Email Address</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-envelope"></i></span>
@@ -52,22 +56,22 @@
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label asp-for="Password" class="form-label">Password</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                            <input asp-for="Password" class="form-control" placeholder="Enter your password" autocomplete="current-password" />
+                            <input asp-for="Password" class="form-control" type="password" placeholder="Enter your password" autocomplete="current-password" />
                         </div>
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
-                    <div class="form-group form-check">
-                        <input asp-for="RememberMe" class="form-check-input" />
-                        <label asp-for="RememberMe" class="form-check-label">Keep me signed in</label>
+                    <div class="form-group form-check mb-3">
+                        <input asp-for="RememberMe" class="form-check-input" id="RememberMe" />
+                        <label asp-for="RememberMe" class="form-check-label" for="RememberMe">Keep me signed in</label>
                     </div>
 
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary">
+                    <div class="d-grid gap-2 mb-3">
+                        <button type="submit" class="btn btn-primary" id="loginButton">
                             <i class="fas fa-sign-in-alt me-2"></i> Login
                         </button>
                     </div>
@@ -90,9 +94,20 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        // Add subtle animation when the page loads
         $(document).ready(function() {
             $('.auth-container').addClass('show');
+
+            // Add console logging to see form submission
+            $('form').on('submit', function(e) {
+                console.log('Form submitted');
+                console.log('Email:', $('#Email').val());
+                console.log('Password length:', $('#Password').val().length);
+                console.log('Remember me:', $('#RememberMe').prop('checked'));
+                console.log('Return URL:', $('input[name="ReturnUrl"]').val());
+
+                // Ensure all form input data is sent
+                return true;
+            });
         });
     </script>
 }

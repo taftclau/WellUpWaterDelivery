@@ -1,0 +1,112 @@
+﻿/* order-summary.css */
+.product-thumbnail {
+    max-height: 80px;
+    max-width: 100%;
+    object-fit: contain;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.form-label.required:after {
+    content: " *";
+    color: #dc3545;
+}
+
+.delivery-time-info {
+    background-color: var(--primary-soft);
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-top: 10px;
+}
+
+    .delivery-time-info i {
+        color: var(--primary);
+    }
+
+.order-summary-section {
+    background-color: var(--cloud-grey);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.cart-item {
+    padding: 15px 0;
+}
+
+.cart-item-img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.cart-item-title {
+    color: var(--deep-blue);
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.quantity-control {
+    max-width: 120px;
+}
+
+/* Order Success Styles */
+.success-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: rgba(126, 200, 227, 0.2);
+    margin-bottom: 1.5rem;
+}
+
+    .success-icon i {
+        font-size: 50px;
+        color: var(--sky-blue);
+    }
+
+.order-info {
+    padding: 1.5rem;
+    background-color: var(--cloud-grey);
+    border-radius: 10px;
+}
+
+.order-number-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-label {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-bottom: 0.25rem;
+}
+
+.order-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--deep-blue);
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .cart-item {
+        text-align: center;
+    }
+
+    .cart-item-img {
+        margin-bottom: 10px;
+    }
+
+    .quantity-control {
+        margin: 0 auto;
+    }
+}

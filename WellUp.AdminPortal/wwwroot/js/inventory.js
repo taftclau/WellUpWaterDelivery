@@ -1,5 +1,6 @@
 ﻿/**
  * WellUp Admin - Inventory Management JavaScript
+ * inventory.js
  */
 
 document.addEventListener('DOMContentLoaded', function () {

@@ -1,10 +1,11 @@
-//Program.cs
+//Program.cs for the WellUp Customer Portal
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WellUp.Core.Data;  // For accessing your WellUpDbContext
-using WellUp.Core.Database;  // For accessing your model classes
+using WellUp.Core.Data;
+using WellUp.Core.Database;
 
-namespace WellUp.AdminPortal
+namespace WellUp.CustomerPortal
 {
     public class Program
     {
@@ -15,24 +16,41 @@ namespace WellUp.AdminPortal
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            // Register the DbContext
             builder.Services.AddDbContext<WellUpDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            // Add cookie authentication
+            builder.Services.AddScoped<WellUp.Core.Utilities.ProductRelationshipManager>();
+
+            // Add session services
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromHours(2);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+            builder.Services.Configure<CookieTempDataProviderOptions>(options => {
+                options.Cookie.IsEssential = true;
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.None; // Set to Always in production with HTTPS
+                options.Cookie.SameSite = SameSiteMode.Lax;
+            });
+
+            // Authentication
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
                     options.LoginPath = "/Account/Login";
-                    options.LogoutPath = "/Account/Logout";
                     options.AccessDeniedPath = "/Account/AccessDenied";
-                    options.ExpireTimeSpan = TimeSpan.FromDays(7);
-                    options.SlidingExpiration = true;
-                    options.Cookie.HttpOnly = true;
-                    options.Cookie.SecurePolicy = builder.Environment.IsDevelopment()
-                        ? CookieSecurePolicy.None
-                        : CookieSecurePolicy.Always;
+                    options.ExpireTimeSpan = TimeSpan.FromHours(2);
                 });
+
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("CustomerOnly", policy => policy.RequireRole("Customer"));
+            });
+
 
             var app = builder.Build();
 
@@ -46,8 +64,10 @@ namespace WellUp.AdminPortal
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
+
+            // Enable session before authorization
+            app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -56,7 +76,7 @@ namespace WellUp.AdminPortal
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            app.Run();
+           app.Run();
         }
     }
 }

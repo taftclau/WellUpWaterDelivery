@@ -1,0 +1,360 @@
+﻿<!-- WellUp.CustomerPortal.Views.Orders/Details.cshtml-->
+@model WellUp.CustomerPortal.Models.ViewModels.OrderDetailsViewModel
+@{
+    ViewData["Title"] = "Order Details";
+    Layout = "~/Views/Shared/Components/_CustomerLayout.cshtml";
+}
+
+<div class="order-details-page">
+    <div class="container">
+        <!-- Page Header with Back Link -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="page-header d-flex align-items-center">
+                    <a asp-action="History" class="btn btn-outline-secondary me-3">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    <div>
+                        <h1>Order #@Model.OrderId</h1>
+                        <p class="text-muted mb-0">Placed on @Model.OrderDate.ToString("MMMM dd, yyyy") at @Model.OrderDate.ToString("hh:mm tt")</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Add the error alert here -->
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="row mb-3">
+                <div class="col-12">
+                    <div class="alert alert-danger">
+                        @TempData["ErrorMessage"]
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (TempData["DetailedError"] != null)
+        {
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="alert alert-danger mt-3">
+                        <h5 class="alert-heading">Detailed Error Information</h5>
+                        <p class="mb-0">This information is for debugging purposes only:</p>
+                        <pre class="mt-2" style="max-height: 200px; overflow-y: auto;">@TempData["DetailedError"]</pre>
+                    </div>
+                </div>
+            </div>
+        }
+        <!-- Order Status and Actions -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <div class="d-flex align-items-center">
+                                    <div class="order-status-badge me-3">
+                                        <span class="badge @Model.GetStatusBadgeClass() fs-6 px-3 py-2">
+                                            @Model.GetFormattedStatus()
+                                        </span>
+                                    </div>
+                                    <div class="order-info">
+                                        @if (Model.OrderStatus == "completed" && Model.CompletedAt.HasValue)
+                                        {
+                                            <p class="mb-0">Completed on @Model.CompletedAt.Value.ToString("MMMM dd, yyyy")</p>
+                                        }
+                                        else if (Model.OrderStatus == "cancelled")
+                                        {
+                                            <p class="mb-0">This order has been cancelled</p>
+                                        }
+                                        else
+                                        {
+                                            <p class="mb-0">
+                                                <i class="fas fa-truck me-2"></i> Delivery
+                                                <span class="badge @Model.GetDeliveryBadgeClass()">@Model.GetFormattedDeliveryStatus()</span>
+                                            </p>
+                                        }
+
+                                        @if (Model.ScheduledDeliveryTime.HasValue)
+                                        {
+                                            <p class="text-muted mb-0">
+                                                <i class="fas fa-calendar-alt me-2"></i>
+                                                Expected delivery: @Model.ScheduledDeliveryTime.Value.ToString("MMMM dd, yyyy") at
+                                                @Model.ScheduledDeliveryTime.Value.ToString("hh:mm tt")
+                                            </p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-3 mt-md-0 text-md-end">
+                                <div class="btn-group">
+                                    @if (Model.CanReorder)
+                                    {
+                                        <button type="button" class="btn btn-primary"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#reorderModal"
+                                                data-order-id="@Model.OrderId">
+                                            <i class="fas fa-redo-alt me-2"></i>Reorder
+                                        </button>
+                                    }
+
+                                    @if (Model.CanCancel)
+                                    {
+                                        <button type="button" class="btn btn-danger"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#cancelModal"
+                                                data-order-id="@Model.OrderId">
+                                            <i class="fas fa-times me-2"></i>Cancel Order
+                                        </button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Details -->
+        <div class="row">
+            <!-- Order Items -->
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Order Items</h5>
+                    </div>
+                    <div class="card-body">
+                        @foreach (var item in Model.Items)
+                        {
+                            <div class="order-item d-flex flex-wrap">
+                                <div class="order-item-img me-3">
+                                    <img src="@item.ProductImagePath" alt="@item.ProductName" class="img-fluid rounded">
+                                </div>
+                                <div class="order-item-details flex-grow-1">
+                                    <h5 class="product-name">@item.ProductName</h5>
+
+                                    <div class="d-flex flex-wrap justify-content-between">
+                                        <div class="product-info">
+                                            <p class="mb-1">
+                                                <span class="text-muted">Quantity:</span> @item.Quantity
+                                            </p>
+                                            <p class="mb-1">
+                                                <span class="text-muted">Unit Price:</span> ₱@item.UnitPrice.ToString("N2")
+                                            </p>
+
+                                            @if (!string.IsNullOrEmpty(item.ContainerType))
+                                            {
+                                                <p class="mb-1">
+                                                    <span class="text-muted">Container Type:</span>
+                                                    @(item.ContainerType.First().ToString().ToUpper() + item.ContainerType.Substring(1))
+                                                </p>
+                                            }
+
+                                            @if (item.IncludesRefill)
+                                            {
+                                                <p class="mb-1">
+                                                    <span class="badge bg-info">Includes Water Refill</span>
+                                                </p>
+                                            }
+                                        </div>
+                                        <div class="product-price text-end">
+                                            <span class="fw-bold">₱@item.SubTotal.ToString("N2")</span>
+                                        </div>
+                                    </div>
+
+                                    @if (!item.IsAvailableForReorder)
+                                    {
+                                        <div class="mt-2">
+                                            <span class="badge bg-danger">
+                                                <i class="fas fa-exclamation-circle me-1"></i> Currently Unavailable
+                                            </span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            @if (item != Model.Items.Last())
+                            {
+                                <hr class="my-3">
+                            }
+                        }
+                    </div>
+                    <div class="card-footer bg-white">
+                        <div class="d-flex justify-content-between">
+                            <span>Subtotal</span>
+                            <span>₱@Model.TotalAmount.ToString("N2")</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Delivery Fee</span>
+                            <span>₱0.00</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <span class="fw-bold">Total</span>
+                            <span class="fw-bold">₱@Model.TotalAmount.ToString("N2")</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Information -->
+            <div class="col-lg-4">
+                <!-- Delivery Address -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Delivery Address</h5>
+                    </div>
+                    <div class="card-body">
+                        <address class="mb-0">
+                            <strong>@Model.DeliveryAddress.CityMunicipality</strong><br>
+                            @Model.DeliveryAddress.Barangay<br>
+                            @Model.DeliveryAddress.Street<br>
+                            ZIP: @Model.DeliveryAddress.ZipCode
+                        </address>
+                    </div>
+                </div>
+
+                <!-- Delivery Schedule -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Delivery Schedule</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-2">
+                            <strong>Preferred Time:</strong><br>
+                            @(Model.PreferredDeliveryTime?.ToString("MMMM dd, yyyy") ?? "Not specified")<br>
+                            @(Model.PreferredDeliveryTime?.ToString("hh:mm tt") ?? "")
+                        </p>
+
+                        @if (!string.IsNullOrEmpty(Model.DeliveryNotes))
+                        {
+                            <p class="mb-0">
+                                <strong>Delivery Notes:</strong><br>
+                                @Model.DeliveryNotes
+                            </p>
+                        }
+                    </div>
+                </div>
+
+                <!-- Order Actions -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Order Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            @if (Model.CanReorder)
+                            {
+                                <button type="button" class="btn btn-primary"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#reorderModal"
+                                        data-order-id="@Model.OrderId">
+                                    <i class="fas fa-redo-alt me-2"></i>Reorder
+                                </button>
+                            }
+
+                            @if (Model.CanCancel)
+                            {
+                                <button type="button" class="btn btn-danger"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#cancelModal"
+                                        data-order-id="@Model.OrderId">
+                                    <i class="fas fa-times me-2"></i>Cancel Order
+                                </button>
+                            }
+
+                            @if (Model.OrderStatus == "completed" && !Model.HasFeedback)
+                            {
+                                <a asp-controller="Feedback" asp-action="Create" asp-route-orderId="@Model.OrderId" class="btn btn-outline-primary">
+                                    <i class="fas fa-comment-dots me-2"></i>Leave Feedback
+                                </a>
+                            }
+
+                            @if (Model.HasFeedback)
+                            {
+                                <a asp-controller="Feedback" asp-action="View" asp-route-orderId="@Model.OrderId" class="btn btn-outline-secondary">
+                                    <i class="fas fa-comments me-2"></i>View Feedback
+                                </a>
+                            }
+
+                            <a asp-action="History" class="btn btn-outline-secondary">
+                                <i class="fas fa-history me-2"></i>View All Orders
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cancel Order Modal -->
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="cancelModalLabel">Cancel Order</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-4">
+                    <i class="fas fa-exclamation-triangle fa-3x text-warning"></i>
+                </div>
+                <p>Are you sure you want to cancel this order? This action cannot be undone.</p>
+                <p class="mb-0"><strong>Note:</strong> Cancelled orders will return any deducted stock to inventory.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form id="cancelOrderForm" asp-action="CancelOrder" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="cancelOrderId" name="id" value="@Model.OrderId" />
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-times me-2"></i>Cancel Order
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reorder Modal -->
+<div class="modal fade" id="reorderModal" tabindex="-1" aria-labelledby="reorderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="reorderModalLabel">Reorder Items</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-4">
+                    <i class="fas fa-shopping-cart fa-3x text-primary"></i>
+                </div>
+                <p>Would you like to add all items from this order to your cart?</p>
+
+                @if (!Model.AllItemsAvailableForReorder())
+                {
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        Some items from this order are currently unavailable and will be skipped.
+                    </div>
+                }
+
+                <p class="text-muted mb-0">You can review and modify quantities before checkout.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form id="reorderForm" asp-action="Reorder" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="reorderOrderId" name="id" value="@Model.OrderId" />
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/order-history.js" asp-append-version="true"></script>
+}

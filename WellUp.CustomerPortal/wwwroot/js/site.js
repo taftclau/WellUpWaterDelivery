@@ -1,4 +1,4 @@
-﻿// WellUp Customer Portal JavaScript
+﻿// site.js
 
 document.addEventListener('DOMContentLoaded', function () {
     // Initialize tooltips

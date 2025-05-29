@@ -1,0 +1,240 @@
+﻿<!-- Feedback.cshtml -->
+@model List<WellUp.AdminPortal.Models.ViewModels.FeedbackListViewModel>
+@{
+    ViewData["Title"] = "Customer Feedback";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<!-- Page Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h1>Customer Feedback</h1>
+                    <p class="text-muted mb-0">Manage and respond to customer feedback and complaints</p>
+                </div>
+                <div class="d-flex">
+                    <a href="@Url.Action("Index", "Customers")" class="btn btn-outline-primary">
+                        <i class="fas fa-users me-2"></i>Back to Customers
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Feedback Stats Cards -->
+<div class="row mb-4">
+    <!-- Total Feedback -->
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon bg-primary-soft">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-card-title">Total Feedback</div>
+                    <div class="stat-card-value">@Model.Count</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Complaints -->
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon bg-warning-soft">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-card-title">Complaints</div>
+                    <div class="stat-card-value">@Model.Count(f => f.FeedbackType == "complaint")</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- General Feedback -->
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon bg-info-soft">
+                    <i class="fas fa-comment-alt"></i>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-card-title">General Feedback</div>
+                    <div class="stat-card-value">@Model.Count(f => f.FeedbackType == "general_feedback")</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Feedback (Last 7 Days) -->
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon bg-success-soft">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="stat-card-content">
+                    <div class="stat-card-title">Recent (7 Days)</div>
+                    <div class="stat-card-value">@Model.Count(f => f.CreatedAt.HasValue && f.CreatedAt.Value >= DateTime.Now.AddDays(-7))</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Search and Filter -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form method="get" class="row g-3">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="Search feedback...">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <select class="form-select" name="filter" onchange="this.form.submit()">
+                            <option value="" selected="@(ViewData["CurrentFilterType"] == null)">All Feedback</option>
+                            <option value="complaints" selected="@(ViewData["CurrentFilterType"]?.ToString() == "complaints")">Complaints Only</option>
+                            <option value="general_feedback" selected="@(ViewData["CurrentFilterType"]?.ToString() == "general_feedback")">General Feedback Only</option>
+                            <option value="recent" selected="@(ViewData["CurrentFilterType"]?.ToString() == "recent")">Recent (Last 7 Days)</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12">
+                        <div class="d-flex justify-content-end">
+                            <a href="@Url.Action("Feedback", "Customers")" class="btn btn-outline-secondary">
+                                <i class="fas fa-sync-alt me-2"></i>Reset Filters
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Message -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle me-2"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<!-- Feedback List -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                @if (Model.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="feedbackTable">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Customer</th>
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Feedback</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var feedback in Model)
+                                {
+                                    var isComplaint = feedback.FeedbackType == "complaint";
+                                    <tr class="@(isComplaint ? "table-warning" : "")">
+                                        <td>
+                                            <span class="badge @(isComplaint ? "bg-warning text-dark" : "bg-info")">
+                                                @(isComplaint ? "Complaint" : "Feedback")
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="customer-avatar-sm me-2">
+                                                    <i class="fas fa-user"></i>
+                                                </div>
+                                                <a href="@Url.Action("Details", "Customers", new { id = feedback.CustomerId })" class="customer-link">
+                                                    @feedback.CustomerName
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td><span class="fw-bold">WU-@feedback.OrderId.ToString("D5")</span></td>
+                                        <td>@(feedback.CreatedAt?.ToString("MMM dd, yyyy") ?? "Not available")</td>
+                                        <td>
+                                            <div class="feedback-preview">
+                                                @(feedback.Description.Length > 100 ? feedback.Description.Substring(0, 100) + "..." : feedback.Description)
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <a href="@Url.Action("FeedbackDetails", "Customers", new { id = feedback.FeedbackId })"
+                                                   class="btn btn-action @(isComplaint ? "btn-warning" : "btn-info")"
+                                                   data-bs-toggle="tooltip"
+                                                   title="View Feedback Details">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="p-4 text-center">
+                        <i class="fas fa-comments fa-3x text-muted mb-3"></i>
+                        <h5>No feedback found</h5>
+                        <p class="text-muted">No feedback matches your search criteria.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable
+            $('#feedbackTable').DataTable({
+                "pageLength": 10,
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                "ordering": true,
+                "order": [[3, "desc"]], // Order by date column, most recent first
+                "autoWidth": false,
+                "responsive": true,
+                "searching": false, // We're handling search ourselves
+                "language": {
+                    "emptyTable": "No feedback found"
+                }
+            });
+
+            // Initialize tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+
+            // Auto-dismiss alerts after 5 seconds
+            setTimeout(function() {
+                $('.alert-success').fadeOut('slow');
+            }, 5000);
+        });
+    </script>
+}

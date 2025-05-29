@@ -1,5 +1,6 @@
 ﻿/**
  * WellUp Admin Dashboard JavaScript
+ * dashboard.js
  */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -81,31 +82,86 @@ document.addEventListener('DOMContentLoaded', function () {
             sidebar.classList.add('sidebar-collapsed');
             document.querySelector('.main-content').classList.add('main-content-expanded');
         } else {
-            sidebar.classList.remove('sidebar-collapsed');
-            document.querySelector('.main-content').classList.remove('main-content-expanded');
+            // Only expand if not manually collapsed (saved in localStorage)
+            if (localStorage.getItem('sidebarCollapsed') !== 'true') {
+                sidebar.classList.remove('sidebar-collapsed');
+                document.querySelector('.main-content').classList.remove('main-content-expanded');
+            }
         }
 
         // Update tooltips on resize
         updateTooltips();
     });
 
-    // Handle manual sidebar collapse toggle (if you want to add this feature)
+    // Handle manual sidebar collapse toggle (with localStorage persistence)
     const sidebarCollapseBtn = document.getElementById('sidebar-collapse');
     if (sidebarCollapseBtn) {
         sidebarCollapseBtn.addEventListener('click', function () {
-            sidebar.classList.toggle('sidebar-collapsed');
-            document.querySelector('.main-content').classList.toggle('main-content-expanded');
-            updateTooltips();
+            toggleSidebar();
         });
     }
 
-    // Initialize sidebar state on page load
-    if (window.innerWidth <= 1200) {
-        sidebar.classList.add('sidebar-collapsed');
-        document.querySelector('.main-content').classList.add('main-content-expanded');
+    // Make water drop icon clickable
+    const sidebarLogo = document.querySelector('.sidebar-logo');
+    if (sidebarLogo) {
+        sidebarLogo.addEventListener('click', function () {
+            toggleSidebar();
+        });
+        sidebarLogo.style.cursor = 'pointer'; // Add pointer cursor
     }
 
-    // Initialize tooltips for collapsed sidebar
+    // Function to toggle sidebar state
+    function toggleSidebar() {
+        sidebar.classList.toggle('sidebar-collapsed');
+        document.querySelector('.main-content').classList.toggle('main-content-expanded');
+
+        // Update icon
+        const icon = sidebarCollapseBtn.querySelector('i');
+        if (sidebar.classList.contains('sidebar-collapsed')) {
+            if (icon) {
+                icon.classList.remove('fa-chevron-left');
+                icon.classList.add('fa-chevron-right');
+            }
+        } else {
+            if (icon) {
+                icon.classList.remove('fa-chevron-right');
+                icon.classList.add('fa-chevron-left');
+            }
+        }
+
+        // Save state to localStorage
+        localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('sidebar-collapsed'));
+
+        updateTooltips();
+    }
+
+    // Restore sidebar state from localStorage - prevents auto-folding when changing pages
+    const savedState = localStorage.getItem('sidebarCollapsed');
+    if (savedState === 'true') {
+        sidebar.classList.add('sidebar-collapsed');
+        document.querySelector('.main-content').classList.add('main-content-expanded');
+
+        if (sidebarCollapseBtn) {
+            const icon = sidebarCollapseBtn.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-chevron-left');
+                icon.classList.add('fa-chevron-right');
+            }
+        }
+    } else if (savedState === 'false') {
+        // Explicitly remove these classes to prevent auto-folding
+        sidebar.classList.remove('sidebar-collapsed');
+        document.querySelector('.main-content').classList.remove('main-content-expanded');
+    }
+
+    // Initialize sidebar state on page load - only collapse on small screens if no saved preference
+    if (window.innerWidth <= 1200 && savedState === null) {
+        sidebar.classList.add('sidebar-collapsed');
+        document.querySelector('.main-content').classList.add('main-content-expanded');
+        localStorage.setItem('sidebarCollapsed', 'true');
+    }
+
+    // Initialize tooltips on page load
     updateTooltips();
 
     // Initialize tooltips if Bootstrap is available
@@ -113,6 +169,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+        // Initialize dropdowns
+        const dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+        dropdownElementList.map(function (dropdownToggleEl) {
+            return new bootstrap.Dropdown(dropdownToggleEl);
         });
     }
 
@@ -129,6 +191,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Run once on page load
     animateOnScroll();
+
+    // Auto-dismiss alerts after 5 seconds
+    setTimeout(function () {
+        const alerts = document.querySelectorAll('.alert-dismissible');
+        alerts.forEach(function (alert) {
+            if (bootstrap && bootstrap.Alert) {
+                const bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            } else {
+                alert.classList.add('fade');
+                setTimeout(() => {
+                    alert.remove();
+                }, 150);
+            }
+        });
+    }, 5000);
 
     // Add jQuery number animation plugin
     if (typeof jQuery !== 'undefined') {
@@ -187,3 +265,29 @@ document.addEventListener('DOMContentLoaded', function () {
         }(jQuery));
     }
 });
+
+// Handle the form submits with enter key
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter' && event.target.tagName.toLowerCase() === 'input') {
+        const form = event.target.closest('form');
+        if (form && form.querySelector('[type="submit"]')) {
+            event.preventDefault();
+            form.submit();
+        }
+    }
+});
+
+// Helper function to format numbers with commas
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+// Helper function to format dates
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    });
+}

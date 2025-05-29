@@ -1,11 +1,9 @@
-"" 
-"# Visual Studio files" 
-".vs/" 
-"*.vsidx" 
-"*.suo" 
-"*.user" 
-"*.userosscache" 
-"*.sln.docstates" 
-"bin/" 
-"obj/" 
-"packages/" 
+.vs/ 
+*.vsidx 
+*.suo 
+*.user 
+*.userosscache 
+*.sln.docstates 
+bin/ 
+obj/ 
+packages/ 

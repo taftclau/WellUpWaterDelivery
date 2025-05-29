@@ -16,6 +16,11 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
@@ -57,7 +62,7 @@
                         <i class="fas fa-shopping-cart"></i> <span>Orders</span>
                     </a>
                 </li>
-                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Inventory" ? "active" : "")">
+                <li class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Inventory" ? "active" : "")">
                     <a href="@Url.Action("Index", "Inventory")">
                         <i class="fas fa-boxes"></i> <span>Inventory</span>
                     </a>
@@ -102,61 +107,13 @@
                     <i class="fas fa-bars"></i>
                 </button>
 
-                <div class="page-title d-none d-md-block">
-                    <h1>@ViewData["Title"]</h1>
+                <div class="d-flex align-items-center">
+                    <a href="@Url.Action("Index", "Dashboard")" class="me-3">
+                        <img src="~/images/wellup-logo.png" alt="WellUp Logo" height="40" />
+                    </a>
                 </div>
 
                 <div class="top-nav-right">
-                    <div class="dropdown notifications">
-                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-bell"></i>
-                            <span class="badge bg-danger">3</span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><div class="dropdown-header">Notifications</div></li>
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    <div class="notification">
-                                        <div class="notification-icon bg-primary-soft">
-                                            <i class="fas fa-shopping-cart"></i>
-                                        </div>
-                                        <div class="notification-content">
-                                            <div class="notification-text">New order received</div>
-                                            <div class="notification-time">30 min ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    <div class="notification">
-                                        <div class="notification-icon bg-warning-soft">
-                                            <i class="fas fa-exclamation-triangle"></i>
-                                        </div>
-                                        <div class="notification-content">
-                                            <div class="notification-text">Low stock alert: 5-gallon bottles</div>
-                                            <div class="notification-time">2 hours ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    <div class="notification">
-                                        <div class="notification-icon bg-success-soft">
-                                            <i class="fas fa-check-circle"></i>
-                                        </div>
-                                        <div class="notification-content">
-                                            <div class="notification-text">Order #WU-00123 delivered</div>
-                                            <div class="notification-time">Yesterday</div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-center view-all" href="#">View All</a></li>
-                        </ul>
-                    </div>
 
                     <div class="dropdown user-menu">
                         <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -166,7 +123,6 @@
                             <span class="user-name d-none d-md-inline">Admin</span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="@Url.Action("Profile", "Account")"><i class="fas fa-user me-2"></i>Profile</a></li>
                             <li><a class="dropdown-item" href="@Url.Action("Index", "Settings")"><i class="fas fa-cog me-2"></i>Settings</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>

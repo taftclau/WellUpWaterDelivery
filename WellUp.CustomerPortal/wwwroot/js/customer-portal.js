@@ -1,4 +1,5 @@
-﻿document.addEventListener('DOMContentLoaded', function () {
+﻿/* customer-portal.js */
+document.addEventListener('DOMContentLoaded', function () {
     // Fade-in animations
     const fadeElements = document.querySelectorAll('.fade-in');
 

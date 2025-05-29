@@ -1,4 +1,5 @@
-﻿/* WellUp Authentication Styles */
+﻿/* auth-styles.css */
+@import 'variables.css';
 
 /* Auth Container Enhancements */
 .auth-section {
@@ -33,6 +34,7 @@
     border: 1px solid rgba(126, 200, 227, 0.2);
     transform: translateY(0);
     transition: all 0.4s ease;
+    animation: fadeIn 0.6s ease-out forwards;
 }
 
     .auth-container:hover {
@@ -95,10 +97,7 @@
     padding: 40px 30px;
 }
 
-.form-group {
-    margin-bottom: 25px;
-}
-
+/* Form Elements - Specific to Auth */
 .form-label {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
@@ -134,7 +133,7 @@
     color: var(--deep-blue);
 }
 
-.form-control {
+.auth-section .form-control {
     border: 1px solid rgba(126, 200, 227, 0.3);
     border-left: none;
     border-radius: 0 12px 12px 0;
@@ -146,91 +145,18 @@
     transition: all 0.3s;
 }
 
-    .form-control:focus {
+    .auth-section .form-control:focus {
         border-color: var(--sky-blue);
         box-shadow: none;
         background-color: var(--soft-white);
     }
 
-    .form-control::placeholder {
+    .auth-section .form-control::placeholder {
         color: rgba(27, 59, 95, 0.4);
         font-size: 0.95rem;
     }
 
-/* Buttons */
-.btn-primary {
-    background: linear-gradient(135deg, var(--sky-blue) 0%, #5DAFD0 100%);
-    border: none;
-    color: var(--deep-blue);
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 16px;
-    border-radius: 12px;
-    box-shadow: 0 8px 15px rgba(126, 200, 227, 0.3);
-    transition: all 0.3s ease;
-}
-
-    .btn-primary:hover, .btn-primary:focus {
-        background: linear-gradient(135deg, #5DAFD0 0%, var(--sky-blue) 100%);
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(126, 200, 227, 0.4);
-    }
-
-    .btn-primary:active {
-        transform: translateY(1px);
-        box-shadow: 0 5px 10px rgba(126, 200, 227, 0.4);
-    }
-
-/* Checkbox */
-.form-check-input {
-    width: 20px;
-    height: 20px;
-    margin-top: 0.25rem;
-    border: 2px solid rgba(126, 200, 227, 0.5);
-    cursor: pointer;
-}
-
-    .form-check-input:checked {
-        background-color: var(--sky-blue);
-        border-color: var(--sky-blue);
-    }
-
-.form-check-label {
-    padding-left: 5px;
-    font-size: 0.95rem;
-}
-
-/* Links */
-.auth-link {
-    color: var(--sky-blue);
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s;
-    position: relative;
-}
-
-    .auth-link:hover {
-        color: var(--deep-blue);
-    }
-
-    .auth-link::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background-color: var(--sky-blue);
-        transition: width 0.3s ease;
-    }
-
-    .auth-link:hover::after {
-        width: 100%;
-    }
-
-/* Footer */
+/* Auth Footer */
 .auth-footer {
     padding: 25px 30px;
     background-color: rgba(240, 244, 248, 0.5);
@@ -252,32 +178,6 @@
         margin-bottom: 0;
         font-size: 0.95rem;
     }
-
-/* Alerts */
-.alert {
-    border: none;
-    border-radius: 12px;
-    padding: 15px 20px;
-    margin-bottom: 25px;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-}
-
-    .alert i {
-        font-size: 1.2rem;
-        margin-right: 10px;
-    }
-
-.alert-success {
-    background-color: rgba(40, 167, 69, 0.1);
-    color: #28a745;
-}
-
-.alert-danger {
-    background-color: rgba(220, 53, 69, 0.1);
-    color: #dc3545;
-}
 
 /* Registration Form Specific */
 .form-section-title {
@@ -301,63 +201,6 @@
         border-radius: 2px;
     }
 
-/* Password Strength Indicator */
-.password-strength {
-    height: 5px;
-    margin-top: 8px;
-    border-radius: 3px;
-    transition: all 0.3s ease;
-    background-color: #e9ecef;
-}
-
-.password-strength-weak {
-    background-color: #dc3545;
-    width: 30%;
-}
-
-.password-strength-medium {
-    background-color: #ffc107;
-    width: 60%;
-}
-
-.password-strength-strong {
-    background-color: #28a745;
-    width: 100%;
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.auth-container {
-    animation: fadeIn 0.6s ease-out forwards;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .auth-container {
-        margin: 0 20px;
-    }
-
-    .auth-header h2 {
-        font-size: 1.8rem;
-    }
-
-    .auth-header p {
-        font-size: 1rem;
-        max-width: 90%;
-    }
-}
-
 /* Water Drop Icon Customization */
 .icon-water-drop {
     position: relative;
@@ -373,13 +216,6 @@
         height: 100%;
     }
 
-/* Validation Styles */
-.text-danger {
-    font-size: 0.85rem;
-    margin-top: 5px;
-    display: block;
-}
-
 /* Two-column layout for registration */
 .form-row {
     display: flex;
@@ -394,9 +230,36 @@
     padding: 0 10px;
 }
 
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
 @media (max-width: 767.98px) {
     .form-col {
         flex: 0 0 100%;
         max-width: 100%;
+    }
+
+    .auth-container {
+        margin: 0 20px;
+    }
+
+    .auth-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .auth-header p {
+        font-size: 1rem;
+        max-width: 90%;
     }
 }

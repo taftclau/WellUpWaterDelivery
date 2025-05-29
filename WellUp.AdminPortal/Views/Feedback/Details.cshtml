@@ -1,0 +1,222 @@
+﻿<!--WellUp.AdminPortal\Views\Feedback\Details.cshtml-->
+@model WellUp.AdminPortal.Models.ViewModels.FeedbackDetailsViewModel
+@{
+    ViewData["Title"] = "Feedback Details";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    var isComplaint = Model.FeedbackType == "complaint";
+}
+
+<!-- Page Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <div class="feedback-icon me-3 @(isComplaint ? "feedback-icon-complaint" : "feedback-icon-general")">
+                        <i class="fas @(isComplaint ? "fa-exclamation-circle" : "fa-comment-alt")"></i>
+                    </div>
+                    <div>
+                        <h1 class="mb-0">@(isComplaint ? "Customer Complaint" : "Customer Feedback")</h1>
+                        <p class="text-muted mb-0">Submitted on @(Model.CreatedAt?.ToString("MMMM dd, yyyy") ?? "Not available")</p>
+                    </div>
+                </div>
+                <div>
+                    <a href="@Url.Action("Index", "Feedback")" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Feedback List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Feedback Content -->
+    <div class="col-lg-8">
+        <!-- Feedback Message -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2>
+                    <i class="fas @(isComplaint ? "fa-exclamation-circle" : "fa-comment-alt") me-2"></i>
+                    @(isComplaint ? "Complaint Description" : "Feedback Message")
+                </h2>
+                <span class="badge @(isComplaint ? "bg-warning text-dark" : "bg-info")">
+                    @(isComplaint ? "Complaint" : "General Feedback")
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="feedback-content">
+                    @Model.Description
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Information -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2><i class="fas fa-shopping-cart me-2"></i> Associated Order</h2>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="order-info-label">Order ID</div>
+                        <div class="order-info-value">WU-@Model.OrderId.ToString("D5")</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="order-info-label">Order Date</div>
+                        <div class="order-info-value">@(Model.OrderDate?.ToString("MMM dd, yyyy") ?? "Not available")</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="order-info-label">Order Status</div>
+                        <div class="order-info-value">
+                            @{
+                                var badgeClass = Model.OrderStatus switch
+                                {
+                                    "new" => "bg-info",
+                                    "in_progress" => "bg-primary",
+                                    "completed" => "bg-success",
+                                    "cancelled" => "bg-danger",
+                                    _ => "bg-secondary"
+                                };
+                            }
+                            <span class="badge @badgeClass">@Model.FormattedOrderStatus</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-info-label">Delivery Address</div>
+                <div class="order-info-value mb-4">@Model.DeliveryAddress</div>
+
+                <div class="order-items-table">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Price</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.OrderItems)
+                                {
+                                    <tr>
+                                        <td>@item.ProductName</td>
+                                        <td>@item.Quantity</td>
+                                        <td>₱@item.UnitPrice.ToString("N2")</td>
+                                        <td>₱@item.SubTotal.ToString("N2")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="3" class="text-end">Total:</th>
+                                    <th>₱@Model.TotalAmount.ToString("N2")</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent border-0">
+                <div class="d-flex justify-content-end">
+                    <a href="@Url.Action("Details", "Orders", new { id = Model.OrderId })" class="btn btn-primary">
+                        <i class="fas fa-eye me-2"></i>View Full Order Details
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Information Sidebar -->
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2><i class="fas fa-user me-2"></i> Customer Information</h2>
+            </div>
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="customer-avatar-large me-3">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="customer-name">@Model.CustomerName</div>
+                </div>
+
+                <div class="customer-info-item">
+                    <div class="customer-info-label">Email</div>
+                    <div class="customer-info-value">@Model.CustomerEmail</div>
+                </div>
+
+                <div class="customer-info-item">
+                    <div class="customer-info-label">Phone</div>
+                    <div class="customer-info-value">@Model.CustomerPhone</div>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent border-0">
+                <div class="d-flex flex-column">
+                    <a href="@Url.Action("Details", "Customers", new { id = Model.CustomerId })" class="btn btn-primary mb-2">
+                        <i class="fas fa-user me-2"></i>View Customer Details
+                    </a>
+                    <a href="mailto:@Model.CustomerEmail" class="btn btn-outline-primary">
+                        <i class="fas fa-envelope me-2"></i>Contact Customer
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Response Actions -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2><i class="fas fa-reply me-2"></i> Response Actions</h2>
+            </div>
+            <div class="card-body">
+                <form asp-action="MarkAsResolved" asp-route-id="@Model.FeedbackId" method="post">
+                    <div class="response-options">
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="responseAction" id="responseAction1" value="contact" checked>
+                            <label class="form-check-label" for="responseAction1">
+                                <strong>Contact Customer</strong><br>
+                                <span class="text-muted">Reach out to discuss the feedback</span>
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="responseAction" id="responseAction2" value="compensate">
+                            <label class="form-check-label" for="responseAction2">
+                                <strong>Offer Compensation</strong><br>
+                                <span class="text-muted">Discount or free delivery on next order</span>
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="responseAction" id="responseAction3" value="resolve">
+                            <label class="form-check-label" for="responseAction3">
+                                <strong>Mark as Resolved</strong><br>
+                                <span class="text-muted">Issue has been addressed</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <textarea class="form-control mb-3" name="response" rows="4" placeholder="Add notes about the response..."></textarea>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check-circle me-2"></i>Process Feedback
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialize tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+        });
+    </script>
+}

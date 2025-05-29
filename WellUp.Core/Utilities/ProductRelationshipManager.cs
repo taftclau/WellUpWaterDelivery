@@ -68,6 +68,24 @@ namespace WellUp.Core.Utilities
         }
 
         /// <summary>
+        /// Gets the related product based on the container type and refill status
+        /// </summary>
+        public async Task<Product> GetRelatedProductAsync(int productId)
+        {
+            var product = await _context.Products.FindAsync(productId);
+            if (product == null || string.IsNullOrEmpty(product.ContainerType))
+                return null;
+
+            // Find the counterpart (if this is container-only, find with-refill and vice versa)
+            var relatedProduct = await _context.Products
+                .Where(p => p.ContainerType == product.ContainerType &&
+                       p.IncludesRefill != product.IncludesRefill)
+                .FirstOrDefaultAsync();
+
+            return relatedProduct;
+        }
+
+        /// <summary>
         /// Gets the effective stock quantity for a product, considering relationships
         /// </summary>
         public async Task<int> GetEffectiveStockQuantityAsync(int productId)
@@ -91,6 +109,41 @@ namespace WellUp.Core.Utilities
         }
 
         /// <summary>
+        /// Synchronizes stock between related gallon products (container only and with refill variants)
+        /// </summary>
+        public async Task SynchronizeGallonStockAsync(int productId, int quantityChange, string reason)
+        {
+            var product = await _context.Products.FindAsync(productId);
+            if (product == null || string.IsNullOrEmpty(product.ContainerType))
+                return;
+
+            // Get all products with the same container type
+            var relatedProducts = await _context.Products
+                .Where(p => p.ContainerType == product.ContainerType)
+                .ToListAsync();
+
+            foreach (var relatedProduct in relatedProducts)
+            {
+                int previousQuantity = relatedProduct.StockQuantity ?? 0;
+                int newQuantity = Math.Max(0, previousQuantity + quantityChange);
+
+                relatedProduct.StockQuantity = newQuantity;
+
+                // Log the change
+                _context.InventoryLogs.Add(new InventoryLog
+                {
+                    ProductId = relatedProduct.ProductId,
+                    PreviousQuantity = previousQuantity,
+                    NewQuantity = newQuantity,
+                    ChangeReason = reason,
+                    LoggedAt = DateTime.Now
+                });
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
         /// Updates the stock of a product and its related products
         /// </summary>
         public async Task UpdateStockWithRelationshipsAsync(
@@ -101,27 +154,15 @@ namespace WellUp.Core.Utilities
 
             int previousQuantity = product.StockQuantity ?? 0;
 
-            // Check if this is a base product (container-only)
-            if (!product.IncludesRefill && !string.IsNullOrEmpty(product.ContainerType))
+            // If this is a gallon container product (with or without refill)
+            if (!string.IsNullOrEmpty(product.ContainerType))
             {
-                // Update the base product's stock
-                product.StockQuantity = newQuantity;
+                // Get all products with the same container type
+                var relatedProducts = await _context.Products
+                    .Where(p => p.ContainerType == product.ContainerType)
+                    .ToListAsync();
 
-                // Log the change if requested
-                if (createLog)
-                {
-                    _context.InventoryLogs.Add(new InventoryLog
-                    {
-                        ProductId = productId,
-                        PreviousQuantity = previousQuantity,
-                        NewQuantity = newQuantity,
-                        ChangeReason = changeReason,
-                        LoggedAt = DateTime.Now
-                    });
-                }
-
-                // Now update all related products' stock to match
-                var relatedProducts = await GetRelatedProductsAsync(productId);
+                // Update all products with the same container type to have the same stock
                 foreach (var relatedProduct in relatedProducts)
                 {
                     int relatedPrevQuantity = relatedProduct.StockQuantity ?? 0;
@@ -130,109 +171,47 @@ namespace WellUp.Core.Utilities
                     // Log the change for each related product if requested
                     if (createLog)
                     {
+                        string reason = relatedProduct.ProductId == productId
+                            ? changeReason
+                            : $"{changeReason} (Sync #{product.ProductId})";
+
+                        // Ensure it doesn't exceed the column length (assuming it's 100 characters)
+                        if (reason.Length > 100)
+                        {
+                            reason = reason.Substring(0, 97) + "...";
+                        }
+
                         _context.InventoryLogs.Add(new InventoryLog
                         {
                             ProductId = relatedProduct.ProductId,
                             PreviousQuantity = relatedPrevQuantity,
                             NewQuantity = newQuantity,
-                            ChangeReason = $"{changeReason} (Updated with base product)",
+                            ChangeReason = reason,
                             LoggedAt = DateTime.Now
                         });
                     }
                 }
             }
-            // If this is a container-with-refill product
-            else if (product.IncludesRefill && !string.IsNullOrEmpty(product.ContainerType))
-            {
-                // Find the base product
-                var baseProductId = await GetBaseProductIdAsync(productId);
-                if (baseProductId.HasValue)
-                {
-                    // Update both this product and the base product
-                    product.StockQuantity = newQuantity;
-
-                    var baseProduct = await _context.Products.FindAsync(baseProductId.Value);
-                    int basePrevQuantity = baseProduct.StockQuantity ?? 0;
-                    baseProduct.StockQuantity = newQuantity;
-
-                    // Log changes if requested
-                    if (createLog)
-                    {
-                        _context.InventoryLogs.Add(new InventoryLog
-                        {
-                            ProductId = productId,
-                            PreviousQuantity = previousQuantity,
-                            NewQuantity = newQuantity,
-                            ChangeReason = changeReason,
-                            LoggedAt = DateTime.Now
-                        });
-
-                        _context.InventoryLogs.Add(new InventoryLog
-                        {
-                            ProductId = baseProductId.Value,
-                            PreviousQuantity = basePrevQuantity,
-                            NewQuantity = newQuantity,
-                            ChangeReason = $"{changeReason} (Updated with refill product)",
-                            LoggedAt = DateTime.Now
-                        });
-                    }
-
-                    // Update other related products (other container-with-refill products)
-                    var otherRelatedProducts = await _context.Products
-                        .Where(p => p.ContainerType == product.ContainerType &&
-                               p.IncludesRefill == true &&
-                               p.ProductId != productId)
-                        .ToListAsync();
-
-                    foreach (var relatedProduct in otherRelatedProducts)
-                    {
-                        int relatedPrevQuantity = relatedProduct.StockQuantity ?? 0;
-                        relatedProduct.StockQuantity = newQuantity;
-
-                        if (createLog)
-                        {
-                            _context.InventoryLogs.Add(new InventoryLog
-                            {
-                                ProductId = relatedProduct.ProductId,
-                                PreviousQuantity = relatedPrevQuantity,
-                                NewQuantity = newQuantity,
-                                ChangeReason = $"{changeReason} (Updated with related product)",
-                                LoggedAt = DateTime.Now
-                            });
-                        }
-                    }
-                }
-                else
-                {
-                    // Just update this product normally if no relationship found
-                    product.StockQuantity = newQuantity;
-
-                    if (createLog)
-                    {
-                        _context.InventoryLogs.Add(new InventoryLog
-                        {
-                            ProductId = productId,
-                            PreviousQuantity = previousQuantity,
-                            NewQuantity = newQuantity,
-                            ChangeReason = changeReason,
-                            LoggedAt = DateTime.Now
-                        });
-                    }
-                }
-            }
-            // For products without relationships
+            // For non-container products (like accessories, standalone products)
             else
             {
                 product.StockQuantity = newQuantity;
 
                 if (createLog)
                 {
+                    // Also ensure the regular change reason isn't too long
+                    string reason = changeReason;
+                    if (reason.Length > 100)
+                    {
+                        reason = reason.Substring(0, 97) + "...";
+                    }
+
                     _context.InventoryLogs.Add(new InventoryLog
                     {
                         ProductId = productId,
                         PreviousQuantity = previousQuantity,
                         NewQuantity = newQuantity,
-                        ChangeReason = changeReason,
+                        ChangeReason = reason,
                         LoggedAt = DateTime.Now
                     });
                 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.Core\\WellUp.Core.csproj": {}
+    "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.Core\\WellUp.Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.Core\\WellUp.Core.csproj": {
+    "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.Core\\WellUp.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.Core\\WellUp.Core.csproj",
+        "projectUniqueName": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.Core\\WellUp.Core.csproj",
         "projectName": "WellUp.Core",
-        "projectPath": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.Core\\WellUp.Core.csproj",
+        "projectPath": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.Core\\WellUp.Core.csproj",
         "packagesPath": "C:\\Users\\Talya\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.Core\\obj\\",
+        "outputPath": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,7 +50,21 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.5, )"
+            },
             "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.5, )"
             },
@@ -63,6 +77,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.5, )"
+            },
+            "Microsoft.Extensions.Identity.Core": {
+              "target": "Package",
+              "version": "[9.0.5, )"
+            },
+            "Serilog.Extensions.Logging.File": {
+              "target": "Package",
+              "version": "[3.0.0, )"
             }
           },
           "imports": [

@@ -1,0 +1,34 @@
+﻿<!-- WellUp.CustomerPortal/Views/Shared/Components/_ProductCard.cshtml -->
+@model WellUp.CustomerPortal.Models.ViewModels.ProductOptionViewModel
+
+<div class="product-option mb-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <div>
+            <strong>@Model.Name</strong>
+            <div class="product-price">₱@Model.Product.Price.ToString("N2")</div>
+        </div>
+        <div class="stock-info @(Model.Product.StockQuantity <= 5 ? "stock-low" : "")">
+            <i class="fas fa-cubes me-1"></i>
+            @if (Model.Product.StockQuantity <= 0)
+            {
+                <span>Out of Stock</span>
+            }
+            else
+            {
+                <span>@Model.Product.StockQuantity in stock</span>
+            }
+        </div>
+    </div>
+    <p class="product-option-desc small">@Model.Description</p>
+
+    <button class="btn btn-outline-primary btn-sm order-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#orderModal"
+            data-product-id="@Model.Product.ProductId"
+            data-product-name="@Model.Name"
+            data-product-price="@Model.Product.Price"
+            data-product-stock="@Model.Product.StockQuantity"
+    @(Model.Product.StockQuantity <= 0 ? "disabled" : "")>
+        <i class="fas fa-plus me-1"></i> Order
+    </button>
+</div>

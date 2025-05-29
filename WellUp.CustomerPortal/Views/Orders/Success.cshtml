@@ -1,0 +1,92 @@
+﻿<!-- WellUp.CustomerPortal.Views.Orders/Success.cshtml-->
+@model int
+@{
+    ViewData["Title"] = "Order Confirmed";
+    Layout = "~/Views/Shared/Components/_CustomerLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card text-center">
+                <div class="card-body py-5">
+                    <div class="mb-4">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+
+                    <h2 class="card-title mb-3">Order Confirmed!</h2>
+                    <p class="card-text mb-4">
+                        Thank you for your order. We've received your request and will prepare it for delivery.
+                    </p>
+
+                    <div class="order-info mb-4">
+                        <div class="d-flex justify-content-center">
+                            <div class="order-number-container">
+                                <span class="order-label">Order Number</span>
+                                <span class="order-number">#@Model</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-muted mb-4">
+                        You will receive updates about your delivery status. If you have any questions,
+                        please contact our customer support.
+                    </p>
+
+                    <div class="d-flex justify-content-center gap-3">
+                        <a asp-controller="Orders" asp-action="Details" asp-route-id="@Model" class="btn btn-primary">
+                            <i class="fas fa-receipt me-2"></i>View Order Details
+                        </a>
+                        <a asp-controller="Products" asp-action="Index" class="btn btn-outline-primary">
+                            <i class="fas fa-water me-2"></i>Continue Shopping
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .success-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: #e8f7ff;
+        margin-bottom: 1.5rem;
+    }
+
+        .success-icon i {
+            font-size: 50px;
+            color: var(--sky-blue);
+        }
+
+    .order-info {
+        padding: 1.5rem;
+        background-color: #f0f4f8;
+        border-radius: 10px;
+    }
+
+    .order-number-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .order-label {
+        font-size: 0.875rem;
+        color: #6c757d;
+        margin-bottom: 0.25rem;
+    }
+
+    .order-number {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--deep-blue);
+        font-family: 'Poppins', sans-serif;
+    }
+</style>

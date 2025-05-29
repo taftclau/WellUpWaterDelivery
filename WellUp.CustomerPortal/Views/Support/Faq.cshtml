@@ -1,0 +1,194 @@
+﻿<!-- WellUp.CustomerPortal.Views.Support/Faq.cshtml-->
+@model WellUp.CustomerPortal.Models.ViewModels.FaqViewModel
+@{
+    ViewData["Title"] = "Frequently Asked Questions";
+    Layout = "~/Views/Shared/Components/_CustomerLayout.cshtml";
+}
+
+<div class="container">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="page-header d-flex align-items-center">
+                <a asp-action="Index" class="btn btn-outline-secondary me-3">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <div>
+                    <h1>@Model.PageTitle</h1>
+                    <p class="text-muted mb-0">@Model.PageDescription</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Category Pills -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <ul class="nav nav-pills faq-pills justify-content-center" id="faqTabs" role="tablist">
+                @for (int i = 0; i < Model.Categories.Count; i++)
+                {
+                    var category = Model.Categories[i];
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link @(i == 0 ? "active" : "")"
+                                id="@(category.Name.ToLower())-tab"
+                                data-bs-toggle="pill"
+                                data-bs-target="#@(category.Name.ToLower())"
+                                type="button"
+                                role="tab"
+                                aria-controls="@(category.Name.ToLower())"
+                                aria-selected="@(i == 0 ? "true" : "false")">
+                            <i class="fas fa-@(category.Icon) me-2"></i>@category.Name
+                        </button>
+                    </li>
+                }
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link"
+                            id="all-tab"
+                            data-bs-toggle="pill"
+                            data-bs-target="#all"
+                            type="button"
+                            role="tab"
+                            aria-controls="all"
+                            aria-selected="false">
+                        <i class="fas fa-list me-2"></i>All FAQs
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- FAQ Content -->
+    <div class="row">
+        <div class="col-12">
+            <div class="tab-content" id="faqTabsContent">
+                @for (int i = 0; i < Model.Categories.Count; i++)
+                {
+                    var category = Model.Categories[i];
+                    <div class="tab-pane fade @(i == 0 ? "show active" : "")"
+                         id="@(category.Name.ToLower())"
+                         role="tabpanel"
+                         aria-labelledby="@(category.Name.ToLower())-tab">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <h4 class="mb-0"><i class="fas fa-@(category.Icon) me-2"></i>@category.Name</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="accordion" id="accordion-@(category.Name.ToLower())">
+                                    @for (int j = 0; j < category.Items.Count; j++)
+                                    {
+                                        var item = category.Items[j];
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="heading-@(category.Name.ToLower())-@j">
+                                                <button class="accordion-button collapsed" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapse-@(category.Name.ToLower())-@j"
+                                                        aria-expanded="false"
+                                                        aria-controls="collapse-@(category.Name.ToLower())-@j">
+                                                    @item.Question
+                                                </button>
+                                            </h2>
+                                            <div id="collapse-@(category.Name.ToLower())-@j"
+                                                 class="accordion-collapse collapse"
+                                                 aria-labelledby="heading-@(category.Name.ToLower())-@j"
+                                                 data-bs-parent="#accordion-@(category.Name.ToLower())">
+                                                <div class="accordion-body">
+                                                    @item.Answer
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <!-- All FAQs Section -->
+                <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-tab">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0"><i class="fas fa-list me-2"></i>All FAQs</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="accordion" id="accordion-all">
+                                @{
+                                    int itemCount = 0;
+                                }
+                                @foreach (var category in Model.Categories)
+                                {
+                                    <h5 class="mt-4 mb-3">
+                                        <i class="fas fa-@(category.Icon) me-2 text-primary"></i>@category.Name
+                                    </h5>
+
+                                    <div class="accordion" id="accordion-all-@(category.Name.ToLower())">
+                                        @for (int j = 0; j < category.Items.Count; j++)
+                                        {
+                                            var item = category.Items[j];
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="heading-all-@(itemCount)">
+                                                    <button class="accordion-button collapsed" type="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#collapse-all-@(itemCount)"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapse-all-@(itemCount)">
+                                                        @item.Question
+                                                    </button>
+                                                </h2>
+                                                <div id="collapse-all-@(itemCount)"
+                                                     class="accordion-collapse collapse"
+                                                     aria-labelledby="heading-all-@(itemCount)"
+                                                     data-bs-parent="#accordion-all-@(category.Name.ToLower())">
+                                                    <div class="accordion-body">
+                                                        @item.Answer
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            itemCount++;
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5>Couldn't find what you were looking for?</h5>
+                    <p class="mb-3">Our customer service team is here to help!</p>
+                    <div class="d-flex justify-content-center">
+                        <a asp-action="Index" class="btn btn-primary">
+                            <i class="fas fa-headset me-2"></i>Contact Support
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Store the active tab in localStorage
+            $('button[data-bs-toggle="pill"]').on('shown.bs.tab', function (e) {
+                localStorage.setItem('activeFaqTab', $(e.target).attr('id'));
+            });
+
+            // Check if there's a stored tab and show it
+            let activeTab = localStorage.getItem('activeFaqTab');
+            if (activeTab) {
+                $('#' + activeTab).tab('show');
+            }
+        });
+    </script>
+}

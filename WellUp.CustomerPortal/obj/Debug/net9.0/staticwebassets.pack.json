@@ -1,259 +1,351 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\WellUp.CustomerPortal.bundle.scp.css",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\WellUp.CustomerPortal.bundle.scp.css",
       "PackagePath": "staticwebassets\\WellUp.CustomerPortal.iw3oqvtzlz.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\css\\site.css",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\css\\auth-styles.css",
+      "PackagePath": "staticwebassets\\css\\auth-styles.css"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\css\\cart-styles.css",
+      "PackagePath": "staticwebassets\\css\\cart-styles.css"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\css\\customer-dashboard.css",
+      "PackagePath": "staticwebassets\\css\\customer-dashboard.css"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\css\\customer-portal.css",
+      "PackagePath": "staticwebassets\\css\\customer-portal.css"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\css\\feedback.css",
+      "PackagePath": "staticwebassets\\css\\feedback.css"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\css\\order-history.css",
+      "PackagePath": "staticwebassets\\css\\order-history.css"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\css\\order-summary.css",
+      "PackagePath": "staticwebassets\\css\\order-summary.css"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\favicon.ico",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\css\\support-styles.css",
+      "PackagePath": "staticwebassets\\css\\support-styles.css"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\css\\variables.css",
+      "PackagePath": "staticwebassets\\css\\variables.css"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\js\\site.js",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\images\\benefits\\convenience.svg",
+      "PackagePath": "staticwebassets\\images\\benefits\\convenience.svg"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\images\\benefits\\delivery.svg",
+      "PackagePath": "staticwebassets\\images\\benefits\\delivery.svg"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\images\\benefits\\flexibility.svg",
+      "PackagePath": "staticwebassets\\images\\benefits\\flexibility.svg"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\images\\benefits\\tracking.svg",
+      "PackagePath": "staticwebassets\\images\\benefits\\tracking.svg"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\images\\hero-banner.png",
+      "PackagePath": "staticwebassets\\images\\hero-banner.png"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\images\\products\\refill.png",
+      "PackagePath": "staticwebassets\\images\\products\\refill.png"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\images\\products\\round_container.png",
+      "PackagePath": "staticwebassets\\images\\products\\round_container.png"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\images\\products\\slim_container.png",
+      "PackagePath": "staticwebassets\\images\\products\\slim_container.png"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\images\\wave.svg",
+      "PackagePath": "staticwebassets\\images\\wave.svg"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\images\\wellup-logo.png",
+      "PackagePath": "staticwebassets\\images\\wellup-logo.png"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\js\\cart.js",
+      "PackagePath": "staticwebassets\\js\\cart.js"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\js\\customer-dashboard.js",
+      "PackagePath": "staticwebassets\\js\\customer-dashboard.js"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\js\\customer-portal.js",
+      "PackagePath": "staticwebassets\\js\\customer-portal.js"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\js\\order-history.js",
+      "PackagePath": "staticwebassets\\js\\order-history.js"
+    },
+    {
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.js",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.js"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery\\dist\\jquery.slim.js",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery\\dist\\jquery.slim.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.js"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.js",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.js"
     },
     {
-      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp.Core\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.map",
+      "Id": "C:\\Users\\Talya\\source\\repos\\WellUp\\WellUp.CustomerPortal\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.map"
     },
     {

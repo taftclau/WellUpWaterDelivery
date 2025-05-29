@@ -20,6 +20,8 @@ bld/
 *.userosscache
 *.sln.docstates
 *.userprefs
+*.vsidx
+*.suo
 
 # Visual Studio code coverage results
 *.coverage

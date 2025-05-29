@@ -1,0 +1,70 @@
+﻿<!-- RestoreBackupConfirm.cshtml -->
+@model WellUp.AdminPortal.Models.ViewModels.RestoreBackupViewModel
+@{
+    ViewData["Title"] = "Confirm Database Restore";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<!-- Page Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h1>Confirm Database Restore</h1>
+                    <p class="text-muted mb-0">Please confirm you want to restore the database from this backup</p>
+                </div>
+                <div class="d-flex">
+                    <a href="@Url.Action("BackupHistory", "Settings")" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Backup History
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Warning: This will overwrite your current database
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <p>You are about to restore the database from backup file: <strong>@Model.FileName</strong></p>
+                    <p>This will overwrite all current data with data from this backup. This action cannot be undone.</p>
+                </div>
+
+                <form asp-action="RestoreBackup" method="post">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    <input type="hidden" asp-for="FileName" />
+
+                    <div class="mb-4">
+                        <label asp-for="Password" class="form-label">Enter your admin password to confirm restoration</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input asp-for="Password" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="@Url.Action("BackupHistory", "Settings")" class="btn btn-outline-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-undo me-2"></i>Confirm Restore
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

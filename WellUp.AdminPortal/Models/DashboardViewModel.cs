@@ -10,9 +10,9 @@ namespace WellUp.AdminPortal.Models.ViewModels
         // Summary statistics
         public int TotalOrders { get; set; }
         public int NewOrders { get; set; }
-        public int PendingDeliveries { get; set; }
         public int LowStockProducts { get; set; }
         public decimal TotalRevenue { get; set; }
+        public string RevenueLabel { get; set; } = "Today's Revenue";
         public int TotalCustomers { get; set; }
 
         // Collections
